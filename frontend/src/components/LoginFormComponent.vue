@@ -1,5 +1,5 @@
 <template>
-    <form method="post">
+    <form>
         <div class="input-group mx-5 my-3 w-25">
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
