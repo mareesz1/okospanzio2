@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -35,7 +37,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $v = $this->fieldvalidation($request);
+        if ($v != '') {
+            return response()->json($v,400);
+        }
+
+        try{
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $user = new User();
+            $user->firstName = $request->input('firstName');
+            $user->lastName = $request->input('lastName');
+            $user->gender = $request->input('gender');
+            $user->email = $request->input('email');
+            $user->phone = $request->input('phone');
+            $user->passwordHash = $request->input('passwordHash');
+            $out->writeln($user);
+            $user->save();  // insert into
+            return response()->json(
+             [
+                 'message' => 'Item was created.',
+                 'id' => $user->id
+             ],201
+            );
+        } catch (Exception $e){
+             return response()->json(
+                 [
+                    'message'=>'Database error!'
+                 ],400
+             );
+        }
     }
 
     /**
@@ -69,9 +99,35 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $v = $this->fieldvalidation($request);
+       if ($v != '') {
+        return response()->json($v,400);
+       }
+
+        try{
+            if (User::where('id', '=', $id) -> exists()) {
+                $user = User::find($id);
+                $user->firstName = $request->input('firstName');
+                $user->lastName = $request->input('lastName');
+                $user->gender = $request->input('gender');
+                $user->email = $request->input('email');
+                $user->phone = $request->input('phone');
+                $user->passwordHash = $request->input('passwordHash');
+                $user->save();
+                return response()->json(['Item was updated', $user], 200);
+            } else {
+                return response()->json(['message' => 'Item not found'], 404);
+            }
+        } catch (Exception $e){
+          return response()->json(
+              [
+                 'message'=>'Database error!',
+                //  'user' => $user,
+             ],400
+          );
+       }
     }
 
     /**
@@ -80,9 +136,21 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        try {
+            if(User::where('id', '=', $id)->exists()) {
+                $user = User::find($id);
+                $user->delete();
+                return response()->json(['message' => 'Item deleted', 200]);
+            }
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                   'message'=>'Database error!'
+               ],400
+            );
+        }
     }
 
     public function fieldvalidation(Request $request){
@@ -92,7 +160,7 @@ class UserController extends Controller
                 'firstName' => 'required',
                 'lastName' => 'required',
                 'gender' => 'required',
-                'email' => 'required|email:rfc,dns',
+                // 'email' => 'required|email:rfc,dns',
                 'phone' => 'required',
             ],
 

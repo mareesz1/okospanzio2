@@ -42,5 +42,30 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
+        postNewRegistration(user) {
+            this.errors = {
+                firstName: null,
+                lastName: null,
+                gender: null,
+                email: null,
+                phone: null,
+                passwordHash: null,
+                status: null,
+            };
+            Axios.post('/user', {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                gender: user.gender,
+                email: user.email,
+                phone: user.phone,
+                passwordHash: user.passwordHash
+              })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
     }
 });
