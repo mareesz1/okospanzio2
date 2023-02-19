@@ -37,13 +37,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         $v = $this->fieldvalidation($request);
+        $out->writeln($request);
         if ($v != '') {
             return response()->json($v,400);
         }
 
         try{
-            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             $user = new User();
             $user->firstName = $request->input('firstName');
             $user->lastName = $request->input('lastName');
@@ -51,7 +52,6 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->phone = $request->input('phone');
             $user->passwordHash = $request->input('passwordHash');
-            $out->writeln($user);
             $user->save();  // insert into
             return response()->json(
              [
@@ -161,7 +161,8 @@ class UserController extends Controller
                 'lastName' => 'required',
                 'gender' => 'required',
                 // 'email' => 'required|email:rfc,dns',
-                'phone' => 'required',
+                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i', // nem tudom miert de igy mukodik
+                'phone' => 'required|numeric',
             ],
 
         );

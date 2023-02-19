@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="display-1 text-center">Okospanzió home</p>
+        <p class="display-1 text-center mb-3" id="fooldalTitle">Okospanzió Főoldal</p>
         <navbar/>
     </div>
 </template>
@@ -14,5 +14,8 @@
     getAllUsers();
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+/* #fooldalTitle{
+    font-size: 9em;
+} */
 </style>

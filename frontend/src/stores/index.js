@@ -42,6 +42,7 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
+        
         postNewRegistration(user) {
             this.errors = {
                 firstName: null,
@@ -62,6 +63,7 @@ export const useUsersStore = defineStore('usersStore', {
               })
               .then(function (response) {
                 console.log(response);
+                // console.log(user);
               })
               .catch(function (error) {
                 console.log(error);
