@@ -20,6 +20,7 @@
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="deer">Deer</option>
+                    <option value="helicopter">Helicopter</option>
                 </select>
         </div>
         <div class="input-group mx-auto my-3 w-25">
@@ -38,17 +39,19 @@
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             </div>
-            <input id="username" name="password" v-model="password" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
+            <input id="username" name="password" v-model="password" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
         </div>
         <div class="input-group mx-auto my-3 w-25">
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
             </div>
-            <input id="username" name="passwordConfirmed" v-model="passwordConfirmed" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
+            <input id="username" name="passwordConfirmed" v-model="passwordConfirmed" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
         </div>
         <!-- <div class="input-group mx-auto my-3 w-25">
             <button type="submit" @click="register(password)" class="btn btn-primary mx-auto w-50">Register</button>
         </div> -->
+        <!-- <p class="text-center display-3" v-if="passwordError">Passwords dont match</p> -->
+        <p id="passwordError" class="display-5" v-if="!(password === passwordConfirmed)">PASSWORD ERROR</p>
         <register-button @click="register(password)"/>
     </div>
 </template>
@@ -71,27 +74,33 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
     let password = ref();
     let passwordConfirmed = ref();
     let passwordHash = ref();
+    let passwordError = ref();
 
+    passwordError.value = false;
     gender.value = 'male'; // default value for gender select
 
     function register(input) { // password encryption and post request
         if (password.value == passwordConfirmed.value) {
-                passwordHash = sha512(input);
-                // console.log(passwordHash);
-                try {
-                    user = {
-                        firstName: firstName.value,
-                        lastName: lastName.value,
-                        gender: gender.value,
-                        email: email.value,
-                        phone: phone.value,
-                        passwordHash: passwordHash,
+            passwordError.value = false;
+            passwordHash = sha512(input);
+            // console.log(passwordHash);
+            try {
+                user = {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    gender: gender.value,
+                    email: email.value,
+                    phone: phone.value,
+                    passwordHash: passwordHash,
                 }
-                // console.log(user);
+                console.log(user);
                 postNewRegistration(user);
                 } catch (error) {
                     console.log(error);
                 }
+            }
+            else {
+                passwordError = true;
             }
     }
 </script>
@@ -103,5 +112,9 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
 
     input {
         width: 200px !important;
+    }
+    #passwordError{
+        color: red;
+        font-weight: bolder;
     }
 </style>

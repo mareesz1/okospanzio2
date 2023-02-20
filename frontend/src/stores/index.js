@@ -21,6 +21,10 @@ export const useUsersStore = defineStore('usersStore', {
             passwordHash: null,
             status: null,
         },
+        isLoggedIn: {
+            auth: false,
+            loginTime: null,
+        },
     }),
     getters: {},
     actions: {
@@ -68,6 +72,9 @@ export const useUsersStore = defineStore('usersStore', {
               .catch(function (error) {
                 console.log(error);
               });
-        }
+        },
+        authenticate(email, password) {
+            
+        },
     }
 });
