@@ -2,7 +2,9 @@
     <div>
         <p class="display-1 text-center">Login page</p>
         <navbar/>
-        <login-form/>
+        <div class="container">
+            <login-form/>
+        </div>
     </div>
 </template>
 

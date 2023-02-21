@@ -11,7 +11,7 @@
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
             </div>
-            <input id="username" name="lastname" v-model="lastName" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="János">
+            <input id="lastname" name="lastname" v-model="lastName" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="János">
         </div>
         <div class="input-group mx-auto my-3 w-25">
             <span class="input-group-text" id="inputGroup-sizing-default">Gender</span>
@@ -27,25 +27,25 @@
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
             </div>
-            <input id="username" name="email" v-model="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="kovacsjanos@mailprovider.com">
+            <input id="email" name="email" v-model="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="kovacsjanos@mailprovider.com">
         </div>
         <div class="input-group mx-auto my-3 w-25">
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Phone Number</span>
             </div>
-            <input id="username" name="phone" v-model="phone" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="+36 20 407 7736">
+            <input id="phone" name="phone" v-model="phone" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="+36 20 407 7736">
         </div>
         <div class="input-group mx-auto my-3 w-25">
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             </div>
-            <input id="username" name="password" v-model="password" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
+            <input id="password" name="password" v-model="password" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
         </div>
         <div class="input-group mx-auto my-3 w-25">
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
             </div>
-            <input id="username" name="passwordConfirmed" v-model="passwordConfirmed" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
+            <input id="passwordConfirmed" name="passwordConfirmed" v-model="passwordConfirmed" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
         </div>
         <!-- <div class="input-group mx-auto my-3 w-25">
             <button type="submit" @click="register(password)" class="btn btn-primary mx-auto w-50">Register</button>

@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import Axios from '../services/dataservice';
+import {sha512} from 'js-sha512';
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -22,6 +23,8 @@ export const useUsersStore = defineStore('usersStore', {
             status: null,
         },
         isLoggedIn: {
+            user: null,
+            passwordHash: null,
             auth: false,
             loginTime: null,
         },
@@ -63,7 +66,8 @@ export const useUsersStore = defineStore('usersStore', {
                 gender: user.gender,
                 email: user.email,
                 phone: user.phone,
-                passwordHash: user.passwordHash
+                passwordHash: user.passwordHash,
+                roles: 'guest',
               })
               .then(function (response) {
                 console.log(response);
@@ -74,7 +78,15 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate(email, password) {
-            
+            let passwordHash = sha512(password);
+            Axios.put('/user/login', {
+                email: email,
+                passwordHash: passwordHash,
+            })
+            .then((resp) => {
+                console.log(resp);
+            })
+            .catch()
         },
     }
 });

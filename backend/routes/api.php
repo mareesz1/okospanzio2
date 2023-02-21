@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('task',TaskController::class);
 Route::apiResource('user',UserController::class);
+Route::apiResource('user/login',LoginController::class);

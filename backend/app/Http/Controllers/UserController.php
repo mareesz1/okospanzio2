@@ -52,6 +52,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->phone = $request->input('phone');
             $user->passwordHash = $request->input('passwordHash');
+            $user->roles = $request->input('roles');
             $user->save();  // insert into
             return response()->json(
              [
@@ -115,6 +116,7 @@ class UserController extends Controller
                 $user->email = $request->input('email');
                 $user->phone = $request->input('phone');
                 $user->passwordHash = $request->input('passwordHash');
+                $user->roles = $request->input('roles');
                 $user->save();
                 return response()->json(['Item was updated', $user], 200);
             } else {
