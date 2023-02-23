@@ -15,13 +15,22 @@
       <li class="nav-item">
         <router-link :to="{name: 'newuser'}">New User</router-link>
       </li>
+      <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
+        <router-link :to="{name: 'admin'}">Admin Page</router-link>
+      </li>
     </ul>
+    <div class="mx-auto" v-if="isLoggedIn.roles">
+      Logged in as: {{ isLoggedIn.roles }}
+    </div>
   </div>
 </nav>
 </template>
 
 <script setup>
+import {storeToRefs} from 'pinia';
+import {useUsersStore} from '../stores/index';
 
+let {isLoggedIn} = storeToRefs(useUsersStore());
 </script>
 
 <style lang="css" scoped>

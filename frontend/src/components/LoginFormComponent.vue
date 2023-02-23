@@ -21,21 +21,32 @@
                 <button class="btn btn-primary" @click="authenticate(email, password)">Login</button>
             </div>
             <div class="col-12 col-md-3 text-center">
-                <button class="btn btn-warning">Logout</button>
+                <button class="btn btn-warning" @click="logout">Logout</button>
             </div>
         </div>
-        {{ email }}
-        {{ password }}
+        <!-- {{ email }}
+        {{ password }} -->
+        <!-- {{ isLoggedIn }} -->
+        <div v-if="isLoggedIn.auth">
+            <p>Login successful</p>
+            <p>login time: {{ isLoggedIn.loginTime }}</p>
+        </div>
+        <div v-if="isLoggedIn.auth == false">
+            <p>Login failed</p>
+            <p v-if="isLoggedIn.message">{{ isLoggedIn.message }}</p>
+        </div>
     </div>
 </template>
 
 <script setup>
     import {ref} from 'vue';
+    import {storeToRefs} from 'pinia';
     import {useUsersStore} from '../stores/index';
     
     const email = ref();
     const password = ref();
-    const {authenticate} = useUsersStore();
+    let {isLoggedIn} = storeToRefs(useUsersStore());
+    const {authenticate, logout} = useUsersStore();
 
 </script>
 

@@ -22,7 +22,7 @@
 .wrapper{
   position: fixed;
   top: 89%;
-  left: 50%;
+  left: 80%;
   transform: translate(-50%, -50%);
   
 }

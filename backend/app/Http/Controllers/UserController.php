@@ -6,6 +6,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+$out = new \Symfony\Component\Console\Output\ConsoleOutput();
 
 class UserController extends Controller
 {
@@ -39,7 +40,8 @@ class UserController extends Controller
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         $v = $this->fieldvalidation($request);
-        $out->writeln($request);
+        // $out->writeln($request);
+        // $out->writeln($request);
         if ($v != '') {
             return response()->json($v,400);
         }
@@ -57,7 +59,8 @@ class UserController extends Controller
             return response()->json(
              [
                  'message' => 'Item was created.',
-                 'id' => $user->id
+                 'id' => $user->id,
+                 'data' => $user
              ],201
             );
         } catch (Exception $e){
@@ -165,6 +168,8 @@ class UserController extends Controller
                 // 'email' => 'required|email:rfc,dns',
                 'email' => 'required|regex:/(.+)@(.+)\.(.+)/i', // nem tudom miert de igy mukodik
                 'phone' => 'required|numeric',
+                'roles' => 'required',
+                'passwordHash' => 'required',
             ],
 
         );
