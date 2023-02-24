@@ -166,7 +166,7 @@ class UserController extends Controller
                 'lastName' => 'required',
                 'gender' => 'required',
                 // 'email' => 'required|email:rfc,dns',
-                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique', // nem tudom miert de igy mukodik
+                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i', // nem tudom miert de igy mukodik
                 'phone' => 'required|numeric',
                 'roles' => 'required',
                 'passwordHash' => 'required',

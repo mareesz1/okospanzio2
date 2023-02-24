@@ -13,7 +13,7 @@
           <router-link :to="{name: 'login'}">Login page</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'newuser'}">New User</router-link>
+          <router-link :to="{name: 'register'}">New User</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
           <router-link :to="{name: 'admin'}">Admin Page</router-link>

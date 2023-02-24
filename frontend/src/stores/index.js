@@ -11,9 +11,11 @@ export const useUsersStore = defineStore('usersStore', {
             gender: 'male',
             email: null,
             phone: null,
+            password: null,
             passwordHash: null,
             roles: 'guest',
             code: null,
+            registrationSuccessful: false,
         },
         errors: {
             firstName: null,
@@ -23,6 +25,7 @@ export const useUsersStore = defineStore('usersStore', {
             phone: null,
             passwordHash: null,
             status: null,
+            code: null,
         },
         isLoggedIn: {
             email: null,
@@ -52,30 +55,42 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
-        postNewRegistration(user, pwHash) {
+        postNewRegistration(pwHash) {
             this.user.passwordHash = pwHash;
-            this.errors = {
-                firstName: null,
-                lastName: null,
-                gender: null,
-                email: null,
-                phone: null,
-                passwordHash: null,
-                status: null,
-            };
-            Axios.post('/user', this.user)
-              .then(function (response) {
-                console.log(response);
+            // this.errors = {
+            //     firstName: null,
+            //     lastName: null,
+            //     gender: null,
+            //     email: null,
+            //     phone: null,
+            //     passwordHash: null,
+            //     status: null,
+            // };
+            return Axios.post('/user', this.user)
+              .then((response) => {
+                this.registrationSuccessful = true;
+                return console.log(response);
               })
-              .catch(function (error) {
-                console.log(error);
+              .catch((err) => {
+                console.log(err);
+                this.errors = {
+                    firstName: err.response.data.firstName ||null,
+                    lastName: err.response.data.lastName || null,
+                    gender: err.response.data.gender || null,
+                    email: err.response.data.email || null,
+                    phone: err.response.data.phone || null,
+                    passwordHash: err.response.data.passwordHash || null,
+                    status: err.response.status || null,
+                    code: err.response.data.code || null,
+                }
+                return Promise.reject(err);
               });
         },
-        authenticate(email, password) {
-            let passwordHash = sha512(password);
+        authenticate() {
+            this.user.passwordHash = sha512(this.user.password);
             Axios.post('/login', {
-                email: email,
-                passwordHash: passwordHash,
+                email: this.user.email,
+                passwordHash: this.user.passwordHash,
             })
             .then((resp) => {
                 console.log(resp);
@@ -87,7 +102,7 @@ export const useUsersStore = defineStore('usersStore', {
                 // }
                 if (resp.data.message == "Email not found") {
                     this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = email;
+                    this.isLoggedIn.email = this.user.email;
                     this.isLoggedIn.LoginTime = null;
                     this.isLoggedIn.message = resp.data.message;
                 }
@@ -99,7 +114,7 @@ export const useUsersStore = defineStore('usersStore', {
                     this.isLoggedIn.message = null;
                 } else {
                     this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = email;
+                    this.isLoggedIn.email = this.user.email;
                     this.isLoggedIn.LoginTime = null;
                     this.isLoggedIn.message = null;
                 }
