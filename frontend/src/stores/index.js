@@ -26,7 +26,6 @@ export const useUsersStore = defineStore('usersStore', {
         },
         isLoggedIn: {
             email: null,
-            passwordHash: null,
             auth: null,
             loginTime: null,
             roles: null,
@@ -53,7 +52,6 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
-        
         postNewRegistration(user, pwHash) {
             this.user.passwordHash = pwHash;
             this.errors = {
@@ -65,20 +63,9 @@ export const useUsersStore = defineStore('usersStore', {
                 passwordHash: null,
                 status: null,
             };
-            Axios.post('/user', 
-            this.user
-            // {firstName: user.firstName,
-            //     lastName: user.lastName,
-            //     gender: user.gender,
-            //     email: user.email,
-            //     phone: user.phone,
-            //     passwordHash: user.passwordHash,
-            //     roles: user.roles,}
-                )
+            Axios.post('/user', this.user)
               .then(function (response) {
-                console.log(user);
                 console.log(response);
-                // console.log(user);
               })
               .catch(function (error) {
                 console.log(error);
