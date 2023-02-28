@@ -56,7 +56,7 @@ class UserController extends Controller
             $user->phone = $request->input('phone');
             $user->passwordHash = $request->input('passwordHash');
             $user->roles = $request->input('roles');
-            if ($request->input('code') == null) {
+            if ($request->input('code') == null && $request->input('roles') == 'guest') {
                 $user->save();  // insert into
                 return response()->json(
                  [

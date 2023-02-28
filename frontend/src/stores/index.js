@@ -72,10 +72,25 @@ export const useUsersStore = defineStore('usersStore', {
             // };
             return Axios.post('/user', this.user)
               .then((response) => {
-                this.registrationSuccessful = true;
+                if (response.status == 201) {
+                    this.user.registrationSuccessful = true;
+                    this.errors = {
+                        firstName: null,
+                        lastName: null,
+                        gender: null,
+                        email: null,
+                        phone: null,
+                        passwordHash: null,
+                        status: null,
+                        code: null,
+                    };
+                    return console.log(response);
+                }
+                this.user.registrationSuccessful = false;
                 return console.log(response);
               })
               .catch((err) => {
+                this.user.registrationSuccessful = false;
                 console.log(err);
                 this.errors = {
                     firstName: err.response.data.firstName ||null,
