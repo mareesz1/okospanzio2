@@ -28,6 +28,9 @@
                         <td>
                             <!-- <router-link :to="`/modify/${t.id}`" class="btn btn-warning">Modify</router-link> -->
                         </td>
+                        <!-- <td>
+                            <router-link :to="`/admin/modifyuser/${user.id}`" class="btn btn-warning">Modify</router-link>
+                        </td> -->
                         <td>
                             <button class="btn btn-danger" @click="deleteUserComponent(user.id)">Delete</button>
                         </td>

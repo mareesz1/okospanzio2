@@ -32,8 +32,14 @@
 <script setup>
 import {storeToRefs} from 'pinia';
 import {useUsersStore} from '../stores/index';
+import UsersTableComponent from './UsersTableComponent.vue';
 
-const {isLoggedIn} = storeToRefs(useUsersStore());
+let {isLoggedIn} = storeToRefs(useUsersStore());
+const loginData = JSON.parse(localStorage.getItem("login"));
+if (loginData.auth) {
+  console.log("already authenticated");
+  isLoggedIn = loginData;
+}
 </script>
 
 <style lang="css" scoped>

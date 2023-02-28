@@ -38,28 +38,27 @@ const router = createRouter({
       component: AdminView,
       meta: {title: 'Admin'},
       beforeEnter: (to, from) => {
-        const status = useUsersStore(); // a useUsersStore()-t csak fgvn belül lehet meghívni különben meghal a program
-        // console.log(to.name);
-        // console.log(status.isLoggedIn.roles);
-          if (status.isLoggedIn.roles !== 'admin' ) { // ha van admin role akkor mindenképp be van lépve
-            // next();
-            return false;
-          } else {
-            // next('/login');
-          }
+        const loginData = JSON.parse(localStorage.getItem("login"));
+        if (loginData.roles !== "admin" || !loginData.auth) {
+          return false;
+        } else {
+          // 
         }
-      },
-        ]
-      });
-      
-      // router.beforeEach((to,from,next)=>{
-        //   const publicPage = ['/','/login','/register'];
-        //   const autRequired = !publicPage.includes(to.path);
-        //   if (autRequired && !isLoggedIn.auth){
-          //     return next('/login');
-          //   } else{
-            //     next();
-            //   }
-            // });
-            
-            export default router;
+      }
+    },
+    // {
+    //   path: '/admin/modifyuser/:id',
+    //   name: 'modifyUser',
+    //   component: ModifyUser,
+    //   meta: {title: 'Modify User'},
+    //   beforeEnter: (to, from) => {
+    //     const loginData = JSON.parse(localStorage.getItem("login"));
+    //     if (loginData.roles !== "admin" || !loginData.auth) {
+    //       return false;
+    //     } else {
+    //       // 
+    //     }
+    //   }
+    // },
+]});
+export default router;

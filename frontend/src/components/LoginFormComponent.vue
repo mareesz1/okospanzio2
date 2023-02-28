@@ -40,11 +40,11 @@
 
 <script setup>
     import {storeToRefs} from 'pinia';
+    import router from '../router';
     import {useUsersStore} from '../stores/index';
     
     const {isLoggedIn, user} = storeToRefs(useUsersStore());
     const {authenticate, logout} = useUsersStore();
-
 </script>
 
 <style lang="css" scoped>
