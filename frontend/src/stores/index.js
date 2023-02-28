@@ -57,6 +57,9 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         postNewRegistration(pwHash) {
+            if (this.user.roles == 'guest') {
+                this.user.code = null;
+            }
             this.user.passwordHash = pwHash;
             // this.errors = {
             //     firstName: null,
