@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('gender');
             $table->string('email');
-            $table->string('phone', 16);
-            $table->string('passwordHash');
+            $table->string('phone', 20);
+            $table->string('passwordHash')->nullable();
             $table->string('roles');
             $table->timestamps();
         });

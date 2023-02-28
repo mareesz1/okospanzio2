@@ -39,13 +39,10 @@
 </template>
 
 <script setup>
-    import {ref} from 'vue';
     import {storeToRefs} from 'pinia';
     import {useUsersStore} from '../stores/index';
     
-    const email = ref();
-    const password = ref();
-    let {isLoggedIn, user} = storeToRefs(useUsersStore());
+    const {isLoggedIn, user} = storeToRefs(useUsersStore());
     const {authenticate, logout} = useUsersStore();
 
 </script>

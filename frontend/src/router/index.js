@@ -4,7 +4,7 @@ import {piniaStore} from '../main';
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
-import AdminView from '../views/AdminView.vue';
+import AdminView from '../views/admin/AdminView.vue';
 // import {storeToRefs} from 'pinia';
 
 // const valtozo = useUsersStore();

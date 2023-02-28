@@ -128,5 +128,14 @@ export const useUsersStore = defineStore('usersStore', {
             this.isLoggedIn.roles = null;
             this.isLoggedIn.message = null;
         },
+        deleteUser(id) {
+            return Axios.delete(`/user/${id}`, id)
+            .then((resp) => {
+                return console.log(resp);
+            })
+            .catch((err) => {
+                return console.log(err);
+            })
+        },
     }
 });
