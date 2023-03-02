@@ -6,6 +6,7 @@ import router from '../router';
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
+        rooms: [],
         user: {
             firstName: null,
             lastName: null,
@@ -51,6 +52,15 @@ export const useUsersStore = defineStore('usersStore', {
             Axios.get('/user')
             .then((resp) => {
                 this.users = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
+        getAllRooms() {
+            Axios.get('/room')
+            .then((resp) => {
+                this.rooms = resp.data;
             })
             .catch((err) => {
                 console.log(err);
@@ -154,6 +164,15 @@ export const useUsersStore = defineStore('usersStore', {
         },
         deleteUser(id) {
             return Axios.delete(`/user/${id}`, id)
+            .then((resp) => {
+                return console.log(resp);
+            })
+            .catch((err) => {
+                return console.log(err);
+            })
+        },
+        deleteRoom(id) {
+            return Axios.delete(`/room/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })

@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{name: 'home'}">Home page</router-link>
+          <router-link to="/">Home page</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'login'}">Login page</router-link>
+          <router-link to="/login">Login page</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'register'}">New User</router-link>
+          <router-link to="/register">New User</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
-          <router-link :to="{name: 'admin'}">Admin Page</router-link>
+          <router-link to="/admin">Admin Page</router-link>
         </li>
       </ul>
 
