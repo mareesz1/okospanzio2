@@ -1,0 +1,393 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "okospanzio",
+    "dateExported": "2023-03-02T21:21:20.975Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "7b81a52a-aa65-49d9-9ada-703859d1fa87",
+            "name": "login",
+            "containerId": "",
+            "created": "2023-02-22T08:12:23.371Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "rooms",
+            "containerId": "",
+            "created": "2023-02-28T22:44:08.146Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "users",
+            "containerId": "",
+            "created": "2023-03-02T07:51:26.281Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "menu",
+            "containerId": "",
+            "created": "2023-03-02T09:54:43.282Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "RestaurantOrders",
+            "containerId": "",
+            "created": "2023-03-02T11:14:37.628Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "b718a62a-2567-48bd-a1f9-30769d21c0a4",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "getAllUsers",
+            "url": "127.0.0.1:8000/api/user",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-02-17T11:05:36.588Z",
+            "modified": "2023-03-02T07:51:28.422Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7b23d0ec-09df-4cf3-953f-110ac0fabf33",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "getSingleUser",
+            "url": "127.0.0.1:8000/api/user/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-02-18T21:41:44.277Z",
+            "modified": "2023-03-02T09:58:45.664Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "004e3b08-dcfe-46b0-a3b3-af328f7170c9",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "pustUser",
+            "url": "127.0.0.1:8000/api/user",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-02-18T21:23:24.002Z",
+            "modified": "2023-03-02T07:51:29.898Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\": \"asd\",\n  \"lastName\": \"Janasd2i\",\n  \"gender\": \"female\",\n  \"email\": \"kovacsjasdfgsfgdawdfawd4ni@lofasz.com\",\n  \"phone\": \"+36204204123\",\n  \"passwordHash\": \"avtbzjvshfngarvbtctghmkuethtzchgnuil\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8405dbd4-8f4a-41ac-a95a-e108cb926dc4",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "updateUser",
+            "url": "127.0.0.1:8000/api/user/12",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-02-18T21:40:48.532Z",
+            "modified": "2023-03-02T07:51:30.548Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"firstName\": \"Tímár\",\n    \"lastName\": \"Egon\",\n    \"gender\": \"male\",\n    \"email\": \"rollin.grant@yahoo.com\",\n    \"phone\": \"(240) 817-7460\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3698e30f-a273-461f-b16d-16613baa1508",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "c5461d90-66e9-49a4-b3cd-d12bc39cda14",
+            "name": "deleteUser",
+            "url": "127.0.0.1:8000/api/user/22",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-02-18T22:15:20.316Z",
+            "modified": "2023-03-02T07:51:31.143Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bf881637-c5fe-4eec-a9fd-8d205227965c",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "7b81a52a-aa65-49d9-9ada-703859d1fa87",
+            "name": "loginTest",
+            "url": "127.0.0.1:8000/api/login",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-02-22T08:12:31.346Z",
+            "modified": "2023-02-22T08:33:26.128Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"maresz@maresz.maresz\",\n  \"passwordHash\": \"710a7b3a64ea127cab763e8ae4850f69c63e14f67860eb8adcbc63babbc003d6d9e73534b7bae1ef159d22c94e1f8269a49e378b2ae3c6d84f633da38c2bfda9\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cbf7d75d-af28-40fe-811f-c0239c465914",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "getAllRooms",
+            "url": "localhost:8000/api/room",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-02-28T22:44:15.926Z",
+            "modified": "2023-02-28T22:46:18.267Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "86e4f075-3de3-461d-a2fd-7631f2fa48e5",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "getRoomById",
+            "url": "localhost:8000/api/room/3",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-03-01T07:44:13.868Z",
+            "modified": "2023-03-02T07:28:06.874Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4fe42369-c57a-4cfc-9449-0564bcdecd78",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "postRoom",
+            "url": "localhost:8000/api/room",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-03-02T08:00:24.248Z",
+            "modified": "2023-03-02T08:01:03.129Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"number\": 4,\n    \"type\": \"Normal\",\n    \"beds\": 4,\n    \"price\": 42000,\n    \"description\": \"Iust o voluptas vel placeat deserunt. Voluptatem odit odio voluptas quae architecto. Aliquid minima vel est laudantium est exercitationem.\",\n    \"qrcode\": null\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9ae4b38c-5d05-4398-861a-165c434d2322",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "updateRoom",
+            "url": "localhost:8000/api/room/7",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2023-03-02T08:05:00.530Z",
+            "modified": "2023-03-02T08:05:46.535Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id\": 7,\n    \"number\": 4,\n    \"type\": \"Normal\",\n    \"beds\": 4,\n    \"price\": 42001,\n    \"description\": \"Iust o voluptas vel placeat deserunt. Voluptatem odit odio voluptas quae architecto. Aliquid minima vel est laudantium est exercitationem.\",\n    \"qrcode\": \"7\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "21889eaf-ac87-4410-8630-f8460f45af51",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "96822434-0e48-49b9-84fe-5492091d6012",
+            "name": "deleteRoom",
+            "url": "localhost:3000/api/room/3",
+            "method": "DELETE",
+            "sortNum": 100000,
+            "created": "2023-03-02T08:09:33.167Z",
+            "modified": "2023-03-02T08:09:49.276Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6ee73f5b-6c4f-4139-a9da-08c6e90e10e4",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "getAllMenu",
+            "url": "localhost:8000/api/menu",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-03-02T09:54:49.525Z",
+            "modified": "2023-03-02T09:56:16.377Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fa9d03f2-522d-464f-819f-d14ee40dd4be",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "getOneFood",
+            "url": "localhost:8000/api/menu/1",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-03-02T09:57:30.801Z",
+            "modified": "2023-03-02T12:19:23.628Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1161b3b6-03b4-45a5-b6cf-c30eb1c307c4",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "updateFood",
+            "url": "localhost:8000/api/menu/4",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2023-03-02T10:04:46.431Z",
+            "modified": "2023-03-02T12:45:22.916Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1,\n  \"name\": \"Fügelófasz\",\n  \"description\": \"Aspernatur consequatur aperiam.\",\n  \"price\": 2829,\n  \"type\": \"Hal\",\n  \"pictureURL\": null,\n  \"created_at\": \"2023-03-02T11:33:49.000000Z\",\n  \"updated_at\": \"2023-03-02T11:33:49.000000Z\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e6050dea-286d-417c-aa56-5a1421bc722a",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "postFood",
+            "url": "localhost:8000/api/menu",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2023-03-02T10:11:39.085Z",
+            "modified": "2023-03-02T10:18:51.238Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Szarvaspörkölt\",\n  \"description\": \"Ízletes pörkölt Bakonyi vadhúsból. Javasoljuk vörösborral fogyasztani\",\n  \"price\": 6300,\n  \"type\": \"Vad\",\n  \"pictureURL\": null\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "79e1228c-421c-4cbb-a16e-bae71e6a913f",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "dbe018c9-c2ed-438c-a390-2dd5b5921136",
+            "name": "deleteFood",
+            "url": "localhost:8000/api/menu/6",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2023-03-02T10:24:58.204Z",
+            "modified": "2023-03-02T10:35:49.066Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "27e9c8b7-49a3-4b72-a467-20e015a43e88",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "getAllOrders",
+            "url": "localhost:8000/api/orders",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-03-02T11:14:44.367Z",
+            "modified": "2023-03-02T11:53:39.689Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fc414865-7a3d-49d4-b6d0-84c34cbe281e",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "getAllOrdersJoined",
+            "url": "localhost:8000/api/orders/all",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-03-02T11:53:43.774Z",
+            "modified": "2023-03-02T11:53:54.634Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e8d58ca2-4724-4626-bd8c-519e87ba93af",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "postOrder",
+            "url": "localhost:8000/api/orders",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2023-03-02T20:44:47.060Z",
+            "modified": "2023-03-02T20:48:53.325Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"foodId\": 4,\n    \"quantity\": 2,\n    \"status\": \"waiting\",\n    \"tableId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fc9b4bcb-e5a1-40d0-a6b8-bf8a81baae92",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "getOneOrder",
+            "url": "localhost:8000/api/orders/27",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2023-03-02T20:58:56.209Z",
+            "modified": "2023-03-02T20:59:34.702Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3695e3ab-e9c0-445b-b6a3-87ca364670a1",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "getOneOrderJoined",
+            "url": "localhost:8000/api/orders/all/27",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2023-03-02T21:02:07.631Z",
+            "modified": "2023-03-02T21:08:23.572Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "50718877-2085-4339-b35a-f06e74373fa0",
+            "colId": "399c7765-68a4-4389-bd0d-88ac00e9f873",
+            "containerId": "b60b29ef-8f52-4d5c-8296-53d49d943394",
+            "name": "deleteOrder",
+            "url": "localhost:8000/api/orders/28",
+            "method": "DELETE",
+            "sortNum": 210000,
+            "created": "2023-03-02T21:14:15.237Z",
+            "modified": "2023-03-02T21:15:40.900Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
