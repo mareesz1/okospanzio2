@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('restaurant_orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('foodId');
+            // $table->integer('foodId');
+            $table->foreignId('foodId')->references('id')->on('menus');
             $table->smallInteger('quantity');
             $table->integer('actualPrice');
             $table->string('status');

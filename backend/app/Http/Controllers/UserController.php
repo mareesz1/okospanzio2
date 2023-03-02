@@ -100,7 +100,7 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             if (!empty($user)) {
-                return response()->json([$user]);
+                return response()->json($user);
             } else {
                 return response()->json(['message' => 'Item not found'], 404);
             }

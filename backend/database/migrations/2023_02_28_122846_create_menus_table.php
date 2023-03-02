@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('description', 150)->nullable();
-            $table->bigInteger('price')->nullable();
+            // $table->id('foodId');
+            $table->string('name', 100);
+            $table->string('description', 300)->nullable();
+            $table->integer('price')->nullable();
             $table->string('type', 30);
             $table->string('pictureURL')->nullable();
             $table->timestamps();

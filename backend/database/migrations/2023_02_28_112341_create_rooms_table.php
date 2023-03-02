@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('number');
+            $table->smallInteger('number');
             $table->string('type', 20);
-            $table->bigInteger('beds');
-            $table->bigInteger('price')->nullable();
+            $table->tinyInteger('beds');
+            $table->integer('price')->nullable();
             // $table->bigInteger('extraPrice')->nullable();
-            $table->string('description', 255);
+            $table->string('description', 1000);
             $table->string('qrcode')->nullable();
             // $table->string('nfc');
             $table->timestamps();
