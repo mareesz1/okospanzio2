@@ -6,6 +6,7 @@ import router from '../router';
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
+        rooms: [],
         user: {
             firstName: null,
             lastName: null,
@@ -56,6 +57,15 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
+        getAllRooms() {
+            Axios.get('/room')
+            .then((resp) => {
+                this.rooms = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
         postNewRegistration(pwHash) {
             if (this.user.roles == 'guest') {
                 this.user.code = null;
@@ -72,10 +82,25 @@ export const useUsersStore = defineStore('usersStore', {
             // };
             return Axios.post('/user', this.user)
               .then((response) => {
-                this.registrationSuccessful = true;
+                if (response.status == 201) {
+                    this.user.registrationSuccessful = true;
+                    this.errors = {
+                        firstName: null,
+                        lastName: null,
+                        gender: null,
+                        email: null,
+                        phone: null,
+                        passwordHash: null,
+                        status: null,
+                        code: null,
+                    };
+                    return console.log(response);
+                }
+                this.user.registrationSuccessful = false;
                 return console.log(response);
               })
               .catch((err) => {
+                this.user.registrationSuccessful = false;
                 console.log(err);
                 this.errors = {
                     firstName: err.response.data.firstName ||null,
@@ -139,6 +164,15 @@ export const useUsersStore = defineStore('usersStore', {
         },
         deleteUser(id) {
             return Axios.delete(`/user/${id}`, id)
+            .then((resp) => {
+                return console.log(resp);
+            })
+            .catch((err) => {
+                return console.log(err);
+            })
+        },
+        deleteRoom(id) {
+            return Axios.delete(`/room/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })

@@ -2,30 +2,35 @@
     <div>
         <p class="display-1 text-center mb-3" id="fooldalTitle">Admin</p>
         <navbar/>
-        <button class="btn btn-primary mx-3 my-3" @click="showUsersPlus">Show users</button>
-        <button class="btn btn-primary mx-3 my-3" @click="anythingElse">Show anything else</button>
-        <users-table v-if="showUsers" class="mx-3 my-2"/>
+        <!-- <button class="btn btn-primary mx-3 my-3" @click="showUsersF">Show users</button> -->
+        <!-- <router-link :to="{name: 'usersTable'}">Show users</router-link> -->
+        <!-- <button class="btn btn-primary mx-3 my-3" @click="showRoomsF">Show rooms</button> -->
+        <!-- <users-table v-if="showUsers" class="mx-3 my-2"/> -->
+        <admin-navbar/>
+        <router-view/>
     </div>
 </template>
 
 <script setup>
+import { RouterView } from 'vue-router'
 import navbar from '../../components/NavbarComponent.vue';
-import UsersTable from '../../components/UsersTableComponent.vue';
+import AdminNavbar from '../../components/AdminNavbarComponent.vue';
 import {ref} from 'vue';
 import {storeToRefs} from 'pinia';
 import {useUsersStore} from '../../stores/index';
 
-const showUsers = ref();
-showUsers.value = false;
+// const showUsers = ref();
+// const showRooms = ref();
+// showUsers.value = false;
 
 
-function showUsersPlus () {
-    showUsers.value = true;
-}
+// function showUsersF () {
+//     showUsers.value = true;
+// }
 
-function anythingElse() {
-    showUsers.value = false;
-}
+// function showRoomsF () {
+//     showUsers.value = false;
+// }
 
 // const {isLoggedIn} = storeToRefs(useUsersStore());
 </script>

@@ -5,6 +5,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
 import AdminView from '../views/admin/AdminView.vue';
+import AUsersTableView from '../views/admin/AdminUsersTableView.vue';
+import ARoomsView from '../views/admin/AdminRoomsView.vue';
 // import {storeToRefs} from 'pinia';
 
 // const valtozo = useUsersStore();
@@ -44,7 +46,17 @@ const router = createRouter({
         } else {
           // 
         }
-      }
+      },
+      children: [
+        {
+          path: 'users',
+          component: AUsersTableView,
+        },
+        {
+          path: 'rooms',
+          component: ARoomsView,
+        },
+      ]
     },
     // {
     //   path: '/admin/modifyuser/:id',

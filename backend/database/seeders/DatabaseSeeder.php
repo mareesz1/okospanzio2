@@ -22,8 +22,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         // \App\Models\Task::factory(20)->create();
 
+        \App\Models\AdminCodes::factory(2)->create();
+
         \App\Models\User::factory(20)->create();
         \App\Models\Rooms::factory(6)->create();
         \App\Models\Menu::factory(30)->create();
+        \App\Models\RestaurantOrders::factory(25)->create();
     }
 }
