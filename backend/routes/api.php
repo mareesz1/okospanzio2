@@ -6,6 +6,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RestaurantOrdersController;
+use App\Http\Controllers\TablesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::apiResource('user',UserController::class);
 Route::apiResource('login',LoginController::class);
 Route::apiResource('room',RoomController::class);
 Route::apiResource('menu',MenuController::class);
+Route::apiResource('tables',TablesController::class);
 
 Route::get('/orders/all', function () {
     return RestaurantOrdersController::indexALl();
