@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AdminCodes>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tables>
  */
-class AdminCodesFactory extends Factory
+class TablesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class AdminCodesFactory extends Factory
     public function definition()
     {
         return [
-            'roles' => 'admin',
-            'code' => 9999,
+            'isOccupied' => $this->faker->randomElement([true, false])
         ];
     }
 }

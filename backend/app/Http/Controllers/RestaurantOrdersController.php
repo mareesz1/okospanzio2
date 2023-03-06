@@ -39,7 +39,7 @@ class RestaurantOrdersController extends Controller
         try {
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             $orders = DB::table('restaurant_orders')
-            ->select('restaurant_orders.id as orderId', 'menus.id as kajaid', 'restaurant_orders.*', 'menus.*')
+            ->select('restaurant_orders.id as orderId', 'menus.id as foodId', 'restaurant_orders.*', 'menus.*')
            // ->orderBy('restaurant_orders.id', 'asc')
             ->join('menus', 'restaurant_orders.foodId', '=', 'menus.id')
             ->get();
@@ -62,6 +62,11 @@ class RestaurantOrdersController extends Controller
      */
     public function store(Request $request)
     {
+        $v = $this->fieldvalidation($request);
+        if ($v != '') {
+        return response()->json($v,400);
+        }
+
         try{
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             $order = new RestaurantOrders();
@@ -118,9 +123,15 @@ class RestaurantOrdersController extends Controller
     public static function showJoined($id) {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         try {
+            // $out->writeln($id);
+            $order = DB::table('restaurant_orders')
+            ->select('restaurant_orders.id as orderId', 'menus.id as foodId', 'restaurant_orders.*', 'menus.*')
+            ->where('restaurant_orders.id', '=', $id)
+            ->join('menus', 'restaurant_orders.foodId', '=', 'menus.id')
+            ->get();
             // $out->writeln('showJoined lefut');
             return response()->json([
-                'message' => 'Route incomplete'
+                'data' => $order,
             ], 200);
         } catch (Exception $e) {
             return response()->json(
@@ -138,9 +149,43 @@ class RestaurantOrdersController extends Controller
      * @param  \App\Models\RestaurantOrders  $restaurantOrders
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RestaurantOrders $restaurantOrders)
+    public function update(Request $request, $id)
     {
-        //
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $v = $this->fieldvalidation($request);
+        if ($v != '') {
+        return response()->json($v,400);
+        }
+
+        try {
+            if (RestaurantOrders::where('id', '=', $id)->exists()) {
+                $order = RestaurantOrders::find($id);
+                $food = Menu::find($order->foodId);
+                // $out->writeln($food);
+                $order->foodId = $request->input('foodId');
+                $order->quantity = $request->input('quantity');
+                if ($request->input('actualPrice') != null) {
+                    $order->actualPrice = $request->input('actualPrice');
+                } else {
+                    $order->actualPrice = $food->price;
+                }
+                $order->status = $request->input('status');
+                $order->tableId = $request->input('tableId');
+                $order->userId = $request->input('userId');
+                $order->save();
+                return response()->json([
+                    'message' => 'Order updated',
+                    'data' => $order,
+                ], 200);
+            }
+            return response()->json(['message' => 'Order or food not found'], 404);
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                   'message'=>'Database error!'
+               ],400
+            );
+        }
     }
 
     /**
@@ -170,5 +215,24 @@ class RestaurantOrdersController extends Controller
                ],400
             );
         }
+    }
+
+    public function fieldvalidation(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'foodId' => 'required|integer',
+                'quantity' => 'required|integer',
+                'status' => 'required',
+                'tableId' => 'required|integer',
+                'userId' => 'integer|nullable',
+            ],
+
+        );
+
+        if ($validator->fails()){
+            return $validator->messages();
+        }
+        return '';
     }
 }
