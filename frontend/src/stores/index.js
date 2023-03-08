@@ -182,3 +182,21 @@ export const useUsersStore = defineStore('usersStore', {
         },
     }
 });
+
+export const useRestaurantStore = defineStore('restaurantStore', {
+    state: () => ({
+        orders: [],
+    }),
+    getters: {},
+    actions: {
+        getAllOrders() {
+            Axios.get('/orders/all')
+            .then((resp) => {
+                this.orders = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    }
+})

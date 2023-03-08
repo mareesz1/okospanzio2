@@ -18,6 +18,9 @@
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
           <router-link to="/admin">Admin Page</router-link>
         </li>
+        <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
+          <router-link to="/restaurant">Restaurant</router-link>
+        </li>
       </ul>
 
     </div>

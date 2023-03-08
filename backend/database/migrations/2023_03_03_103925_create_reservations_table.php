@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('userId');
-            $table->integer('roomId');
+            $table->foreignId('roomId')->references('id')->on('rooms');
             $table->dateTime('start');
             $table->dateTime('end');
-
+            $table->foreignId('mainUserId')->references('id')->on('users');
+            $table->json('users')->nullable();
+            $table->integer('balance')->default(0);
             $table->timestamps();
         });
     }
