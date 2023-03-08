@@ -57,6 +57,7 @@ class UserController extends Controller
             $user->passwordHash = $request->input('passwordHash');
             $user->roles = $request->input('roles');
             if ($request->input('code') == null && $request->input('roles') == 'guest') {
+                $out->writeln($user);
                 $user->save();  // insert into
                 return response()->json(
                  [
@@ -92,7 +93,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -117,7 +118,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -183,8 +184,8 @@ class UserController extends Controller
                 'lastName' => 'required',
                 'gender' => 'required',
                 // 'email' => 'required|email:rfc,dns',
-                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i', // nem tudom miert de igy mukodik
-                'phone' => 'required|numeric',
+                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
+                'phone' => 'required|numeric|unique:users',
                 'roles' => 'required',
                 'passwordHash' => 'required',
             ],

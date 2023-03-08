@@ -7,6 +7,9 @@ import NewUserView from '../views/RegistrationView.vue';
 import AdminView from '../views/admin/AdminView.vue';
 import AUsersTableView from '../views/admin/AdminUsersTableView.vue';
 import ARoomsView from '../views/admin/AdminRoomsView.vue';
+import RestaurantView from '../views/restaurant/RestaurantView.vue';
+import RestaurantOrdersView from '../views/restaurant/RestaurantOrdersView.vue';
+import RestaurantTablesView from '../views/restaurant/RestaurantTablesView.vue';
 // import {storeToRefs} from 'pinia';
 
 // const valtozo = useUsersStore();
@@ -55,6 +58,29 @@ const router = createRouter({
         {
           path: 'rooms',
           component: ARoomsView,
+        },
+      ]
+    },
+    {
+      path: '/restaurant',
+      component: RestaurantView,
+      meta: {title: 'Restaurant'},
+      beforeEnter: (to, from) => {
+        const loginData = JSON.parse(localStorage.getItem("login"));
+        if ((loginData.roles == "admin" || loginData.roles == "restaurant") && loginData.auth) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      children: [
+        {
+          path: 'orders',
+          component: RestaurantOrdersView,
+        },
+        {
+          path: 'tables',
+          component: RestaurantTablesView,
         },
       ]
     },
