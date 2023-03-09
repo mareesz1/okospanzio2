@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import {useUsersStore} from '../stores/index';
 import {piniaStore} from '../main';
 import HomeView from '../views/HomeView.vue'
+import RoomView from '../views/RoomsView.vue'
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
 import AdminView from '../views/admin/AdminView.vue';
@@ -10,6 +11,7 @@ import ARoomsView from '../views/admin/AdminRoomsView.vue';
 import RestaurantView from '../views/restaurant/RestaurantView.vue';
 import RestaurantOrdersView from '../views/restaurant/RestaurantOrdersView.vue';
 import RestaurantTablesView from '../views/restaurant/RestaurantTablesView.vue';
+
 // import {storeToRefs} from 'pinia';
 
 // const valtozo = useUsersStore();
@@ -24,6 +26,13 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {title: 'Home'},
+    },
+    {
+      path: '/rooms',
+      name: 'room',
+      component: RoomView,
+      meta: {title: 'Rooms'},
+
     },
     {
       path: '/login',
