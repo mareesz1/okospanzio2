@@ -197,6 +197,10 @@ export const useRestaurantStore = defineStore('restaurantStore', {
             .catch((err) => {
                 console.log(err);
             })
-        }
+        },
+        setOrderStatus(orderId, status) {
+            // console.log(orderId + ' ' + status);
+            
+        },
     }
 })

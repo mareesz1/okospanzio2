@@ -12,9 +12,9 @@
                         <p class="card-text mb-3">{{ order.name }}</p>
                     </div>
                     <div class="col-md-4">
-                        <a href="#" class="btn btn-primary my-2 w-100">Cooking</a>
-                        <a href="#" class="btn btn-primary my-2 w-100">Waiting</a>
-                        <a href="#" class="btn btn-primary my-2 w-100">Out</a>
+                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'cooking')">Cooking</button>
+                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'waiting')">Waiting</button>
+                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'out')">Out</button>
                     </div>
                 </div>
             </div>
@@ -23,6 +23,9 @@
 </template>
 
 <script setup>
+import { useRestaurantStore } from '../../stores';
+
+const {setOrderStatus} = useRestaurantStore();
 const props = defineProps(['order']);
 </script>
 

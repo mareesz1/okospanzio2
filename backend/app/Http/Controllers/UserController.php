@@ -180,13 +180,13 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'gender' => 'required',
+                'firstName' => 'required|max:100',
+                'lastName' => 'required|max:100',
+                'gender' => 'required|max:50',
                 // 'email' => 'required|email:rfc,dns',
                 'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
                 'phone' => 'required|numeric|unique:users',
-                'roles' => 'required',
+                'roles' => 'required|max:25',
                 'passwordHash' => 'required',
             ],
 
