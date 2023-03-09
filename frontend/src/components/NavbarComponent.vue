@@ -7,16 +7,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{name: 'home'}">Home page</router-link>
+          <router-link to="/">Home page</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'login'}">Login page</router-link>
+          <router-link to="/login">Login page</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'newuser'}">New User</router-link>
+          <router-link to="/register">New User</router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
-          <router-link :to="{name: 'admin'}">Admin Page</router-link>
+          <router-link to="/admin">Admin Page</router-link>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
+          <router-link to="/restaurant">Restaurant</router-link>
         </li>
       </ul>
 
@@ -32,8 +35,14 @@
 <script setup>
 import {storeToRefs} from 'pinia';
 import {useUsersStore} from '../stores/index';
+import UsersTableComponent from './UsersTableComponent.vue';
 
-const {isLoggedIn} = storeToRefs(useUsersStore());
+let {isLoggedIn} = storeToRefs(useUsersStore());
+const loginData = JSON.parse(localStorage.getItem("login"));
+if (loginData.auth) {
+  console.log("already authenticated");
+  isLoggedIn = loginData;
+}
 </script>
 
 <style lang="css" scoped>

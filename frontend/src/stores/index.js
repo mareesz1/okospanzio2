@@ -1,19 +1,23 @@
 import {defineStore} from "pinia";
 import Axios from '../services/dataservice';
 import {sha512} from 'js-sha512';
+import router from '../router';
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
+        rooms: [],
         user: {
             firstName: null,
             lastName: null,
             gender: 'male',
             email: null,
             phone: null,
+            password: null,
             passwordHash: null,
             roles: 'guest',
             code: null,
+            registrationSuccessful: false,
         },
         errors: {
             firstName: null,
@@ -23,6 +27,7 @@ export const useUsersStore = defineStore('usersStore', {
             phone: null,
             passwordHash: null,
             status: null,
+            code: null,
         },
         isLoggedIn: {
             email: null,
@@ -52,56 +57,97 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log(err);
             })
         },
-        postNewRegistration(user, pwHash) {
+        getAllRooms() {
+            Axios.get('/room')
+            .then((resp) => {
+                this.rooms = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        },
+        postNewRegistration(pwHash) {
+            if (this.user.roles == 'guest') {
+                this.user.code = null;
+            }
             this.user.passwordHash = pwHash;
-            this.errors = {
-                firstName: null,
-                lastName: null,
-                gender: null,
-                email: null,
-                phone: null,
-                passwordHash: null,
-                status: null,
-            };
-            Axios.post('/user', this.user)
-              .then(function (response) {
-                console.log(response);
+            // this.errors = {
+            //     firstName: null,
+            //     lastName: null,
+            //     gender: null,
+            //     email: null,
+            //     phone: null,
+            //     passwordHash: null,
+            //     status: null,
+            // };
+            return Axios.post('/user', this.user)
+              .then((response) => {
+                if (response.status == 201) {
+                    this.user.registrationSuccessful = true;
+                    this.errors = {
+                        firstName: null,
+                        lastName: null,
+                        gender: null,
+                        email: null,
+                        phone: null,
+                        passwordHash: null,
+                        status: null,
+                        code: null,
+                    };
+                    return console.log(response);
+                }
+                this.user.registrationSuccessful = false;
+                return console.log(response);
               })
-              .catch(function (error) {
-                console.log(error);
+              .catch((err) => {
+                this.user.registrationSuccessful = false;
+                console.log(err);
+                this.errors = {
+                    firstName: err.response.data.firstName ||null,
+                    lastName: err.response.data.lastName || null,
+                    gender: err.response.data.gender || null,
+                    email: err.response.data.email || null,
+                    phone: err.response.data.phone || null,
+                    passwordHash: err.response.data.passwordHash || null,
+                    status: err.response.status || null,
+                    code: err.response.data.code || null,
+                }
+                return Promise.reject(err);
               });
         },
-        authenticate(email, password) {
-            let passwordHash = sha512(password);
+        authenticate() {
+            this.user.passwordHash = sha512(this.user.password);
             Axios.post('/login', {
-                email: email,
-                passwordHash: passwordHash,
+                email: this.user.email,
+                passwordHash: this.user.passwordHash,
             })
             .then((resp) => {
-                console.log(resp);
-                // if (resp.data == '') {
-                //     this.isLoggedIn.auth = false;
-                //     this.isLoggedIn.email = email;
-                //     this.isLoggedIn.LoginTime = null;
-                //     console.log(`${this.isLoggedIn.email} login failed`);
-                // }
+                const loginData = JSON.parse(localStorage.getItem("login"));
+                // console.log(resp);
                 if (resp.data.message == "Email not found") {
+                    // Email not found
                     this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = email;
-                    this.isLoggedIn.LoginTime = null;
+                    this.isLoggedIn.email = this.user.email;
+                    this.isLoggedIn.loginTime = null;
                     this.isLoggedIn.message = resp.data.message;
+                    // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
                 }
-                else if (resp.data.auth) {
-                    this.isLoggedIn.email = resp.data.auth;
+                else if (resp.data.auth || loginData.auth) {
+                    // belép
+                    this.isLoggedIn.email = resp.data.email;
                     this.isLoggedIn.auth = true;
                     this.isLoggedIn.loginTime = resp.data.loginTime;
                     this.isLoggedIn.roles = resp.data.roles;
                     this.isLoggedIn.message = null;
+                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                    // console.log(JSON.parse(localStorage.getItem("login")));
                 } else {
+                    // nem lép be
                     this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = email;
-                    this.isLoggedIn.LoginTime = null;
+                    this.isLoggedIn.email = this.user.email;
+                    this.isLoggedIn.loginTime = null;
                     this.isLoggedIn.message = null;
+                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
                 }
             })
             .catch()
@@ -112,6 +158,45 @@ export const useUsersStore = defineStore('usersStore', {
             this.isLoggedIn.loginTime = null;
             this.isLoggedIn.roles = null;
             this.isLoggedIn.message = null;
+            localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+            router.go();
+
+        },
+        deleteUser(id) {
+            return Axios.delete(`/user/${id}`, id)
+            .then((resp) => {
+                return console.log(resp);
+            })
+            .catch((err) => {
+                return console.log(err);
+            })
+        },
+        deleteRoom(id) {
+            return Axios.delete(`/room/${id}`, id)
+            .then((resp) => {
+                return console.log(resp);
+            })
+            .catch((err) => {
+                return console.log(err);
+            })
         },
     }
 });
+
+export const useRestaurantStore = defineStore('restaurantStore', {
+    state: () => ({
+        orders: [],
+    }),
+    getters: {},
+    actions: {
+        getAllOrders() {
+            Axios.get('/orders/all')
+            .then((resp) => {
+                this.orders = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    }
+})

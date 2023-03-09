@@ -6,19 +6,19 @@
                 <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
                 </div>
-                <input id="email" name="email" v-model="email" type="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="user@email.com">
+                <input id="email" name="email" v-model="user.email" v-on:keyup.enter="authenticate()" type="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="user@email.com">
             </div>
             <div class="input-group mt-3 mb-4">
                 <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
                 </div>
-                <input id="password" name="password" v-model="password" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
+                <input id="password" name="password" v-model="user.password" v-on:keyup.enter="authenticate()" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
             </div>
         </form>
         </div>
         <div class="row justify-content-center">
             <div class="col-12 col-md-3 text-center">
-                <button class="btn btn-primary" @click="authenticate(email, password)">Login</button>
+                <button class="btn btn-primary" @click="authenticate()">Login</button>
             </div>
             <div class="col-12 col-md-3 text-center">
                 <button class="btn btn-warning" @click="logout">Logout</button>
@@ -39,15 +39,12 @@
 </template>
 
 <script setup>
-    import {ref} from 'vue';
     import {storeToRefs} from 'pinia';
+    import router from '../router';
     import {useUsersStore} from '../stores/index';
     
-    const email = ref();
-    const password = ref();
-    let {isLoggedIn} = storeToRefs(useUsersStore());
+    const {isLoggedIn, user} = storeToRefs(useUsersStore());
     const {authenticate, logout} = useUsersStore();
-
 </script>
 
 <style lang="css" scoped>

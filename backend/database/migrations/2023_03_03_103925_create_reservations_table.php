@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->string('gender');
-            $table->string('email')->unique();
-            $table->string('phone', 20)->unique();
-            $table->string('passwordHash')->nullable();
-            $table->string('roles');
-            $table->string('nfc')->nullable();
+            $table->foreignId('roomId')->references('id')->on('rooms');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->foreignId('mainUserId')->references('id')->on('users');
+            $table->json('users')->nullable();
+            $table->integer('balance')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('reservations');
     }
 };

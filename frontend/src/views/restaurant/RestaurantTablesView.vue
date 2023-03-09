@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <button class="btn btn-warning mx-3 my-3">asd</button>
+    <div>
+        RestaurantTablesView
     </div>
 </template>
 

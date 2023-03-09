@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AdminCodes;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +43,7 @@ class UserController extends Controller
         $v = $this->fieldvalidation($request);
         // $out->writeln($request);
         // $out->writeln($request);
-        if ($v != '') {
+        if ($v != '') { // Validation failed
             return response()->json($v,400);
         }
 
@@ -55,14 +56,31 @@ class UserController extends Controller
             $user->phone = $request->input('phone');
             $user->passwordHash = $request->input('passwordHash');
             $user->roles = $request->input('roles');
-            $user->save();  // insert into
-            return response()->json(
-             [
-                 'message' => 'Item was created.',
-                 'id' => $user->id,
-                 'data' => $user
-             ],201
-            );
+            if ($request->input('code') == null && $request->input('roles') == 'guest') {
+                $out->writeln($user);
+                $user->save();  // insert into
+                return response()->json(
+                 [
+                     'message' => 'New user saved.',
+                     'id' => $user->id,
+                     'data' => $user
+                 ],201
+                );
+            }
+            // $out->writeln($request->input('code'));
+            if ($request->input('code') != null) {
+                $existingCode = AdminCodes::where('roles', '=', $request->input('roles'))->select('code')->get()[0];
+            }
+            // $out->writeln($existingCode->code);
+            if ($request->input('code') == $existingCode->code) {
+                $user->save();
+                return response()->json([
+                    'message' => 'New higher clearance level user saved',
+                    'id' => $user->id,
+                    'data' => $user
+                ], 201);
+            }
+            return response()->json(['message' => 'Code doesnt match'], 404);
         } catch (Exception $e){
              return response()->json(
                  [
@@ -75,7 +93,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,7 +101,7 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             if (!empty($user)) {
-                return response()->json([$user]);
+                return response()->json($user);
             } else {
                 return response()->json(['message' => 'Item not found'], 404);
             }
@@ -100,7 +118,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -138,7 +156,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -166,8 +184,8 @@ class UserController extends Controller
                 'lastName' => 'required',
                 'gender' => 'required',
                 // 'email' => 'required|email:rfc,dns',
-                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique', // nem tudom miert de igy mukodik
-                'phone' => 'required|numeric',
+                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
+                'phone' => 'required|numeric|unique:users',
                 'roles' => 'required',
                 'passwordHash' => 'required',
             ],
