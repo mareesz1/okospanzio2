@@ -92,9 +92,38 @@ class RestaurantOrdersController extends Controller
     }
 
     /**
+     * Change active restaurant order state
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     * @return \illuminate\Http\Response
+     */
+    public function saveState(Request $request, $id) {
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        try {
+            if (RestaurantOrders::where('id', '=', $id) -> exists()) {
+                $order = RestaurantOrders::find($id);
+                $order->status = $request->input('status');
+                $order->save();
+                // $out->writeln('asd');
+                return response()->json(['success' => true], 200);
+            }
+            return response()->json([
+                'success' => false,
+                'message' => 'Order not found',
+                ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Database error!',
+            ], 400);
+        }
+    }
+
+    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RestaurantOrders  $restaurantOrders
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)

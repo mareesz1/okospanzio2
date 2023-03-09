@@ -12,9 +12,9 @@
                         <p class="card-text mb-3">{{ order.name }}</p>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'cooking')">Cooking</button>
-                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'waiting')">Waiting</button>
-                        <button class="btn btn-primary my-2 w-100" @click="setOrderStatus(order.orderId, 'out')">Out</button>
+                        <button class="btn my-2 w-100" :class="(order.status === 'cooking') ? 'btn-success' : 'btn-primary'" @click="setOrderStatus(order.orderId, 'cooking')">Cooking</button>
+                        <button class="btn my-2 w-100" :class="(order.status === 'waiting') ? 'btn-warning' : 'btn-primary'" @click="setOrderStatus(order.orderId, 'waiting')">Waiting</button>
+                        <button class="btn my-2 w-100" :class="(order.status === 'out') ? 'btn-info' : 'btn-primary'" @click="setOrderStatus(order.orderId, 'out')">Out</button>
                     </div>
                 </div>
             </div>
