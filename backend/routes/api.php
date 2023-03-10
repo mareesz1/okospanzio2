@@ -38,6 +38,7 @@ Route::get('/orders/all', function () {
 Route::get('/orders/all/{id}', function (string $id) {
     return RestaurantOrdersController::showJoined($id);
 });
+Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState']);
 
 Route::apiResource('orders',RestaurantOrdersController::class);
 

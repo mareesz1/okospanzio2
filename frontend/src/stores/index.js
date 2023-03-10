@@ -186,6 +186,10 @@ export const useUsersStore = defineStore('usersStore', {
 export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
+        errors: {
+            orderState: null,
+        },
+        windowLocation: null,
     }),
     getters: {},
     actions: {
@@ -199,8 +203,20 @@ export const useRestaurantStore = defineStore('restaurantStore', {
             })
         },
         setOrderStatus(orderId, status) {
-            // console.log(orderId + ' ' + status);
+            this.errors.orderState = null;
+            console.log(orderId + ' ' + status);
+            Axios.post(`/orders/state/${orderId}`, {status: status})
+            .then((resp) => {
+                // console.log(resp);
+                if (resp.data.message) {
+                    return this.errors.orderState = resp.data.message;
+                }
+                this.getAllOrders();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
             
-        },
+        },      
     }
 })
