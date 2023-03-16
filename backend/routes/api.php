@@ -42,3 +42,15 @@ Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState
 
 Route::apiResource('orders',RestaurantOrdersController::class);
 
+// Route::post('/tokens/create', function (Request $request) {
+//     $token = $request->user()->createToken($request->token_name);
+
+//     return ['token' => $token->plainTextToken];
+// });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// TESZT
+Route::post('/auth/login', [LoginController::class, 'loginUser']);

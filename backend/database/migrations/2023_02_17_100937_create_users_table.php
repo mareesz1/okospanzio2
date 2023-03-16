@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('passwordHash')->nullable();
             $table->string('roles');
             $table->string('nfc')->nullable();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }

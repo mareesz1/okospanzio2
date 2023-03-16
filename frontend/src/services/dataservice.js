@@ -1,7 +1,8 @@
 import Axios from 'axios';
 
-const instance = Axios.create({
-    baseURL: 'http://localhost:8000/api',
+const api = Axios.create({
+    baseURL: 'http://localhost:8000/api/',
+    withCredentials: true,
     headers: {
         'Content-type': 'application/json',
         
@@ -9,4 +10,12 @@ const instance = Axios.create({
 
 });
 
-export default instance;
+const cookie = Axios.create({
+    baseURL: 'http://localhost:8000/',
+    headers: {
+        'Content-type': 'application/json',
+
+    },
+});
+
+export {api, cookie};

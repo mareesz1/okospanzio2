@@ -1,7 +1,8 @@
 import {defineStore} from "pinia";
-import Axios from '../services/dataservice';
+import {api, cookie} from '../services/dataservice';
 import {sha512} from 'js-sha512';
 import router from '../router';
+import axios from "axios";
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -31,7 +32,7 @@ export const useUsersStore = defineStore('usersStore', {
         },
         isLoggedIn: {
             email: null,
-            auth: null,
+            auth: false,
             loginTime: null,
             roles: null,
             message: null,
@@ -117,40 +118,44 @@ export const useUsersStore = defineStore('usersStore', {
         },
         authenticate() {
             this.user.passwordHash = sha512(this.user.password);
-            Axios.post('/login', {
+            cookie.get('/sanctum/csrf-cookie')
+            .then(
+                console.log("valami visszajott")
+            )
+            api.post('/login', {
                 email: this.user.email,
-                passwordHash: this.user.passwordHash,
+                password: this.user.passwordHash,
             })
             .then((resp) => {
-                const loginData = JSON.parse(localStorage.getItem("login"));
+                console.log(resp);
+            }).catch((err) => console.log(err))
+                // const loginData = JSON.parse(localStorage.getItem("login"));
                 // console.log(resp);
-                if (resp.data.message == "Email not found") {
-                    // Email not found
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.message = resp.data.message;
-                    // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
-                else if (resp.data.auth || loginData.auth) {
-                    // belép
-                    this.isLoggedIn.email = resp.data.email;
-                    this.isLoggedIn.auth = true;
-                    this.isLoggedIn.loginTime = resp.data.loginTime;
-                    this.isLoggedIn.roles = resp.data.roles;
-                    this.isLoggedIn.message = null;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                    // console.log(JSON.parse(localStorage.getItem("login")));
-                } else {
-                    // nem lép be
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.message = null;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
-            })
-            .catch()
+            //     if (resp.data.message == "Email not found") {
+            //         // Email not found
+            //         this.isLoggedIn.auth = false;
+            //         this.isLoggedIn.email = this.user.email;
+            //         this.isLoggedIn.loginTime = null;
+            //         this.isLoggedIn.message = resp.data.message;
+            //         // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+            //     }
+            //     else if (resp.data.auth || loginData.auth) {
+            //         // belép
+            //         this.isLoggedIn.email = resp.data.email;
+            //         this.isLoggedIn.auth = true;
+            //         this.isLoggedIn.loginTime = resp.data.loginTime;
+            //         this.isLoggedIn.roles = resp.data.roles;
+            //         this.isLoggedIn.message = null;
+            //         localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+            //         // console.log(JSON.parse(localStorage.getItem("login")));
+            //     } else {
+            //         // nem lép be
+            //         this.isLoggedIn.auth = false;
+            //         this.isLoggedIn.email = this.user.email;
+            //         this.isLoggedIn.loginTime = null;
+            //         this.isLoggedIn.message = null;
+            //         localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+            //     }
         },
         logout() {
             this.isLoggedIn.email = null;

@@ -77,7 +77,8 @@ class UserController extends Controller
                 return response()->json([
                     'message' => 'New higher clearance level user saved',
                     'id' => $user->id,
-                    'data' => $user
+                    'data' => $user,
+                    'token' => $user->createToken("API TOKEN")->plainTextToken
                 ], 201);
             }
             return response()->json(['message' => 'Code doesnt match'], 404);
@@ -176,25 +177,5 @@ class UserController extends Controller
         }
     }
 
-    public function fieldvalidation(Request $request){
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'firstName' => 'required|max:100',
-                'lastName' => 'required|max:100',
-                'gender' => 'required|max:50',
-                // 'email' => 'required|email:rfc,dns',
-                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
-                'phone' => 'required|numeric|unique:users',
-                'roles' => 'required|max:25',
-                'passwordHash' => 'required',
-            ],
 
-        );
-
-        if ($validator->fails()){
-            return $validator->messages();
-        }
-        return '';
-    }
 }

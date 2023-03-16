@@ -21,6 +21,9 @@
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
           <router-link to="/restaurant">Restaurant</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/rooms">Rooms</router-link>
+        </li>
       </ul>
 
     </div>
@@ -51,5 +54,8 @@ if (loginData.auth) {
         color: black;
         font-size: 2em;
         margin-left: 1em;
+    }
+    a:hover{
+      background-color: red;
     }
 </style>
