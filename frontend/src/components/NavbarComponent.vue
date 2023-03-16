@@ -49,13 +49,81 @@ if (loginData.auth) {
 </script>
 
 <style lang="css" scoped>
-    a {
+    /* a {
         text-decoration: none;
         color: black;
         font-size: 2em;
         margin-left: 1em;
-    }
-    a:hover{
-      background-color: red;
-    }
+    } */
+    @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+
+body {
+  background: #212121;
+  padding: 50px 0;
+}
+
+.nav-item {
+  font-family: 'Titillium Web';
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+}
+
+.nav-item * {
+  box-sizing: border-box;
+  transition: all .35s ease;
+}
+
+.nav-item li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: .5em 1em;
+  padding: 0;
+}
+
+.nav-item a {
+  padding: .5em .8em;
+  color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav-item a::before,
+.nav-item a::after {
+  content: '';
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  transition: all .35s ease;
+  opacity: 0;
+}
+
+.nav-item a::before {
+  content: '';
+  right: 0;
+  top: 0;
+  border-top: 3px solid #00c3ff;
+  border-right: 3px solid #00c3ff;
+  transform: translate(-100%, 50%);
+}
+
+.nav-itemv a:after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  border-bottom: 3px solid #00c3ff;
+  border-left: 3px solid #00c3ff;
+  transform: translate(100%, -50%)
+}
+
+.nav-item a:hover:before,
+.nav-item a:hover:after{
+  transform: translate(0,0);
+  opacity: 1;
+}
+
+.nav-item a:hover {
+  color: #00c3ff;
+}
 </style>
