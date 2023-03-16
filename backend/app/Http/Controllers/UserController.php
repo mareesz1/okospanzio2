@@ -177,5 +177,25 @@ class UserController extends Controller
         }
     }
 
+    public function fieldvalidation(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'firstName' => 'required|max:100',
+                'lastName' => 'required|max:100',
+                'gender' => 'required|max:50',
+                // 'email' => 'required|email:rfc,dns',
+                'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
+                'phone' => 'required|numeric|unique:users',
+                'roles' => 'required|max:25',
+                'passwordHash' => 'required',
+            ],
 
+        );
+
+        if ($validator->fails()){
+            return $validator->messages();
+        }
+        return '';
+    }
 }
