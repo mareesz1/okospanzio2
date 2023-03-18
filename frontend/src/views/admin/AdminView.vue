@@ -1,7 +1,7 @@
 <template>
     <div>
+        <div class="sticky-top"><navbar/></div>
         <p class="display-1 text-center mb-3" id="fooldalTitle">Admin</p>
-        <navbar/>
         <!-- <button class="btn btn-primary mx-3 my-3" @click="showUsersF">Show users</button> -->
         <!-- <router-link :to="{name: 'usersTable'}">Show users</router-link> -->
         <!-- <button class="btn btn-primary mx-3 my-3" @click="showRoomsF">Show rooms</button> -->

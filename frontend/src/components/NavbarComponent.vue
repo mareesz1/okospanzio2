@@ -10,6 +10,9 @@
           <router-link to="/">Home page</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/rooms">Rooms</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/login">Login page</router-link>
         </li>
         <li class="nav-item">
