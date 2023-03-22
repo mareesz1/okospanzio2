@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AdminCodes;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 
 class LoginController extends Controller
@@ -19,53 +21,153 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
+    public static function getSessionId(Request $request) {
+        try {
+            $value = $request->session()->get('key');
+            return response()->json([
+                'success' => true,
+                'lofasz' => $value
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'catch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+    //     $ldate = date('Y-m-d H:i:s');
+    //     // $out->writeln($ldate);
+    //     // $out->writeln($request);
+    //     try {
+    //         // if (!User::where('email', '=', $request->email) -> exists()) {
+    //         //     return response()->json([
+    //         //         'message' => 'Email not found 01'
+    //         //     ], 200);
+    //         // }
+    //         if (User::where('email', '=', $request->email) -> exists()) {
+    //             $userInfo = User::where('email', '=', $request->email)->get()[0];
+    //             if ($userInfo->passwordHash == $request->passwordHash) {
+    //                 // $out->writeln('userInfo: ' + $userInfo);
+    //                 // $out->writeln($userInfo->roles);
+    //                 return response()->json([
+    //                     'email' => $userInfo->email,
+    //                     // 'passwordHash' => $userInfo->passwordHash,
+    //                     'auth' => true,
+    //                     'loginTime' => $ldate,
+    //                     'roles' => $userInfo->roles,
+    //             ]);
+    //             }
+    //         } else {
+    //             return response()->json([
+    //                 'message' => 'Email not found',
+    //                 // 'data' => null
+    //             ], 200);
+    //         }
+    //     } catch (Exception $e) {
+    //         $out->writeln($e);
+    //         return response()->json(
+    //             [
+    //                'message'=> $e
+    //            ],400
+    //         );
+    //     }
+    // }
+
+
+
     /**
-     * Store a newly created resource in storage.
+     * Authenticate user
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public static function authenticate(Request $request) {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $ldate = date('Y-m-d H:i:s');
-        // $out->writeln($ldate);
+        // $out->writeln('asd');
         // $out->writeln($request);
         try {
-            // if (!User::where('email', '=', $request->email) -> exists()) {
-            //     return response()->json([
-            //         'message' => 'Email not found 01'
-            //     ], 200);
-            // }
-            if (User::where('email', '=', $request->email) -> exists()) {
-                $userInfo = User::where('email', '=', $request->email)->get()[0];
-                if ($userInfo->passwordHash == $request->passwordHash) {
-                    // $out->writeln('userInfo: ' + $userInfo);
-                    // $out->writeln($userInfo->roles);
-                    return response()->json([
-                        'email' => $userInfo->email,
-                        // 'passwordHash' => $userInfo->passwordHash,
-                        'auth' => true,
-                        'loginTime' => $ldate,
-                        'roles' => $userInfo->roles,
-                ]);
-                }
-            } else {
+            $validateUser = Validator::make($request->all(),
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+                'roles' => 'required',
+                'code' => 'required'
+            ]);
+
+            if($validateUser->fails()){
                 return response()->json([
-                    'message' => 'Email not found',
-                    // 'data' => null
-                ], 200);
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validateUser->errors()
+                ], 401);
             }
-        } catch (Exception $e) {
-            $out->writeln($e);
-            return response()->json(
-                [
-                   'message'=> $e
-               ],400
-            );
+
+            $credentials = [
+                'email' => $request->email,
+                'password' => $request->password
+            ];
+
+                try {
+                    // $out->writeln($request);
+                    // $out->writeln($credentials);
+
+                    // if (Auth::viaRemember()) {
+                    //     return response()->json(['message' => 'lofasz'], 200);
+                    // }
+
+                    // Auth::guard()->attempt($credentials, $request->remember);
+
+                    if (Auth::attempt($credentials, $request->remember)) {
+                        // $out->writeln('asd');
+                        $code = AdminCodes::where('code', '=', $request->code)->get()[0];
+                        $user = User::where('email', $request->email)->first();
+                        if ($request->roles == $code->roles) {
+                            if ($request->code == $code->code) {
+                                $roles = 'roles:'.$user->roles;
+                                // $request->session()->regenerate();
+                                return response()->json([
+                                    'success' => true,
+                                    'message' => 'User Logged In Successfully',
+                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken
+                                ], 200);
+                            }
+                        }
+                    }
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Authentication failed in auth:attempt'
+                    ], 401);
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Authentication failed'
+                    ], 401);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Authentication failed'
+                ], 401);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'catch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 

@@ -14,6 +14,27 @@
                 </div>
                 <input id="password" name="password" v-model="user.password" v-on:keyup.enter="authenticate()" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
             </div>
+            <div class="input-group mt-3 mb-4 w-50 center">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Role</span>
+                </div>
+                <select class="form-control text-center" v-model="user.roles">
+                    <option value="guest">Guest</option>
+                    <option value="employee">Employee</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="input-group mx-auto my-3 w-50 center" v-if="user.roles != 'guest'">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Code</span>
+                </div>
+                <input id="code" name="code" :class="{'is-invalid': errors.code != null}" v-model="user.code" v-on:keyup.enter="register(password)" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="****">
+            <div class="invalid-feedback" v-for="c in errors.code" id="titleFeedback">{{ c }}</div>
+        </div>
+        <div class="input-group part-left w-50">
+            <input type="checkbox" class="mx-3" v-model="user.remember">
+            <span class="">Remember me</span>
+        </div>
         </form>
         </div>
         <div class="row justify-content-center">
@@ -43,12 +64,17 @@
     import router from '../router';
     import {useUsersStore} from '../stores/index';
     
-    const {isLoggedIn, user} = storeToRefs(useUsersStore());
+    const {isLoggedIn, user, errors} = storeToRefs(useUsersStore());
     const {authenticate, logout} = useUsersStore();
 </script>
 
 <style lang="css" scoped>
     span {
         width: 100px !important;
+    }
+
+    .center {
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('phone', 20)->unique();
+            $table->string('password')->nullable();
             $table->string('passwordHash')->nullable();
             $table->string('roles');
             $table->string('nfc')->nullable();
