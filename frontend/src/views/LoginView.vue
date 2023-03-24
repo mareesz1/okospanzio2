@@ -7,7 +7,7 @@
             <login-form/>
         </div>
     </div>
-    <div><footer-component/></div>
+    <div class=""><footer-component/></div>
 </template>
 
 <script setup>

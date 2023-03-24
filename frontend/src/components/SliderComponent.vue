@@ -26,7 +26,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 .carousel-item img{
     aspect-ratio: 4/1;
