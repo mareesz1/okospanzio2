@@ -20,9 +20,6 @@
             <div class="col-12 col-md-3 text-center">
                 <button class="btn btn-primary" @click="authenticate()">Login</button>
             </div>
-            <div class="col-12 col-md-3 text-center">
-                <button class="btn btn-warning" @click="logout">Logout</button>
-            </div>
         </div>
         <!-- {{ email }}
         {{ password }} -->
