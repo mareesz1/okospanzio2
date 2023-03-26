@@ -35,6 +35,7 @@ export const useUsersStore = defineStore('usersStore', {
             loginTime: null,
             roles: null,
             message: null,
+            istrue: false,
         },
     }),
     getters: {},
@@ -129,6 +130,7 @@ export const useUsersStore = defineStore('usersStore', {
                     this.isLoggedIn.auth = false;
                     this.isLoggedIn.email = this.user.email;
                     this.isLoggedIn.loginTime = null;
+                    this.isLoggedIn.istrue=false;
                     this.isLoggedIn.message = resp.data.message;
                     // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
                 }
@@ -139,6 +141,7 @@ export const useUsersStore = defineStore('usersStore', {
                     this.isLoggedIn.loginTime = resp.data.loginTime;
                     this.isLoggedIn.roles = resp.data.roles;
                     this.isLoggedIn.message = null;
+                    this.isLoggedIn.istrue=true;
                     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
                     // console.log(JSON.parse(localStorage.getItem("login")));
                 } else {
@@ -147,6 +150,7 @@ export const useUsersStore = defineStore('usersStore', {
                     this.isLoggedIn.email = this.user.email;
                     this.isLoggedIn.loginTime = null;
                     this.isLoggedIn.message = null;
+                    this.isLoggedIn.istrue=false;
                     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
                 }
             })
@@ -158,10 +162,10 @@ export const useUsersStore = defineStore('usersStore', {
             this.isLoggedIn.loginTime = null;
             this.isLoggedIn.roles = null;
             this.isLoggedIn.message = null;
+            this.isLoggedIn.istrue=false;
             localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            router.go();
-
-        },
+            router.push({path: '/', replace: true})
+        },  
         deleteUser(id) {
             return Axios.delete(`/user/${id}`, id)
             .then((resp) => {
@@ -186,6 +190,7 @@ export const useUsersStore = defineStore('usersStore', {
 export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
+        tables:[],
         errors: {
             orderState: null,
         },
@@ -217,6 +222,15 @@ export const useRestaurantStore = defineStore('restaurantStore', {
                 console.log(err);
             })
             
+        },
+        getAllTables() {
+            Axios.get('/tables')
+            .then((resp) => {
+                this.tables = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         },      
     }
 })

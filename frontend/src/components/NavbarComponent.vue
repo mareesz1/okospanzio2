@@ -13,11 +13,11 @@
           <li class="nav-item">
             <router-link to="/rooms">Rooms</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/login" v-if="isLoggedIn == false">Login page</router-link>
+          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+            <router-link to="/login">Login page</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/register" v-if="isLoggedIn == false">New User</router-link>
+          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+            <router-link to="/register">New User</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
             <router-link to="/admin">Admin Page</router-link>
@@ -28,9 +28,9 @@
         </ul>
 
       </div>
-      <div class="mx-auto" v-if="isLoggedIn.roles">
-        Logged in as: {{ isLoggedIn.roles }}
-        <button class="btn btn-warning ms-5" @click="logout">Logout</button>
+      <div class="mx-auto" v-if="isLoggedIn.istrue == true">
+            Logged in as: {{ isLoggedIn.roles }}
+         <button class="btn btn-warning ms-5" @click="logout">Logout</button>
       </div>
     </div>
   </nav>
@@ -42,11 +42,13 @@ import { useUsersStore } from '../stores/index';
 import UsersTableComponent from './UsersTableComponent.vue';
 
 let { isLoggedIn } = storeToRefs(useUsersStore());
+const { logout } = useUsersStore();
 const loginData = JSON.parse(localStorage.getItem("login"));
 if (loginData.auth) {
   console.log("already authenticated");
   isLoggedIn = loginData;
 }
+
 </script>
 
 <style lang="css" scoped>
@@ -126,5 +128,10 @@ body {
 
 .nav-item a:hover {
   color: #00c3ff;
+}
+
+ul li {
+    display:inline;
+    list-style-type:none;
 }
 </style>
