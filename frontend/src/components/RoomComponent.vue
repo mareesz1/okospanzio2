@@ -1,16 +1,16 @@
 <template>
   <div class="col" v-for="r in rooms">
     <div class="card mb-3">
-      <div class="card-body text-center mw-25 mh-25">
+      <div class="card-body text-center">
       <label >
         <input type="checkbox" />
-        <div class="flip-card mw-25 mh-25">
+        <div class="flip-card ">
           <h5 class="card-title front-h5">{{r.type}}</h5>
-          <div class="front rounded mw-25 mh-25">
+          <div class="front rounded ">
             <img v-bind:src="r.IMG"
-              class="card-img-top rounded mw-25 mh-25" alt="..." />
+              class="card-img-top rounded " alt="..." />
           </div>
-          <div class="back border border-dark rounded mw-25 mh-25">
+          <div class="back border border-dark rounded">
             <h5 class="card-title">{{r.type}} {{ r.number }}</h5>
             <div class="text-success border-2">
               <hr>
@@ -61,8 +61,8 @@ label {
 
 .flip-card {
  
-  min-width: 30rem;
-  min-height: 15rem;
+  min-width: 30vw;
+  min-height: 15vw;
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   z-index: 1;
@@ -73,8 +73,8 @@ label {
 .flip-card .back {
  
   position: absolute;
-  width: 30rem;
-  height: 15rem;
+  width: 30vw;
+  height: 15vw;
   text-align: center;
   background: #fff;
   backface-visibility: hidden;
@@ -103,8 +103,8 @@ label:hover :checked+.flip-card {
 }
 
 .front img {
-  width: 30rem;
-  height: 15rem;
+  width: 30vw;
+  height: 15vw;
   
 }
 
