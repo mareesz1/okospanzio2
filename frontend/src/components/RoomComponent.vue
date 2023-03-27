@@ -1,5 +1,5 @@
 <template>
-  <div class="container col-12 col-md-4 w-75" my-3 v-for="r in rooms">
+  <div class="container col-12 col-md-4 w-75 my-3"  v-for="r in rooms">
     <div class="card mb-3">
       <img src="https://www.businesshotelfenyves.hu/media/k2/items/cache/245effadf41c6129f4fe7accc564ef86_XL.jpg" class="card-img-top " alt="..." />
       <div class="card-body">
