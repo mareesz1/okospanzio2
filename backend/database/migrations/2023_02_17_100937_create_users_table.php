@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone', 20)->unique();
             $table->string('password')->nullable();
-            $table->string('passwordHash')->nullable();
+            // $table->smallInteger('code')->nullable();
             $table->string('roles');
             $table->string('nfc')->nullable();
             $table->string('remember_token', 100)->nullable();

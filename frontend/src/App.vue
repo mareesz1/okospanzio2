@@ -1,5 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useUsersStore } from './stores';
+
+const {authenticate} = useUsersStore();
+// authenticate();
 </script>
 
 <template>

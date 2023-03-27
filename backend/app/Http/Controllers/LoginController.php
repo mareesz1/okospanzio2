@@ -98,7 +98,7 @@ class LoginController extends Controller
     public static function authenticate(Request $request) {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // $out->writeln('asd');
-        // $out->writeln($request);
+        $out->writeln($request);
         try {
             $validateUser = Validator::make($request->all(),
             [
@@ -108,12 +108,25 @@ class LoginController extends Controller
                 'code' => 'required'
             ]);
 
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
+            // if (Auth::viaRemember()) {
+            //     $request->session()->regenerate();
+            //             $data = $request->session()->all();
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'message' => 'User Logged In Successfully',
+            //                 'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken,
+            //                 'sessionData' => $data, // TESZT
+            //             ], 200);
+            // }
+
+            if (!$request->remember) {
+                if($validateUser->fails()){
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'validation error',
+                        'errors' => $validateUser->errors()
+                    ], 401);
+                }
             }
 
             $credentials = [
@@ -125,9 +138,10 @@ class LoginController extends Controller
                     // $out->writeln($request);
                     // $out->writeln($credentials);
 
-                    // if (Auth::viaRemember()) {
-                    //     return response()->json(['message' => 'lofasz'], 200);
-                    // }
+                    if (Auth::viaRemember()) {
+                        $out->writeln('viaremember');
+                        return response()->json(['message' => 'lofasz'], 200);
+                    }
 
                     // Auth::guard()->attempt($credentials, $request->remember);
 
@@ -138,11 +152,13 @@ class LoginController extends Controller
                         if ($request->roles == $code->roles) {
                             if ($request->code == $code->code) {
                                 $roles = 'roles:'.$user->roles;
-                                // $request->session()->regenerate();
+                                $request->session()->regenerate();
+                                $data = $request->session()->all();
                                 return response()->json([
                                     'success' => true,
                                     'message' => 'User Logged In Successfully',
-                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken
+                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken,
+                                    'sessionData' => $data, // TESZT
                                 ], 200);
                             }
                         }

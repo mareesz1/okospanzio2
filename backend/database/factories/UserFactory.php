@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'gender' => $this->faker->randomElement(['male', 'female', 'deer', 'helicopter']),
             'email' => $this->faker->unique->email,
             'phone' => $this->faker->unique->phoneNumber,
-            'passwordHash' => null,
             'roles' => $this->faker->randomElement(['guest', 'staff', 'admin']),
         ];
     }

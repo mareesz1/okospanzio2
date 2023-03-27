@@ -113,7 +113,7 @@ export const useUsersStore = defineStore('usersStore', {
             // this.user.passwordHash = sha512(this.user.password);
             // this.user.password = this.user.passwordHash;
             cookie.get('/sanctum/csrf-cookie').then((resp) => { // get csrf then
-                console.log(resp);
+                // console.log(resp);
                 this.user.remember = ((this.user.remember) ? true : false);
                 // console.log(this.user);
                 api.post('/login', this.user, {
@@ -122,6 +122,7 @@ export const useUsersStore = defineStore('usersStore', {
                 })
                 .then((resp) => { // post credentials then
                     // this.user.password = '';
+                    // console.log(resp.data);
                     if (resp.data.success) {
                         this.isLoggedIn = {
                             email: this.user.email,
@@ -131,7 +132,7 @@ export const useUsersStore = defineStore('usersStore', {
                             message: null,
                         };
                         $cookies.set('token', resp.data.token, '7d');
-                        console.log($cookies.get('token'));
+                        // console.log($cookies.get('token'));
                         console.log(resp.data.message);
                     }
                     // this.user.password = '';
