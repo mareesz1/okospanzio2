@@ -1,64 +1,66 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/">Home page</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/rooms">Rooms</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login">Login page</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/register">New User</router-link>
-        </li>
-        <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
-          <router-link to="/admin">Admin Page</router-link>
-        </li>
-        <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
-          <router-link to="/restaurant">Restaurant</router-link>
-        </li>
-      </ul>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link to="/">Home page</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/rooms">Rooms</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+            <router-link to="/login">Login page</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+            <router-link to="/register">New User</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
+            <router-link to="/admin">Admin Page</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
+            <router-link to="/restaurant">Restaurant</router-link>
+          </li>
+        </ul>
 
+      </div>
+      <div class="mx-auto" v-if="isLoggedIn.istrue == true">
+            Logged in as: {{ isLoggedIn.roles }}
+         <button class="btn btn-warning ms-5" @click="logout">Logout</button>
+      </div>
     </div>
-    <div class="mx-auto" v-if="isLoggedIn.roles">
-      Logged in as: {{ isLoggedIn.roles }}
-    </div>
-  </div>
-</nav>
-
+  </nav>
 </template>
 
 <script setup>
-import {storeToRefs} from 'pinia';
-import {useUsersStore} from '../stores/index';
+import { storeToRefs } from 'pinia';
+import { useUsersStore } from '../stores/index';
 import UsersTableComponent from './UsersTableComponent.vue';
 
-let {isLoggedIn} = storeToRefs(useUsersStore());
-// const loginData = JSON.parse(localStorage.getItem("login"));
+let { isLoggedIn } = storeToRefs(useUsersStore());
+const { logout } = useUsersStore();
+const loginData = JSON.parse(localStorage.getItem("login"));
+if (loginData) {
+  if (loginData.auth) {
+    console.log("already authenticated");
+    isLoggedIn = loginData;
+  }
+}
 
-  // if (loginData) {
-  //   if (loginData.auth) {
-  //     console.log("already authenticated");
-  //     isLoggedIn = loginData;
-  //   }
-  // }
 </script>
 
 <style lang="css" scoped>
-    /* a {
+/* a {
         text-decoration: none;
         color: black;
         font-size: 2em;
         margin-left: 1em;
     } */
-    @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
 
 body {
   background: #212121;
@@ -121,12 +123,17 @@ body {
 }
 
 .nav-item a:hover:before,
-.nav-item a:hover:after{
-  transform: translate(0,0);
+.nav-item a:hover:after {
+  transform: translate(0, 0);
   opacity: 1;
 }
 
 .nav-item a:hover {
   color: #00c3ff;
+}
+
+ul li {
+    display:inline;
+    list-style-type:none;
 }
 </style>

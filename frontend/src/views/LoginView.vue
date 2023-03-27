@@ -7,7 +7,7 @@
             <login-form/>
         </div>
     </div>
-    <div><footer-component/></div>
+    <div class="fixed-bottom"><footer-component/></div>
 </template>
 
 <script setup>
@@ -16,6 +16,6 @@
     import FooterComponent from '../components/FooterComponent.vue';
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 </style>

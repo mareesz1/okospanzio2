@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Tables;
 use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\Table\Table;
 
 class TablesController extends Controller
 {
@@ -14,15 +17,32 @@ class TablesController extends Controller
      */
     public function index()
     {
+        // echo 'ok';
+        try{
+            $table = Tables::all();
+            return response()->json($table,200);
+        } catch (Exception $e){
+            return response()->json(
+                [
+                   'message'=>'Database error!'
+                ],400
+            );
+       }
+    }
+    public static function indexAll() {
         try {
-            $tables = Tables::all();
-            return response()->json($tables);
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $orders = DB::table('tables')
+            ->select('tables.id as id', 'tables.isOccupied as isOccupied')
+           // ->orderBy('restaurant_orders.id', 'asc')
+            ->get();
+            // $out->writeln($orders);
+            return response()->json($orders, 200);
         } catch (Exception $e) {
             return response()->json(
                 [
-                   'message'=>'Database error!',
-                  //  'user' => $user,
-               ],400
+                   'message'=>'Database error!'
+                ],400
             );
         }
     }

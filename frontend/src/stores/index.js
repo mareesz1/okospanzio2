@@ -1,8 +1,6 @@
 import {defineStore} from "pinia";
 import {api, cookie} from '../services/dataservice';
-import {sha512} from 'js-sha512';
 import router from '../router';
-import axios from "axios";
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -38,6 +36,7 @@ export const useUsersStore = defineStore('usersStore', {
             loginTime: null,
             roles: null,
             message: null,
+            istrue: false,
         },
     }),
     getters: {},
@@ -142,33 +141,33 @@ export const useUsersStore = defineStore('usersStore', {
             }).catch((err) => { // get csrf then
                 console.log(err);
             })
-                // const loginData = JSON.parse(localStorage.getItem("login"));
-                // console.log(resp);
-            //     if (resp.data.message == "Email not found") {
-            //         // Email not found
-            //         this.isLoggedIn.auth = false;
-            //         this.isLoggedIn.email = this.user.email;
-            //         this.isLoggedIn.loginTime = null;
-            //         this.isLoggedIn.message = resp.data.message;
-            //         // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            //     }
-            //     else if (resp.data.auth || loginData.auth) {
-            //         // belép
-            //         this.isLoggedIn.email = resp.data.email;
-            //         this.isLoggedIn.auth = true;
-            //         this.isLoggedIn.loginTime = resp.data.loginTime;
-            //         this.isLoggedIn.roles = resp.data.roles;
-            //         this.isLoggedIn.message = null;
-            //         localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            //         // console.log(JSON.parse(localStorage.getItem("login")));
-            //     } else {
-            //         // nem lép be
-            //         this.isLoggedIn.auth = false;
-            //         this.isLoggedIn.email = this.user.email;
-            //         this.isLoggedIn.loginTime = null;
-            //         this.isLoggedIn.message = null;
-            //         localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            //     }
+                const loginData = JSON.parse(localStorage.getItem("login"));
+                console.log(resp);
+                if (resp.data.message == "Email not found") {
+                    // Email not found
+                    this.isLoggedIn.auth = false;
+                    this.isLoggedIn.email = this.user.email;
+                    this.isLoggedIn.loginTime = null;
+                    this.isLoggedIn.message = resp.data.message;
+                    // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                }
+                else if (resp.data.auth || loginData.auth) {
+                    // belép
+                    this.isLoggedIn.email = resp.data.email;
+                    this.isLoggedIn.auth = true;
+                    this.isLoggedIn.loginTime = resp.data.loginTime;
+                    this.isLoggedIn.roles = resp.data.roles;
+                    this.isLoggedIn.message = null;
+                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                    // console.log(JSON.parse(localStorage.getItem("login")));
+                } else {
+                    // nem lép be
+                    this.isLoggedIn.auth = false;
+                    this.isLoggedIn.email = this.user.email;
+                    this.isLoggedIn.loginTime = null;
+                    this.isLoggedIn.message = null;
+                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                }
         },
         logout() {
             this.isLoggedIn.email = null;
@@ -176,10 +175,10 @@ export const useUsersStore = defineStore('usersStore', {
             this.isLoggedIn.loginTime = null;
             this.isLoggedIn.roles = null;
             this.isLoggedIn.message = null;
+            this.isLoggedIn.istrue=false;
             localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            router.go();
-
-        },
+            router.push({path: '/', replace: true})
+        },  
         deleteUser(id) {
             return api.delete(`/user/${id}`, id)
             .then((resp) => {
@@ -204,6 +203,7 @@ export const useUsersStore = defineStore('usersStore', {
 export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
+        tables:[],
         errors: {
             orderState: null,
         },
@@ -235,6 +235,15 @@ export const useRestaurantStore = defineStore('restaurantStore', {
                 console.log(err);
             })
             
+        },
+        getAllTables() {
+            Axios.get('/tables')
+            .then((resp) => {
+                this.tables = resp.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         },      
     }
 })

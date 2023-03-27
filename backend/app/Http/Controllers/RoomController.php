@@ -19,7 +19,7 @@ class RoomController extends Controller
         try {
             $rooms = Rooms::all();
             return response()->json($rooms, 200);
-        } catch (Exceotion $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                    'message'=>'Database error!'
@@ -50,6 +50,7 @@ class RoomController extends Controller
             $room->price = $request->input('price');
             $room->description = $request->input('description');
             $room->qrcode = $request->input('qrcode');
+            $room->IMG = $request->input('IMG');
             $room->save();
         } catch (Exception $e){
              return response()->json(
