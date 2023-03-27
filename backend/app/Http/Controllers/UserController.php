@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AdminCodes;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 $out = new \Symfony\Component\Console\Output\ConsoleOutput();
 
@@ -18,6 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // echo 'ok';
         try{
             $user = User::all();
@@ -56,6 +58,7 @@ class UserController extends Controller
             $user->phone = $request->input('phone');
             $user->passwordHash = $request->input('passwordHash');
             $user->roles = $request->input('roles');
+            $user->password = Hash::make($request->input('password'), ['rounds' => 10]);
             if ($request->input('code') == null && $request->input('roles') == 'guest') {
                 $out->writeln($user);
                 $user->save();  // insert into

@@ -24,9 +24,6 @@
         <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
           <router-link to="/restaurant">Restaurant</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/rooms">Rooms</router-link>
-        </li>
       </ul>
 
     </div>
@@ -44,11 +41,14 @@ import {useUsersStore} from '../stores/index';
 import UsersTableComponent from './UsersTableComponent.vue';
 
 let {isLoggedIn} = storeToRefs(useUsersStore());
-const loginData = JSON.parse(localStorage.getItem("login"));
-if (loginData.auth) {
-  console.log("already authenticated");
-  isLoggedIn = loginData;
-}
+// const loginData = JSON.parse(localStorage.getItem("login"));
+
+  // if (loginData) {
+  //   if (loginData.auth) {
+  //     console.log("already authenticated");
+  //     isLoggedIn = loginData;
+  //   }
+  // }
 </script>
 
 <style lang="css" scoped>

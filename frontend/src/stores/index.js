@@ -8,6 +8,7 @@ export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
         rooms: [],
+        csrf: null,
         user: {
             firstName: null,
             lastName: null,
@@ -19,6 +20,7 @@ export const useUsersStore = defineStore('usersStore', {
             roles: 'guest',
             code: null,
             registrationSuccessful: false,
+            remember: false,
         },
         errors: {
             firstName: null,
@@ -32,7 +34,7 @@ export const useUsersStore = defineStore('usersStore', {
         },
         isLoggedIn: {
             email: null,
-            auth: false,
+            auth: null,
             loginTime: null,
             roles: null,
             message: null,
@@ -50,7 +52,7 @@ export const useUsersStore = defineStore('usersStore', {
                 passwordHash: null,
                 status: null,
             };
-            Axios.get('/user')
+            api.get('/user')
             .then((resp) => {
                 this.users = resp.data;
             })
@@ -59,7 +61,7 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         getAllRooms() {
-            Axios.get('/room')
+            api.get('/room')
             .then((resp) => {
                 this.rooms = resp.data;
             })
@@ -72,16 +74,7 @@ export const useUsersStore = defineStore('usersStore', {
                 this.user.code = null;
             }
             this.user.passwordHash = pwHash;
-            // this.errors = {
-            //     firstName: null,
-            //     lastName: null,
-            //     gender: null,
-            //     email: null,
-            //     phone: null,
-            //     passwordHash: null,
-            //     status: null,
-            // };
-            return Axios.post('/user', this.user)
+            return api.post('/user', this.user)
               .then((response) => {
                 if (response.status == 201) {
                     this.user.registrationSuccessful = true;
@@ -117,18 +110,38 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate() {
-            this.user.passwordHash = sha512(this.user.password);
-            cookie.get('/sanctum/csrf-cookie')
-            .then(
-                console.log("valami visszajott")
-            )
-            api.post('/login', {
-                email: this.user.email,
-                password: this.user.passwordHash,
-            })
-            .then((resp) => {
+            // this.user.passwordHash = sha512(this.user.password);
+            // this.user.password = this.user.passwordHash;
+            cookie.get('/sanctum/csrf-cookie').then((resp) => { // get csrf then
                 console.log(resp);
-            }).catch((err) => console.log(err))
+                this.user.remember = ((this.user.remember) ? true : false);
+                // console.log(this.user);
+                api.post('/login', this.user, {
+                    'Content-type': 'application/json',
+                    'Authorization': $cookies.get('token')
+                })
+                .then((resp) => { // post credentials then
+                    // this.user.password = '';
+                    if (resp.data.success) {
+                        this.isLoggedIn = {
+                            email: this.user.email,
+                            auth: true,
+                            loginTime: Date.now(),
+                            roles: this.user.roles,
+                            message: null,
+                        };
+                        $cookies.set('token', resp.data.token, '7d');
+                        console.log($cookies.get('token'));
+                        console.log(resp.data.message);
+                    }
+                    // this.user.password = '';
+                }).catch((err) => { // post credentials catch
+                    console.log(err);
+                    // this.user.password = '';
+                })
+            }).catch((err) => { // get csrf then
+                console.log(err);
+            })
                 // const loginData = JSON.parse(localStorage.getItem("login"));
                 // console.log(resp);
             //     if (resp.data.message == "Email not found") {
@@ -168,7 +181,7 @@ export const useUsersStore = defineStore('usersStore', {
 
         },
         deleteUser(id) {
-            return Axios.delete(`/user/${id}`, id)
+            return api.delete(`/user/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })
@@ -177,7 +190,7 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         deleteRoom(id) {
-            return Axios.delete(`/room/${id}`, id)
+            return api.delete(`/room/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })
@@ -199,7 +212,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     getters: {},
     actions: {
         getAllOrders() {
-            Axios.get('/orders/all')
+            api.get('/orders/all')
             .then((resp) => {
                 this.orders = resp.data;
             })
@@ -210,7 +223,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
         setOrderStatus(orderId, status) {
             this.errors.orderState = null;
             console.log(orderId + ' ' + status);
-            Axios.post(`/orders/state/${orderId}`, {status: status})
+            api.post(`/orders/state/${orderId}`, {status: status})
             .then((resp) => {
                 // console.log(resp);
                 if (resp.data.message) {

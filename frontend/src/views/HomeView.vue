@@ -18,10 +18,6 @@
     import FooterComponent from '../components/FooterComponent.vue';
     import SliderComponent from '../components/SliderComponent.vue';
     import HomePageComponent from '../components/HomePageComponent.vue'
-    import {useUsersStore} from '../stores/index';
-
-    const {getAllUsers} = useUsersStore();
-    getAllUsers();
 </script>
 
 <style lang="css" scoped>

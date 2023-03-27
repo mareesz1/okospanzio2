@@ -27,7 +27,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('task',TaskController::class);
 Route::apiResource('user',UserController::class);
-Route::apiResource('login',LoginController::class);
+
+Route::post('login', function (Request $request) {
+    return LoginController::authenticate($request);
+});
+
+Route::get('login', function (Request $request) {
+    return LoginController::getSessionId($request);
+});
+
 Route::apiResource('room',RoomController::class);
 Route::apiResource('menu',MenuController::class);
 Route::apiResource('tables',TablesController::class);
@@ -48,9 +56,9 @@ Route::apiResource('orders',RestaurantOrdersController::class);
 //     return ['token' => $token->plainTextToken];
 // });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // TESZT
-Route::post('/auth/login', [LoginController::class, 'loginUser']);
+// Route::post('/auth/login', [LoginController::class, 'loginUser']);
