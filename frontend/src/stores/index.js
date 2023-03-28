@@ -1,7 +1,8 @@
 import {defineStore} from "pinia";
-import Axios from '../services/dataservice';
+import {api, cookie} from '../services/dataservice'; // ket axios instance
 import {sha512} from 'js-sha512';
 import router from '../router';
+import axios from "axios";
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -50,7 +51,7 @@ export const useUsersStore = defineStore('usersStore', {
                 passwordHash: null,
                 status: null,
             };
-            Axios.get('/user')
+            api.get('/user')
             .then((resp) => {
                 this.users = resp.data;
             })
@@ -59,7 +60,7 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         getAllRooms() {
-            Axios.get('/room')
+            api.get('/room')
             .then((resp) => {
                 this.rooms = resp.data;
             })
@@ -72,16 +73,7 @@ export const useUsersStore = defineStore('usersStore', {
                 this.user.code = null;
             }
             this.user.passwordHash = pwHash;
-            // this.errors = {
-            //     firstName: null,
-            //     lastName: null,
-            //     gender: null,
-            //     email: null,
-            //     phone: null,
-            //     passwordHash: null,
-            //     status: null,
-            // };
-            return Axios.post('/user', this.user)
+            return api.post('/user', this.user)
               .then((response) => {
                 if (response.status == 201) {
                     this.user.registrationSuccessful = true;
@@ -117,44 +109,75 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate() {
-            this.user.passwordHash = sha512(this.user.password);
-            Axios.post('/login', {
-                email: this.user.email,
-                passwordHash: this.user.passwordHash,
-            })
-            .then((resp) => {
-                const loginData = JSON.parse(localStorage.getItem("login"));
+            if (!$cookies.get('XSRF-TOKEN')) {
+                console.log('nincs xsrf cookie');
+                this.getCsrfCookie();
+            }
+                api.post('/login', this.user, {
+                    'Content-type': 'application/json',
+                    // 'Authorization': $cookies.get('token')
+                })
+                .then((resp) => {
+                    if (resp.data.success) {
+                        this.isLoggedIn = {
+                            email: this.user.email,
+                            auth: true,
+                            loginTime: Date.now(),
+                            roles: this.user.roles,
+                            message: null,
+                        };
+                        if (resp.data.token) {
+                            $cookies.set('token', resp.data.token, '7d');
+                            console.log($cookies.get('token'));
+                        }
+                        sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+                        console.log(resp.data.message);
+
+                    if (resp.status == 419) {
+                        $cookies.remove('XSRF-TOKEN');
+                    }
+
+
+                //         //OLD VERSION
+                // const loginData = JSON.parse(localStorage.getItem("login"));
                 // console.log(resp);
-                if (resp.data.message == "Email not found") {
-                    // Email not found
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.istrue=false;
-                    this.isLoggedIn.message = resp.data.message;
-                    // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
-                else if (resp.data.auth || loginData.auth) {
-                    // belép
-                    this.isLoggedIn.email = resp.data.email;
-                    this.isLoggedIn.auth = true;
-                    this.isLoggedIn.loginTime = resp.data.loginTime;
-                    this.isLoggedIn.roles = resp.data.roles;
-                    this.isLoggedIn.message = null;
-                    this.isLoggedIn.istrue=true;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                    // console.log(JSON.parse(localStorage.getItem("login")));
-                } else {
-                    // nem lép be
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.message = null;
-                    this.isLoggedIn.istrue=false;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
-            })
-            .catch()
+                // if (resp.data.message == "Email not found") {
+                //     // Email not found
+                //     this.isLoggedIn.auth = false;
+                //     this.isLoggedIn.email = this.user.email;
+                //     this.isLoggedIn.loginTime = null;
+                //     this.isLoggedIn.message = resp.data.message;
+                //     // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                // }
+                // else if (resp.data.auth || loginData.auth) {
+                //     // belép
+                //     this.isLoggedIn.email = resp.data.email;
+                //     this.isLoggedIn.auth = true;
+                //     this.isLoggedIn.loginTime = resp.data.loginTime;
+                //     this.isLoggedIn.roles = resp.data.roles;
+                //     this.isLoggedIn.message = null;
+                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                //     // console.log(JSON.parse(localStorage.getItem("login")));
+                // } else {
+                //     // nem lép be
+                //     this.isLoggedIn.auth = false;
+                //     this.isLoggedIn.email = this.user.email;
+                //     this.isLoggedIn.loginTime = null;
+                //     this.isLoggedIn.message = null;
+                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                // }
+                //          // END OF OLD VERSION
+
+
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                })
+
+                
+        },
+        getCsrfCookie() {
+            cookie.get('/sanctum/csrf-cookie').then().catch((err) => {console.log(err);});
         },
         logout() {
             this.isLoggedIn.email = null;
@@ -167,7 +190,7 @@ export const useUsersStore = defineStore('usersStore', {
             router.push({path: '/', replace: true})
         },  
         deleteUser(id) {
-            return Axios.delete(`/user/${id}`, id)
+            return api.delete(`/user/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })
@@ -176,13 +199,36 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         deleteRoom(id) {
-            return Axios.delete(`/room/${id}`, id)
+            return api.delete(`/room/${id}`, id)
             .then((resp) => {
                 return console.log(resp);
             })
             .catch((err) => {
                 return console.log(err);
             })
+        },
+        isAuthenticated() {
+            try {
+                const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+                if (isLoggedIn.auth == true) {
+                    api.get('/login/get').then((resp) => {
+                        // console.log(resp.data.user);
+                        let user = resp.data.user;
+                        if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
+                            // console.log('siker');
+                            this.isLoggedIn = isLoggedIn;
+                        }
+                    }).catch((err) => {console.log(err);})
+                }
+            } catch (err) {
+                this.isLoggedIn.message = 'unauthenticated';
+                this.isLoggedIn.auth = false;
+            }
+        },
+        testSanctum() {
+            api.get('/login/get').then((resp) => {
+                return resp.data;
+            }).catch((err) => {console.log(err);})
         },
     }
 });
@@ -199,7 +245,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     getters: {},
     actions: {
         getAllOrders() {
-            Axios.get('/orders/all')
+            api.get('/orders/all')
             .then((resp) => {
                 this.orders = resp.data;
             })
@@ -210,7 +256,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
         setOrderStatus(orderId, status) {
             this.errors.orderState = null;
             console.log(orderId + ' ' + status);
-            Axios.post(`/orders/state/${orderId}`, {status: status})
+            api.post(`/orders/state/${orderId}`, {status: status})
             .then((resp) => {
                 // console.log(resp);
                 if (resp.data.message) {

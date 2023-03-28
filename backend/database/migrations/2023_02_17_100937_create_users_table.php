@@ -20,9 +20,11 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('phone', 20)->unique();
-            $table->string('passwordHash')->nullable();
+            $table->string('password')->nullable();
+            // $table->smallInteger('code')->nullable();
             $table->string('roles');
             $table->string('nfc')->nullable();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }

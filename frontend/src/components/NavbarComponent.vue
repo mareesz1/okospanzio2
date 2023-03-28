@@ -13,10 +13,10 @@
           <li class="nav-item">
             <router-link to="/rooms">Rooms</router-link>
           </li>
-          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+          <li class="nav-item" v-if="!isLoggedIn.auth">
             <router-link to="/login">Login page</router-link>
           </li>
-          <li class="nav-item" v-if="isLoggedIn.istrue == false">
+          <li class="nav-item">
             <router-link to="/register">New User</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
@@ -28,7 +28,7 @@
         </ul>
 
       </div>
-      <div class="mx-auto" v-if="isLoggedIn.istrue == true">
+      <div class="mx-auto" v-if="isLoggedIn.auth == true">
             Logged in as: {{ isLoggedIn.roles }}
          <button class="btn btn-warning ms-5" @click="logout">Logout</button>
       </div>
@@ -39,16 +39,9 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores/index';
-import UsersTableComponent from './UsersTableComponent.vue';
 
-let { isLoggedIn } = storeToRefs(useUsersStore());
-const { logout } = useUsersStore();
-const loginData = JSON.parse(localStorage.getItem("login"));
-if (loginData.auth) {
-  console.log("already authenticated");
-  isLoggedIn = loginData;
-}
-
+let {isLoggedIn} = storeToRefs(useUsersStore());
+const {logout} = useUsersStore();
 </script>
 
 <style lang="css" scoped>

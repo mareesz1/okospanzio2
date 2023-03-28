@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AdminCodes;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 $out = new \Symfony\Component\Console\Output\ConsoleOutput();
 
@@ -18,6 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // echo 'ok';
         try{
             $user = User::all();
@@ -54,8 +56,9 @@ class UserController extends Controller
             $user->gender = $request->input('gender');
             $user->email = $request->input('email');
             $user->phone = $request->input('phone');
-            $user->passwordHash = $request->input('passwordHash');
             $user->roles = $request->input('roles');
+            $user->code = $request->input('code');
+            $user->password = Hash::make($request->input('password'), ['rounds' => 10]);
             if ($request->input('code') == null && $request->input('roles') == 'guest') {
                 $out->writeln($user);
                 $user->save();  // insert into
@@ -68,18 +71,19 @@ class UserController extends Controller
                 );
             }
             // $out->writeln($request->input('code'));
-            if ($request->input('code') != null) {
+            if ($user->code) {
                 $existingCode = AdminCodes::where('roles', '=', $request->input('roles'))->select('code')->get()[0];
+                if ($request->input('code') == $existingCode->code) {
+                    $user->save();
+                    return response()->json([
+                        'message' => 'New higher clearance level user saved',
+                        'id' => $user->id,
+                        'data' => $user,
+                        'token' => $user->createToken("API TOKEN")->plainTextToken
+                    ], 201);
+                }
             }
             // $out->writeln($existingCode->code);
-            if ($request->input('code') == $existingCode->code) {
-                $user->save();
-                return response()->json([
-                    'message' => 'New higher clearance level user saved',
-                    'id' => $user->id,
-                    'data' => $user
-                ], 201);
-            }
             return response()->json(['message' => 'Code doesnt match'], 404);
         } catch (Exception $e){
              return response()->json(
@@ -187,7 +191,7 @@ class UserController extends Controller
                 'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:users', // nem tudom miert de igy mukodik
                 'phone' => 'required|numeric|unique:users',
                 'roles' => 'required|max:25',
-                'passwordHash' => 'required',
+                'code' => 'max:6',
             ],
 
         );
