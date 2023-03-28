@@ -21,10 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::apiResource('task',TaskController::class);
 Route::apiResource('user',UserController::class)->middleware('auth:sanctum');
 
@@ -34,8 +30,15 @@ Route::post('login', function (Request $request) {
 Route::get('login', function (Request $request) {
     return LoginController::getSessionId($request);
 });
+Route::get('/login/get', function (Request $request) {
+    return LoginController::getAuthenticatedUser($request);
+})->middleware('auth:sanctum');
+Route::delete('/login', function (Request $request) {
+    return LoginController::logout($request);
+});
 
 Route::apiResource('room',RoomController::class);
+Route::get('room', [RoomController::class, 'index']);
 Route::apiResource('menu',MenuController::class);
 Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum');
 
@@ -44,7 +47,6 @@ Route::get('/orders/all', function () {
 
 })->middleware('auth:sanctum');
 
-});
 Route::get('/tables/all', function () {
     return TablesController:: indexAll();
 });
@@ -56,13 +58,6 @@ Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState
 
 Route::apiResource('orders',RestaurantOrdersController::class);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
 
-Route::get('/login/get', function (Request $request) {
-    return LoginController::getAuthenticatedUser($request);
-})->middleware('auth:sanctum');

@@ -6,6 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+use \App\Models\User;
+use \App\Models\AdminCodes;
+
 class FixDataSeeder extends Seeder
 {
     /**
@@ -15,7 +18,7 @@ class FixDataSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'email' => 'mareszadmin@maresz.com',
             'password' => Hash::make('Maresz'),
             'roles' => 'admin',
@@ -26,12 +29,12 @@ class FixDataSeeder extends Seeder
             'phone' => 123,
         ]);
 
-        \App\Models\AdminCodes::factory()->create([
+        AdminCodes::factory()->create([
             'roles' => 'admin',
             'code' => 9999,
         ]);
 
-        \App\Models\AdminCodes::factory()->create([
+        AdminCodes::factory()->create([
             'roles' => 'staff',
             'code' => 1234,
         ]);

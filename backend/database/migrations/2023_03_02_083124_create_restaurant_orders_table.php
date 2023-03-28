@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('foodId')->references('id')->on('menus');
             $table->smallInteger('quantity');
             $table->integer('actualPrice');
-            $table->string('status');
+            $table->string('status', 50);
             $table->tinyInteger('tableId');
             $table->integer('userId')->nullable();
             $table->timestamps();

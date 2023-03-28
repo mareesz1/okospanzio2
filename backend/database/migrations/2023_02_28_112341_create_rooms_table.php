@@ -22,6 +22,7 @@ return new class extends Migration
             // $table->bigInteger('extraPrice')->nullable();
             $table->string('description', 1000);
             $table->string('qrcode')->nullable();
+            $table->string('IMG', 500)->nullable();
             // $table->string('nfc');
             $table->timestamps();
         });

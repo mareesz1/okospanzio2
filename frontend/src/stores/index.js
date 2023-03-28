@@ -180,14 +180,18 @@ export const useUsersStore = defineStore('usersStore', {
             cookie.get('/sanctum/csrf-cookie').then().catch((err) => {console.log(err);});
         },
         logout() {
-            this.isLoggedIn.email = null;
-            this.isLoggedIn.auth = null;
-            this.isLoggedIn.loginTime = null;
-            this.isLoggedIn.roles = null;
-            this.isLoggedIn.message = null;
-            this.isLoggedIn.istrue=false;
-            localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-            router.push({path: '/', replace: true})
+            api.delete('/login').then((resp) => {
+                this.isLoggedIn = {
+                    email: null,
+                    auth: null,
+                    loginTime: null,
+                    roles: null,
+                    message: 'logged out',
+                };
+                sessionStorage.setItem("isLoggedIn", JSON.stringify(this.isLoggedIn));
+                router.push({path: '/', replace: true});
+                $cookies.remove('XSRF-TOKEN');
+            }).catch((err) => {console.log(err)})
         },  
         deleteUser(id) {
             return api.delete(`/user/${id}`, id)
@@ -224,11 +228,6 @@ export const useUsersStore = defineStore('usersStore', {
                 this.isLoggedIn.message = 'unauthenticated';
                 this.isLoggedIn.auth = false;
             }
-        },
-        testSanctum() {
-            api.get('/login/get').then((resp) => {
-                return resp.data;
-            }).catch((err) => {console.log(err);})
         },
     }
 });
@@ -270,7 +269,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
             
         },
         getAllTables() {
-            Axios.get('/tables')
+            api.get('/tables')
             .then((resp) => {
                 this.tables = resp.data;
             })

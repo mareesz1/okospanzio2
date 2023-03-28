@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('admin_codes', function (Blueprint $table) {
             $table->id();
             $table->string('roles', 20);
-            $table->bigInteger('code');
+            $table->smallInteger('code');
             $table->timestamps();
         });
     }
