@@ -1,9 +1,9 @@
 <template>
     <!-- {{ orders }} -->
     <!-- <div v-for="order in orders"> -->
-        <div class="card my-3 mx-3" style="width: 22rem;">
+        <div class="row card my-3 mx-3" style="width: 22rem;">
             <h5 class="card-header">Order #{{ order.orderId }}</h5>
-            <div class="card-body">
+            <div class="card-body container">
                 <div class="row g-0">
                     <div class="col-md-8">
                         <p class="card-text my-1">Quantity: <strong class="">{{ order.quantity }}</strong></p>

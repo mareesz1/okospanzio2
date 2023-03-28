@@ -41,7 +41,14 @@ Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum')
 
 Route::get('/orders/all', function () {
     return RestaurantOrdersController::indexALl();
+
 })->middleware('auth:sanctum');
+
+});
+Route::get('/tables/all', function () {
+    return TablesController:: indexAll();
+});
+
 Route::get('/orders/all/{id}', function (string $id) {
     return RestaurantOrdersController::showJoined($id);
 })->middleware('auth:sanctum');

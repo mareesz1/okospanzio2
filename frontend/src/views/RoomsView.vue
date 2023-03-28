@@ -4,7 +4,9 @@
         <p class="display-1 text-center mb-3">Rooms</p>
     </div>
     <div class="container my-3">
-        <room-component/>
+        <div class="row">
+            <room-component/>
+        </div>
     </div>
     <div><footer-component/></div>
 </template>

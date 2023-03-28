@@ -42,24 +42,16 @@ import { useUsersStore } from '../stores/index';
 
 let {isLoggedIn} = storeToRefs(useUsersStore());
 const {logout} = useUsersStore();
-// const loginData = JSON.parse(localStorage.getItem("login"));
-
-  // if (loginData) {
-  //   if (loginData.auth) {
-  //     console.log("already authenticated");
-  //     isLoggedIn = loginData;
-  //   }
-  // }
 </script>
 
 <style lang="css" scoped>
-    /* a {
+/* a {
         text-decoration: none;
         color: black;
         font-size: 2em;
         margin-left: 1em;
     } */
-    @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
 
 body {
   background: #212121;
@@ -122,12 +114,17 @@ body {
 }
 
 .nav-item a:hover:before,
-.nav-item a:hover:after{
-  transform: translate(0,0);
+.nav-item a:hover:after {
+  transform: translate(0, 0);
   opacity: 1;
 }
 
 .nav-item a:hover {
   color: #00c3ff;
+}
+
+ul li {
+    display:inline;
+    list-style-type:none;
 }
 </style>
