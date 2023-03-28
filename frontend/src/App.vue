@@ -2,8 +2,8 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useUsersStore } from './stores';
 
-const {authenticate} = useUsersStore();
-// authenticate();
+const {isAuthenticated} = useUsersStore();
+isAuthenticated();
 </script>
 
 <template>

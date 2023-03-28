@@ -26,35 +26,28 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResource('task',TaskController::class);
-Route::apiResource('user',UserController::class);
+Route::apiResource('user',UserController::class)->middleware('auth:sanctum');
 
 Route::post('login', function (Request $request) {
     return LoginController::authenticate($request);
 });
-
 Route::get('login', function (Request $request) {
     return LoginController::getSessionId($request);
 });
 
 Route::apiResource('room',RoomController::class);
 Route::apiResource('menu',MenuController::class);
-Route::apiResource('tables',TablesController::class);
+Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum');
 
 Route::get('/orders/all', function () {
     return RestaurantOrdersController::indexALl();
-});
+})->middleware('auth:sanctum');
 Route::get('/orders/all/{id}', function (string $id) {
     return RestaurantOrdersController::showJoined($id);
-});
-Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState']);
+})->middleware('auth:sanctum');
+Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState'])->middleware('auth:sanctum');
 
 Route::apiResource('orders',RestaurantOrdersController::class);
-
-// Route::post('/tokens/create', function (Request $request) {
-//     $token = $request->user()->createToken($request->token_name);
-
-//     return ['token' => $token->plainTextToken];
-// });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -62,3 +55,7 @@ Route::apiResource('orders',RestaurantOrdersController::class);
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
+
+Route::get('/login/get', function (Request $request) {
+    return LoginController::getAuthenticatedUser($request);
+})->middleware('auth:sanctum');

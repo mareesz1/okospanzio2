@@ -28,12 +28,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Code</span>
                 </div>
-                <input id="code" name="code" :class="{'is-invalid': errors.code != null}" v-model="user.code" v-on:keyup.enter="register(password)" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="****">
+                <input id="code" name="code" :class="{'is-invalid': errors.code != null}" v-model="user.code" v-on:keyup.enter="authenticate()" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="****">
             <div class="invalid-feedback" v-for="c in errors.code" id="titleFeedback">{{ c }}</div>
-        </div>
-        <div class="input-group part-left w-50">
-            <input type="checkbox" class="mx-3" v-model="user.remember">
-            <span class="">Remember me</span>
         </div>
         </form>
         </div>
@@ -41,9 +37,9 @@
             <div class="col-12 col-md-3 text-center">
                 <button class="btn btn-primary" @click="authenticate()">Login</button>
             </div>
-            <div class="col-12 col-md-3 text-center">
+            <!-- <div class="col-12 col-md-3 text-center">
                 <button class="btn btn-warning" @click="logout">Logout</button>
-            </div>
+            </div> -->
         </div>
         <!-- {{ email }}
         {{ password }} -->
@@ -61,7 +57,6 @@
 
 <script setup>
     import {storeToRefs} from 'pinia';
-    import router from '../router';
     import {useUsersStore} from '../stores/index';
     
     const {isLoggedIn, user, errors} = storeToRefs(useUsersStore());

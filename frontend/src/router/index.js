@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { storeToRefs } from 'pinia';
 import {useUsersStore} from '../stores/index';
-import {piniaStore} from '../main';
+import { createRouter, createWebHistory } from 'vue-router'
+
 import HomeView from '../views/HomeView.vue'
 import RoomView from '../views/RoomsView.vue'
 import LoginView from '../views/LoginView.vue';
@@ -52,11 +53,17 @@ const router = createRouter({
       component: AdminView,
       meta: {title: 'Admin'},
       beforeEnter: (to, from) => {
-        const loginData = JSON.parse(localStorage.getItem("login"));
-        if (loginData.roles !== "admin" || !loginData.auth) {
-          return false;
+        // const loginData = JSON.parse(localStorage.getItem("login"));
+        // if (loginData.roles !== "admin" || !loginData.auth) {
+        //   return false;
+        // } else {
+        //   // 
+        // }
+        const {isLoggedIn} = storeToRefs(useUsersStore());
+        if (isLoggedIn.value.auth && isLoggedIn.value.roles == 'admin') {
+          return true;
         } else {
-          // 
+          return {name: 'home'};
         }
       },
       children: [
@@ -75,11 +82,17 @@ const router = createRouter({
       component: RestaurantView,
       meta: {title: 'Restaurant'},
       beforeEnter: (to, from) => {
-        const loginData = JSON.parse(localStorage.getItem("login"));
-        if ((loginData.roles == "admin" || loginData.roles == "restaurant") && loginData.auth) {
+        const {isLoggedIn} = storeToRefs(useUsersStore());
+        // const loginData = JSON.parse(localStorage.getItem("login"));
+        // if ((loginData.roles == "admin" || loginData.roles == "restaurant") && loginData.auth) {
+        //   return true;
+        // } else {
+        //   return false;
+        // }
+        if (isLoggedIn.value.auth && (isLoggedIn.value.roles == 'admin' || isLoggedIn.value.roles == 'restaurant')) {
           return true;
         } else {
-          return false;
+          return {name: 'home'};
         }
       },
       children: [
@@ -108,4 +121,18 @@ const router = createRouter({
     //   }
     // },
 ]});
+
+// router.beforeEach((to) => {
+//   console.log('asd');
+//   const useUsersStore = useUsersStore();
+//   console.log('isLoggedIn.roles:  ' + useUsersStore.isLoggedIn.roles);
+//   console.log('isLoggedIn.auth:  ' + useUsersStore.isLoggedIn.auth);
+//   if (isLoggedIn.auth && isLoggedIn.roles == 'admin') {
+//     console.log('router: true');
+//     return to;
+//   } else {
+//     return '/login';
+//   }
+// })
+
 export default router;
