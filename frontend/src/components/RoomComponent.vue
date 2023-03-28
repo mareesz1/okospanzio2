@@ -40,7 +40,6 @@
 import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores';
 
-
 const { rooms } = storeToRefs(useUsersStore());;
 const { getAllRooms, } = useUsersStore();
 getAllRooms();

@@ -109,18 +109,15 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate() {
-            // this.user.passwordHash = sha512(this.user.password);
-            // this.user.password = this.user.passwordHash;
-            cookie.get('/sanctum/csrf-cookie').then((resp) => { // get csrf then
-                console.log(resp);
-                this.user.remember = ((this.user.remember) ? true : false);
-                // console.log(this.user);
+            if (!$cookies.get('XSRF-TOKEN')) {
+                console.log('nincs xsrf cookie');
+                this.getCsrfCookie();
+            }
                 api.post('/login', this.user, {
                     'Content-type': 'application/json',
-                    'Authorization': $cookies.get('token')
+                    // 'Authorization': $cookies.get('token')
                 })
-                .then((resp) => { // post credentials then
-                    // this.user.password = '';
+                .then((resp) => {
                     if (resp.data.success) {
                         this.isLoggedIn = {
                             email: this.user.email,
@@ -129,45 +126,58 @@ export const useUsersStore = defineStore('usersStore', {
                             roles: this.user.roles,
                             message: null,
                         };
-                        $cookies.set('token', resp.data.token, '7d');
-                        console.log($cookies.get('token'));
+                        if (resp.data.token) {
+                            $cookies.set('token', resp.data.token, '7d');
+                            console.log($cookies.get('token'));
+                        }
+                        sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         console.log(resp.data.message);
+
+                    if (resp.status == 419) {
+                        $cookies.remove('XSRF-TOKEN');
                     }
-                    // this.user.password = '';
-                }).catch((err) => { // post credentials catch
+
+
+                //         //OLD VERSION
+                // const loginData = JSON.parse(localStorage.getItem("login"));
+                // console.log(resp);
+                // if (resp.data.message == "Email not found") {
+                //     // Email not found
+                //     this.isLoggedIn.auth = false;
+                //     this.isLoggedIn.email = this.user.email;
+                //     this.isLoggedIn.loginTime = null;
+                //     this.isLoggedIn.message = resp.data.message;
+                //     // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                // }
+                // else if (resp.data.auth || loginData.auth) {
+                //     // belép
+                //     this.isLoggedIn.email = resp.data.email;
+                //     this.isLoggedIn.auth = true;
+                //     this.isLoggedIn.loginTime = resp.data.loginTime;
+                //     this.isLoggedIn.roles = resp.data.roles;
+                //     this.isLoggedIn.message = null;
+                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                //     // console.log(JSON.parse(localStorage.getItem("login")));
+                // } else {
+                //     // nem lép be
+                //     this.isLoggedIn.auth = false;
+                //     this.isLoggedIn.email = this.user.email;
+                //     this.isLoggedIn.loginTime = null;
+                //     this.isLoggedIn.message = null;
+                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
+                // }
+                //          // END OF OLD VERSION
+
+
+                    }
+                }).catch((err) => {
                     console.log(err);
-                    // this.user.password = '';
                 })
-            }).catch((err) => { // get csrf then
-                console.log(err);
-            })
-                const loginData = JSON.parse(localStorage.getItem("login"));
-                console.log(resp);
-                if (resp.data.message == "Email not found") {
-                    // Email not found
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.message = resp.data.message;
-                    // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
-                else if (resp.data.auth || loginData.auth) {
-                    // belép
-                    this.isLoggedIn.email = resp.data.email;
-                    this.isLoggedIn.auth = true;
-                    this.isLoggedIn.loginTime = resp.data.loginTime;
-                    this.isLoggedIn.roles = resp.data.roles;
-                    this.isLoggedIn.message = null;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                    // console.log(JSON.parse(localStorage.getItem("login")));
-                } else {
-                    // nem lép be
-                    this.isLoggedIn.auth = false;
-                    this.isLoggedIn.email = this.user.email;
-                    this.isLoggedIn.loginTime = null;
-                    this.isLoggedIn.message = null;
-                    localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                }
+
+                
+        },
+        getCsrfCookie() {
+            cookie.get('/sanctum/csrf-cookie').then().catch((err) => {console.log(err);});
         },
         logout() {
             this.isLoggedIn.email = null;
@@ -196,6 +206,29 @@ export const useUsersStore = defineStore('usersStore', {
             .catch((err) => {
                 return console.log(err);
             })
+        },
+        isAuthenticated() {
+            try {
+                const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+                if (isLoggedIn.auth == true) {
+                    api.get('/login/get').then((resp) => {
+                        // console.log(resp.data.user);
+                        let user = resp.data.user;
+                        if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
+                            // console.log('siker');
+                            this.isLoggedIn = isLoggedIn;
+                        }
+                    }).catch((err) => {console.log(err);})
+                }
+            } catch (err) {
+                this.isLoggedIn.message = 'unauthenticated';
+                this.isLoggedIn.auth = false;
+            }
+        },
+        testSanctum() {
+            api.get('/login/get').then((resp) => {
+                return resp.data;
+            }).catch((err) => {console.log(err);})
         },
     }
 });

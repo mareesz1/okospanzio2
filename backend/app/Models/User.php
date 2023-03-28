@@ -23,7 +23,6 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'passwordHash',
         'remember_token'
     ];
 }

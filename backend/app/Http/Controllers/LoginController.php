@@ -122,27 +122,20 @@ class LoginController extends Controller
             ];
 
                 try {
-                    // $out->writeln($request);
-                    // $out->writeln($credentials);
-
-                    // if (Auth::viaRemember()) {
-                    //     return response()->json(['message' => 'lofasz'], 200);
-                    // }
-
-                    // Auth::guard()->attempt($credentials, $request->remember);
-
-                    if (Auth::attempt($credentials, $request->remember)) {
+                    if (Auth::attempt($credentials)) {
                         // $out->writeln('asd');
-                        $code = AdminCodes::where('code', '=', $request->code)->get()[0];
+                        $code = AdminCodes::where('code', '=', $request->code)->first();
                         $user = User::where('email', $request->email)->first();
                         if ($request->roles == $code->roles) {
                             if ($request->code == $code->code) {
                                 $roles = 'roles:'.$user->roles;
-                                // $request->session()->regenerate();
+                                $request->session()->regenerate();
+                                $data = $request->session()->all();
                                 return response()->json([
                                     'success' => true,
                                     'message' => 'User Logged In Successfully',
-                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken
+                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken,
+                                    'sessionData' => $data, // TESZT
                                 ], 200);
                             }
                         }
@@ -307,5 +300,19 @@ class LoginController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public static function getAuthenticatedUser(Request $request) {
+        try {
+            return response()->json([
+                'user' => $request->user()
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'cazch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }
