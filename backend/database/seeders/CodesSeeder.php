@@ -4,9 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
+<<<<<<< Updated upstream:backend/database/seeders/FixDataSeeder.php
 class FixDataSeeder extends Seeder
+=======
+use \App\Models\AdminCodes;
+
+class CodesSeeder extends Seeder
+>>>>>>> Stashed changes:backend/database/seeders/CodesSeeder.php
 {
     /**
      * Run the database seeds.
@@ -15,6 +20,7 @@ class FixDataSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< Updated upstream:backend/database/seeders/FixDataSeeder.php
         \App\Models\User::factory()->create([
             'email' => 'mareszadmin@maresz.com',
             'password' => Hash::make('Maresz'),
@@ -27,6 +33,9 @@ class FixDataSeeder extends Seeder
         ]);
 
         \App\Models\AdminCodes::factory()->create([
+=======
+        AdminCodes::factory()->create([
+>>>>>>> Stashed changes:backend/database/seeders/CodesSeeder.php
             'roles' => 'admin',
             'code' => 9999,
         ]);
@@ -34,6 +43,11 @@ class FixDataSeeder extends Seeder
         \App\Models\AdminCodes::factory()->create([
             'roles' => 'staff',
             'code' => 1234,
+        ]);
+
+        AdminCodes::factory()->create([
+            'roles' => 'restaurant',
+            'code' => 2222,
         ]);
     }
 }
