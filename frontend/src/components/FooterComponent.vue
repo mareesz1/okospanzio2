@@ -79,7 +79,7 @@
                 style="width: 60px; background-color: #7c4dff; height: 2px"
                 />
             <p>
-              <a href="#!" class="text-dark">Szobák</a>
+              <a href="/rooms" class="text-dark">Szobák</a>
             </p>
             <p>
               <a href="#!" class="text-dark">Szauna</a>
