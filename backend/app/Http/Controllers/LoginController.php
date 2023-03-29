@@ -121,9 +121,10 @@ class LoginController extends Controller
                 'password' => $request->password
             ];
 
-                try {
-                    if (Auth::attempt($credentials)) {
-                        // $out->writeln('asd');
+            // $out->writeln($credentials);
+            try {
+                if (Auth::attempt($credentials)) {
+                    // $out->writeln('asd');
                         $code = AdminCodes::where('code', '=', $request->code)->first();
                         $user = User::where('email', $request->email)->first();
                         if ($request->roles == $code->roles) {

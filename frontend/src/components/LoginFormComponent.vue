@@ -20,8 +20,9 @@
                 </div>
                 <select class="form-control text-center" v-model="user.roles">
                     <option value="guest">Guest</option>
-                    <option value="employee">Employee</option>
+                    <option value="staff">Staff</option>
                     <option value="admin">Admin</option>
+                    <option value="restaurant">Restaurant</option>
                 </select>
             </div>
             <div class="input-group mx-auto my-3 w-50 center" v-if="user.roles != 'guest'">
