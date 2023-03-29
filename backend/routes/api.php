@@ -37,8 +37,8 @@ Route::delete('/login', function (Request $request) {
     return LoginController::logout($request);
 });
 
-Route::apiResource('room',RoomController::class);
 Route::get('room', [RoomController::class, 'index']);
+Route::apiResource('room',RoomController::class);
 Route::apiResource('menu',MenuController::class);
 Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum');
 
@@ -49,14 +49,14 @@ Route::get('/orders/all', function () {
 
 Route::get('/tables/all', function () {
     return TablesController:: indexAll();
-});
+})->middleware('auth:sanctum');
 
 Route::get('/orders/all/{id}', function (string $id) {
     return RestaurantOrdersController::showJoined($id);
 })->middleware('auth:sanctum');
 Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState'])->middleware('auth:sanctum');
 
-Route::apiResource('orders',RestaurantOrdersController::class);
+Route::apiResource('orders',RestaurantOrdersController::class)->middleware('auth:sanctum');
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
