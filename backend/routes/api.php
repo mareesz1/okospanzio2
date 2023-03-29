@@ -44,7 +44,6 @@ Route::get('/orders/all', function () {
 
 })->middleware('auth:sanctum');
 
-});
 Route::get('/tables/all', function () {
     return TablesController:: indexAll();
 });
