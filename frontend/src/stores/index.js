@@ -70,7 +70,7 @@ export const useUsersStore = defineStore('usersStore', {
         },
         postNewRegistration(pwHash) {
             if (this.user.roles == 'guest') {
-                this.user.code = null;
+                this.user.code = 0;
             }
             this.user.passwordHash = pwHash;
             return api.post('/user', this.user)
@@ -113,9 +113,11 @@ export const useUsersStore = defineStore('usersStore', {
                 console.log('nincs xsrf cookie');
                 this.getCsrfCookie();
             }
+            if (this.user.roles == 'guest') {
+                this.user.code = 0;
+            }
                 api.post('/login', this.user, {
                     'Content-type': 'application/json',
-                    // 'Authorization': $cookies.get('token')
                 })
                 .then((resp) => {
                     if (resp.data.success) {
@@ -136,40 +138,7 @@ export const useUsersStore = defineStore('usersStore', {
                     if (resp.status == 419) {
                         $cookies.remove('XSRF-TOKEN');
                     }
-
-
-                //         //OLD VERSION
-                // const loginData = JSON.parse(localStorage.getItem("login"));
-                // console.log(resp);
-                // if (resp.data.message == "Email not found") {
-                //     // Email not found
-                //     this.isLoggedIn.auth = false;
-                //     this.isLoggedIn.email = this.user.email;
-                //     this.isLoggedIn.loginTime = null;
-                //     this.isLoggedIn.message = resp.data.message;
-                //     // localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                // }
-                // else if (resp.data.auth || loginData.auth) {
-                //     // belép
-                //     this.isLoggedIn.email = resp.data.email;
-                //     this.isLoggedIn.auth = true;
-                //     this.isLoggedIn.loginTime = resp.data.loginTime;
-                //     this.isLoggedIn.roles = resp.data.roles;
-                //     this.isLoggedIn.message = null;
-                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                //     // console.log(JSON.parse(localStorage.getItem("login")));
-                // } else {
-                //     // nem lép be
-                //     this.isLoggedIn.auth = false;
-                //     this.isLoggedIn.email = this.user.email;
-                //     this.isLoggedIn.loginTime = null;
-                //     this.isLoggedIn.message = null;
-                //     localStorage.setItem("login", JSON.stringify(this.isLoggedIn));
-                // }
-                //          // END OF OLD VERSION
-
-
-                    }
+                }
                 }).catch((err) => {
                     console.log(err);
                 })
@@ -212,6 +181,9 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         isAuthenticated() {
+            if (!$cookies.get('XSRF-TOKEN')) {
+                this.getCsrfCookie();
+            }
             try {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
                 if (isLoggedIn.auth == true) {

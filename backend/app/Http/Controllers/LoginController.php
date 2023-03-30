@@ -123,23 +123,30 @@ class LoginController extends Controller
 
             // $out->writeln($credentials);
             try {
-                if (Auth::attempt($credentials)) {
-                    // $out->writeln('asd');
-                        $code = AdminCodes::where('code', '=', $request->code)->first();
+                if (Auth::attempt([
+                    'email' => $request->email,
+                    'password' => $request->password,
+                    'code' => $request->code
+                    ])) {
+                        // $code = AdminCodes::where('code', '=', $request->code)->first();
                         $user = User::where('email', $request->email)->first();
-                        if ($request->roles == $code->roles) {
-                            if ($request->code == $code->code) {
-                                $roles = 'roles:'.$user->roles;
+                        // if ($request->roles == $code->roles) {
+                            // if ($request->code == $code->code) {
+                                // $roles = 'roles:'.$user->roles;
+                                // $role = $request->roles;
+                                // $out->writeln($role);
                                 $request->session()->regenerate();
                                 $data = $request->session()->all();
+                                // $out->writeln($data);
+                                // $out->writeln('login done es megy a kurva auth:attempt');
                                 return response()->json([
                                     'success' => true,
                                     'message' => 'User Logged In Successfully',
-                                    'token' => $user->createToken("API TOKEN", [$roles])->plainTextToken,
-                                    'sessionData' => $data, // TESZT
+                                    'token' => $user->createToken("API TOKEN", [$request->roles])->plainTextToken,
+                                    // 'sessionData' => $data, // TESZT
                                 ], 200);
-                            }
-                        }
+                            // }
+                        // }
                     }
                     return response()->json([
                         'success' => false,
@@ -148,13 +155,13 @@ class LoginController extends Controller
                 } catch (Exception $e) {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Authentication failed'
+                        'message' => 'Authentication failed s'
                     ], 401);
                 }
 
                 return response()->json([
                     'success' => false,
-                    'message' => 'Authentication failed'
+                    'message' => 'Authentication failed d'
                 ], 401);
         } catch (\Throwable $th) {
             return response()->json([
