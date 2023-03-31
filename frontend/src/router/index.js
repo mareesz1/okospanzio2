@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import RoomView from '../views/RoomsView.vue'
+import ReservationView from '../views/ReservationView.vue';
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
 import AdminView from '../views/admin/AdminView.vue';
@@ -12,6 +13,7 @@ import ARoomsView from '../views/admin/AdminRoomsView.vue';
 import RestaurantView from '../views/restaurant/RestaurantView.vue';
 import RestaurantOrdersView from '../views/restaurant/RestaurantOrdersView.vue';
 import RestaurantTablesView from '../views/restaurant/RestaurantTablesView.vue';
+import RestaurantMenuView from '../views/restaurant/RestaurantMenuView.vue';
 
 // import {storeToRefs} from 'pinia';
 
@@ -33,6 +35,13 @@ const router = createRouter({
       name: 'room',
       component: RoomView,
       meta: {title: 'Rooms'},
+
+    },
+    {
+      path: '/reserve',
+      name: 'reservation',
+      component: ReservationView,
+      meta: {title: 'Reservation'},
 
     },
     {
@@ -75,6 +84,7 @@ const router = createRouter({
           path: 'rooms',
           component: ARoomsView,
         },
+        
       ]
     },
     {
@@ -103,6 +113,10 @@ const router = createRouter({
         {
           path: 'tables',
           component: RestaurantTablesView,
+        },
+        {
+          path: 'menu',
+          component: RestaurantMenuView,
         },
       ]
     },

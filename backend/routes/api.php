@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('task',TaskController::class);
-Route::apiResource('user',UserController::class)->middleware('auth:sanctum');
+Route::apiResource('user',UserController::class);
 
 Route::post('login', function (Request $request) {
     return LoginController::authenticate($request);
@@ -57,6 +57,7 @@ Route::get('/orders/all/{id}', function (string $id) {
 Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState'])->middleware('auth:sanctum');
 
 Route::apiResource('orders',RestaurantOrdersController::class)->middleware('auth:sanctum');
+Route::get('room', [RoomController::class, 'index']);
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);

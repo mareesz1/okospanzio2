@@ -8,29 +8,32 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link to="/">Home page</router-link>
+            <router-link to="/">Főoldal</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/rooms">Rooms</router-link>
+            <router-link to="/rooms">Szobák</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/reserve">Foglalás</router-link>
           </li>
           <li class="nav-item" v-if="!isLoggedIn.auth">
-            <router-link to="/login">Login page</router-link>
+            <router-link to="/login">Bejelentkezés</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/register">New User</router-link>
+            <router-link to="/register">Regisztráció</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
-            <router-link to="/admin">Admin Page</router-link>
+            <router-link to="/admin">Admin felület</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
-            <router-link to="/restaurant">Restaurant</router-link>
+            <router-link to="/restaurant">Étterem</router-link>
           </li>
         </ul>
 
       </div>
       <div class="mx-auto" v-if="isLoggedIn.auth == true">
-            Logged in as: {{ isLoggedIn.roles }}
-         <button class="btn btn-warning ms-5" @click="logout">Logout</button>
+            Bejelentkezve, mint: {{ isLoggedIn.roles }}
+         <button class="btn btn-warning ms-5" @click="logout">Kijelentkezés</button>
       </div>
     </div>
   </nav>

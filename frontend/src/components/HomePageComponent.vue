@@ -24,7 +24,7 @@
 
 <!-- jobb oldali kepes kartya -->
 <div class="container mt-5 w-100">
-    <div class="card mb-3 shadow-lg rounded">
+    <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-8 card-body">
             <h5 class="card-title">Étterem</h5>
@@ -57,7 +57,7 @@
 
   <!-- bal oldali kepes kartya -->
   <div class="container mt-5 w-100">
-    <div class="card mb-3 shadow-lg rounded">
+    <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-4">
           <img
@@ -89,7 +89,7 @@
   <!-- jobb oldali kepes kartya -->
 
   <div class="container mt-5 w-100">
-    <div class="card mb-3 shadow-lg rounded">
+    <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-8 card-body">
             <h5 class="card-title">Medence</h5>
@@ -120,7 +120,7 @@
 
   <!-- bal oldali kepes kartya -->
   <div class="container mt-5 w-100">
-    <div class="card mb-3 shadow-lg rounded">
+    <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-4">
           <img
@@ -154,4 +154,28 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.card:hover {
+  background-image: linear-gradient(-45deg, #effcff, #e2f1ff, #e2fff4);
+  background-size: 400% 400%;
+  animation: gradient 3s ease infinite;
+  height: fit-content;
+  margin-bottom: 1vw;
+  box-shadow: 7px 7px 10px rgba(33,33,33,.2);
+  transform: scale(1.03);
+  transition: 0.4s;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+</style>

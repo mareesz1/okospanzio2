@@ -124,7 +124,7 @@
                 style="width: 60px; background-color: #7c4dff; height: 2px"
                 />
             <p><i class="fas fa-home mr-3"></i> Győr, Szent István u. 7.</p>
-            <p><i class="fas fa-envelope mr-3"></i> okospanzio@gmail.com</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@okospanzio.com</p>
             <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
             
           </div>

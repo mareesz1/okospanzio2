@@ -236,6 +236,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
         tables:[],
+        menus:[],
         errors: {
             orderState: null,
         },
@@ -277,5 +278,15 @@ export const useRestaurantStore = defineStore('restaurantStore', {
                 console.log(err);
             })
         },      
+        getAllMenus(){
+            api.get('/menu')
+            .then((resp)=>{
+                this.menus = resp.data;
+                return resp.data ;
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
     }
+}
 })

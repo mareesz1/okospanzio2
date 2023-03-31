@@ -129,6 +129,11 @@ hr {
 .front-h5{
   visibility: hidden;
   position: absolute;
+  
+}
+.card-title{
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 

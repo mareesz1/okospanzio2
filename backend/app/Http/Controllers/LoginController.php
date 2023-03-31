@@ -105,7 +105,7 @@ class LoginController extends Controller
                 'email' => 'required|email',
                 'password' => 'required',
                 'roles' => 'required',
-                'code' => 'required'
+                // 'code' => 'required'
             ]);
 
             if($validateUser->fails()){
@@ -124,10 +124,10 @@ class LoginController extends Controller
             // $out->writeln($credentials);
             try {
                 if (Auth::attempt($credentials)) {
-                    // $out->writeln('asd');
-                        $code = AdminCodes::where('code', '=', $request->code)->first();
-                        $user = User::where('email', $request->email)->first();
-                        if ($request->roles == $code->roles) {
+                    $code = AdminCodes::where('code', '=', $request->code)->first();
+                    $user = User::where('email', $request->email)->first();
+                    if ($request->roles == $code->roles) {
+                            $out->writeln('asd');
                             if ($request->code == $code->code) {
                                 $roles = 'roles:'.$user->roles;
                                 $request->session()->regenerate();
