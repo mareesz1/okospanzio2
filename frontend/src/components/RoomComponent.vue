@@ -60,8 +60,10 @@ label {
 
 .flip-card {
  
-  min-width: 30vw;
-  min-height: 15vw;
+  width: 30vw;
+  min-width: 20rem;
+  height: 15vw;
+  min-height: 10rem;
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   z-index: 1;
@@ -73,7 +75,9 @@ label {
  
   position: absolute;
   width: 30vw;
+  min-width: 20rem;
   height: 15vw;
+  min-height: 10rem;
   text-align: center;
   background: #fff;
   backface-visibility: hidden;
@@ -103,7 +107,9 @@ label:hover :checked+.flip-card {
 
 .front img {
   width: 30vw;
+  min-width: 20rem;
   height: 15vw;
+  min-height: 10rem;
   
 }
 
