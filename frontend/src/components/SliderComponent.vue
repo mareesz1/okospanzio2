@@ -1,5 +1,5 @@
 <template>
-<div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="https://parkhoteltokyo.com/wp-content/uploads/sites/9/2020/06/westlounge_3_parkhoteltokyo_202110-1600x500.jpg" class="d-block w-100" alt="...">

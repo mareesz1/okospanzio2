@@ -4,6 +4,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import RoomView from '../views/RoomsView.vue'
+<<<<<<< Updated upstream
+=======
+import ReservationView from '../views/ReservationView.vue';
+import BillView from '../views/BillView.vue';
+>>>>>>> Stashed changes
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
 import AdminView from '../views/admin/AdminView.vue';
@@ -36,6 +41,23 @@ const router = createRouter({
 
     },
     {
+<<<<<<< Updated upstream
+=======
+      path: '/reserve',
+      name: 'reservation',
+      component: ReservationView,
+      meta: {title: 'Reservation'},
+
+    },
+    {
+      path: '/bills',
+      name: 'bills',
+      component: BillView,
+      meta: {title: 'Bills'},
+
+    },
+    {
+>>>>>>> Stashed changes
       path: '/login',
       name: 'login',
       component: LoginView,

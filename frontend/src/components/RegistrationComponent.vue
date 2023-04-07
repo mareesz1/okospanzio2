@@ -1,28 +1,28 @@
 <template>
 
-    <div class="col-12 col-md-8 justify-content-between">
+    <div class="col-12 col-md-8 justify-content-center">
         <div class="input-group mx-auto my-3 w-50">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Keresztnév</span>
             </div>
             <input id="firstname" :class="{'is-invalid': errors.firstName != null}" name="firstname" v-model="user.firstName" v-on:keyup.enter="register(password)" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Kovács">
             <div class="invalid-feedback" v-for="f in errors.firstName" id="titleFeedback">{{ f }}</div>
         </div>
         <div class="input-group mx-auto my-3 w-50">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Vezetéknév</span>
             </div>
             <input id="lastname" name="lastname" :class="{'is-invalid': errors.lastName != null}" v-model="user.lastName" v-on:keyup.enter="register(password)" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="János">
             <div class="invalid-feedback" v-for="l in errors.lastName" id="titleFeedback">{{ l }}</div>
         </div>
         <div class="input-group mx-auto my-3 w-50">
-            <span class="input-group-text" id="inputGroup-sizing-default">Gender</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Nem</span>
                 <select class="w-25 text-center form-control" name="genderselect" id="genderselect" v-model="user.gender" v-on:keyup.enter="register(password)">
                 <!-- <select name="genderselect" id="genderselect" v-model="gender"> -->
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="deer">Deer</option>
-                    <option value="helicopter">Helicopter</option>
+                    <option value="male">Férfi</option>
+                    <option value="female">Nő</option>
+                    <option value="deer">Szarvas</option>
+                    <option value="helicopter">Helikopter</option>
                 </select>
                 <div class="invalid-feedback" v-for="g in errors.gender" id="titleFeedback">{{ g }}</div>
         </div>
@@ -35,30 +35,30 @@
         </div>
         <div class="input-group mx-auto my-3 w-50">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Phone Number</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Telefonszám</span>
             </div>
             <input id="phone" name="phone" :class="{'is-invalid': errors.phone != null}" v-model="user.phone" v-on:keyup.enter="register(password)" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="+36 20 407 7736">
             <div class="invalid-feedback" v-for="p in errors.phone" id="titleFeedback">{{ p }}</div>
         </div>
         <div class="input-group mx-auto my-3 w-50">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Jelszó</span>
             </div>
             <input id="password" name="password" :class="{'is-invalid': errors.passwordHash != null}" v-model="password" v-on:keyup.enter="register(password)" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
             <div class="invalid-feedback" v-for="pw in errors.passwordHash" id="titleFeedback">{{ pw }}</div>
         </div>
         <div class="input-group mx-auto my-3 w-50">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Jelszó mégegyszer</span>
             </div>
             <input id="passwordConfirmed" name="passwordConfirmed" v-model="passwordConfirmed" v-on:keyup.enter="register(password)" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="********">
         </div>
         <div class="input-group mx-auto my-3 w-50">
-            <span class="input-group-text" id="inputGroup-sizing-default">Role</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Jogosultság</span>
                 <select class="w-25 text-center form-control" name="roleselect" id="roleselect" v-model="user.roles" v-on:keyup.enter="register(password)">
                 <!-- <select name="genderselect" id="genderselect" v-model="gender"> -->
-                    <option value="guest">Guest</option>
-                    <option value="employee">Employee</option>
+                    <option value="guest">Vendég</option>
+                    <option value="employee">Alkalmazott</option>
                     <option value="admin">Admin</option>
                 </select>
         </div>

@@ -43,8 +43,6 @@
         {{ password }} -->
         <!-- {{ isLoggedIn }} -->
         <div v-if="isLoggedIn.auth">
-            <p>Login successful</p>
-            <p>login time: {{ isLoggedIn.loginTime }}</p>
         </div>
         <div v-if="isLoggedIn.auth == false">
             <p>Login failed</p>
@@ -59,6 +57,7 @@
     
     const {isLoggedIn, user, errors} = storeToRefs(useUsersStore());
     const {authenticate, logout} = useUsersStore();
+
 </script>
 
 <style lang="css" scoped>
