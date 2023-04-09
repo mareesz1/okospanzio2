@@ -1,6 +1,6 @@
 <template>
         <div class="sticky-top"><navbar/></div>
-        <p class="display-1 text-center">Restaurant</p>
+        <p class="display-1 text-center">Étterem</p>
         <restaurant-navbar/>
         <router-view/>
 </template>

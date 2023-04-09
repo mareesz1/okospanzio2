@@ -11,12 +11,12 @@
               class="card-img-top rounded " alt="..." />
           </div>
           <div class="back border border-dark rounded">
-            <h5 class="card-title">{{r.type}} {{ r.number }}</h5>
+            <h5 class="card-title ">{{r.type}} {{ r.number }}</h5>
             <div class="text-success border-2">
               <hr>
             </div>
             <p class="card-text">
-             <strong>Beds:</strong>  {{ r.beds }}
+             <strong>Férőhely:</strong>  {{ r.beds }}
             </p>
             <p class="card-text">
               {{ r.description }}

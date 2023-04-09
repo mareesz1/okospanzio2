@@ -3,13 +3,13 @@
 
   <div class="reservation-bar row">
   <div class="container">
-    <div class="my-3 ">
+    <div class="my-3">
       
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
         <label for="start_date">Érkezés időpontja:</label>
       <input
         type="date"
-        class="mx-2 form-control"
+        class="mx-2 form-control py-3"
         name="start_date"
         id="start_date"
       />
@@ -19,15 +19,16 @@
         <label for="end_date">Távozás időpontja:</label>
       <input
         type="date"
-        class="mx-2 form-control"
+        class="mx-2 form-control py-3"
         name="end_date"
         id="end_date"
       />
       </div>
       
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-        <select class="form-select mx-3 " id="select_vendeg" aria-label="Default select example">
-        <option selected>Vendégek száma</option>
+      <label for="select_vendeg">Vendégek száma:</label>
+        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example">
+        <option selected>Válasszon</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -37,9 +38,12 @@
       </div>
 
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-        <select class="form-select mx-3 " id="select_szoba" aria-label="Default select example">
-        <option selected>Válasszon szoba felszereltséget</option>
+        <label for="select_szoba">Szoba felszereltsége:</label>
+        <select class="form-select mx-3 py-3" id="select_szoba" aria-label="Default select example">
+        <option selected>Válasszon</option>
         <option value="1">Superior</option>
+        <option value="1">Normal</option>
+        <option value="1">VIP</option>
       </select>
       </div>
   
@@ -83,6 +87,13 @@
 #select_vendeg,
 #select_szoba {
   width: 75%;
+}
+
+.col-12{
+  vertical-align: middle;
+}
+.col-12 input{
+  vertical-align:middle;
 }
 .btn {
   display: inline-block;

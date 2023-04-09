@@ -59,7 +59,7 @@ class UserController extends Controller
             $user->roles = $request->input('roles');
             $user->code = $request->input('code');
             $user->password = Hash::make($request->input('password'), ['rounds' => 10]);
-            if ($request->input('code') == null && $request->input('roles') == 'guest') {
+            if ($request->input('code') == 0 && $request->input('roles') == 'guest') {
                 $out->writeln($user);
                 $user->save();  // insert into
                 return response()->json(

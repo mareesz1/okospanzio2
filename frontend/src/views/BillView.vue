@@ -1,16 +1,16 @@
 <template>
     <div class="sticky-top"><navbar/></div>
+    <div>
+        <bill-component/>
+    </div>
 
-    <div class="container-fluid"><reservation-component/></div>
-
-
-    <div class=""><footer-component/></div>
+    <div><footer-component/></div>
 </template>
 
 <script setup>
 import navbar from '../components/NavbarComponent.vue';
+import BillComponent from '../components/BillComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-import ReservationComponent from '../components/ReservationComponent.vue';
 </script>
 
 <style lang="scss" scoped>
