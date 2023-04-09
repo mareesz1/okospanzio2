@@ -14,25 +14,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-<<<<<<< Updated upstream
-          <li class="nav-item">
-            <router-link to="/">Home page</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/rooms">Rooms</router-link>
-          </li>
-          <li class="nav-item" v-if="!isLoggedIn.auth">
-            <router-link to="/login">Login page</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/register">New User</router-link>
-          </li>
-          <li class="nav-item" v-if="isLoggedIn.roles == 'admin'">
-            <router-link to="/admin">Admin Page</router-link>
-          </li>
-          <li class="nav-item" v-if="isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'">
-            <router-link to="/restaurant">Restaurant</router-link>
-=======
           <li class="nav-item p-2">
             <router-link to="/">Főoldal</router-link>
           </li>
@@ -58,16 +39,11 @@
             "
           >
             <router-link to="/restaurant">Étterem</router-link>
->>>>>>> Stashed changes
           </li>
         </ul>
       </div>
 
       <div class="mx-auto" v-if="isLoggedIn.auth == true">
-<<<<<<< Updated upstream
-            Logged in as: {{ isLoggedIn.roles }}
-         <button class="btn btn-warning ms-5" @click="logout">Logout</button>
-=======
         Bejelentkezve, mint: {{ isLoggedIn.roles }}
       </div>
 
@@ -114,7 +90,6 @@
             >
           </li>
         </ul>
->>>>>>> Stashed changes
       </div>
     </div>
   </nav>

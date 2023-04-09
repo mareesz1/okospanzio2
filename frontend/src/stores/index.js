@@ -250,9 +250,6 @@ export const useRestaurantStore = defineStore('restaurantStore', {
                 console.log(err);
             })
         },      
-<<<<<<< Updated upstream
-    }
-=======
         getAllMenus(){
             api.get('/menu')
             .then((resp)=>{
@@ -265,5 +262,4 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     },
         
 }
->>>>>>> Stashed changes
 })
