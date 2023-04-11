@@ -105,7 +105,7 @@ class LoginController extends Controller
                 'email' => 'required|email',
                 'password' => 'required',
                 'roles' => 'required',
-                'code' => 'required'
+                // 'code' => 'required'
             ]);
 
             if($validateUser->fails()){

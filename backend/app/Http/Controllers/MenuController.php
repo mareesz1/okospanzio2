@@ -29,6 +29,22 @@ class MenuController extends Controller
        }
     }
 
+    public function indexAll() {
+        try {
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $menu = DB::table('menus')
+            ->get();
+            // $out->writeln($orders);
+            return response()->json($menu,200);
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                   'message'=>'Database error!'
+                ],400
+            );
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *

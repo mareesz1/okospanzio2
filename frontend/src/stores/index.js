@@ -133,6 +133,7 @@ export const useUsersStore = defineStore('usersStore', {
                             console.log($cookies.get('token'));
                         }
                         sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+                        router.push({path: '/', replace: true});
                         console.log(resp.data.message);
 
                     if (resp.status == 419) {
@@ -208,6 +209,7 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
         tables:[],
+        menus:[],
         errors: {
             orderState: null,
         },
@@ -249,5 +251,16 @@ export const useRestaurantStore = defineStore('restaurantStore', {
                 console.log(err);
             })
         },      
-    }
+        getAllMenus(){
+            api.get('/menu')
+            .then((resp)=>{
+                this.menus = resp.data;
+                return resp.data ;
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    },
+        
+}
 })
