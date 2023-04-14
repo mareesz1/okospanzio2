@@ -147,7 +147,7 @@ export const useUsersStore = defineStore('usersStore', {
                 
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then().catch((err) => {console.log(err);});
+            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log("megy");}).catch((err) => {console.log(err);});
         },
         logout() {
             api.delete('/login').then((resp) => {

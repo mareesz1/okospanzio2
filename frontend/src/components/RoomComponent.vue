@@ -1,38 +1,24 @@
 <template>
   <div class="col" v-for="r in rooms">
-    <div class="card mb-3">
-      <div class="card-body text-center">
-      <label >
-        <input type="checkbox" />
-        <div class="flip-card ">
-          <h5 class="card-title front-h5">{{r.type}}</h5>
-          <div class="front rounded ">
-            <img v-bind:src="r.IMG"
-              class="card-img-top rounded " alt="..." />
-          </div>
-          <div class="back border border-dark rounded">
-            <h5 class="card-title ">{{r.type}} {{ r.number }}</h5>
-            <div class="text-success border-2">
-              <hr>
-            </div>
-            <p class="card-text">
-             <strong>Férőhely:</strong>  {{ r.beds }}
-            </p>
-            <p class="card-text">
-              {{ r.description }}
-            </p>
-            <hr class="hr2">
-            <p class="card-text">
-             <strong>Ár:</strong> <small>{{ r.price }} Ft</small>
-            </p>
-            <button class="btn btn-info mt-3">Reserve now!</button>
-          </div>
+    <div class="card my-3">
+      <img class="card__background" v-bind:src="r.IMG" width="1920" height="2193" />
+      <div class="card__content | flow">
+        <div class="card__content--container | flow">
+          <h2 class="card__title text-uppercase">{{ r.type }} {{ r.number }}</h2>
+          <p class="card__description">
+          <ul>
+            <li class="text-uppercase">
+              <strong>Férőhely:</strong> {{ r.beds }}
+            </li>
+            <li class="text-uppercase">
+              <strong>Ár:</strong> <small>{{ r.price }} Ft</small>
+            </li>
+          </ul>
+          </p>
         </div>
-      </label>
+        <button class="card__button text-uppercase">Reserve now!</button>
       </div>
     </div>
-    
-
   </div>
 </template>
 
@@ -46,101 +32,200 @@ getAllRooms();
 </script>
 
 <style lang="css" scoped>
-
-.card{
-  border: 0;
+:root {
+  /* Colors */
+  --brand-color: hsl(46, 100%, 50%);
+  --black: hsl(0, 0%, 0%);
+  --white: hsl(0, 0%, 100%);
+  /* Fonts */
+  --font-title: "Montserrat", sans-serif;
+  --font-text: "Lato", sans-serif;
 }
-label {
-  
+
+/* RESET */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h2,
+p {
+  margin: 0;
+}
+
+/* GLOBAL STYLES */
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+h2 {
+  font-size: 2.25rem;
+  font-family: var(--font-title);
+  color: var(--white);
+  line-height: 1.1;
+}
+
+p {
+  font-family: var(--font-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.flow>*+* {
+  margin-top: var(--flow-space, 1em);
+}
+
+/* CARD COMPONENT */
+
+.card {
+  display: grid;
+  place-items: center;
+  width: 80vw;
+  max-width: 21.875rem;
+  height: 28.125rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card>* {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.card__background {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+}
+
+.card__content {
+  --flow-space: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
+  height: 55%;
+  padding: 12% 1.25rem 1.875rem;
+  background: linear-gradient(180deg,
+      hsla(0, 0%, 0%, 0) 0%,
+      hsla(0, 0%, 0%, 0.3) 10%,
+      hsl(0, 0%, 0%) 100%);
+}
+
+.card__content--container {
+  --flow-space: 1.25rem;
+  color: white;
+}
+
+.card__title {
+  position: relative;
   width: fit-content;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  cursor: pointer;
+  width: -moz-fit-content;
+  /* Prefijo necesario para Firefox  */
 }
 
-.flip-card {
- 
-  width: 30vw;
-  min-width: 20rem;
-  height: 15vw;
-  min-height: 10rem;
-  transform-style: preserve-3d;
-  transition: all 0.5s ease-in-out;
-  z-index: 1;
-}
-
-
-.flip-card .front,
-.flip-card .back {
- 
+.card__title::after {
+  content: "";
   position: absolute;
-  width: 30vw;
-  min-width: 20rem;
-  height: 15vw;
-  min-height: 10rem;
-  text-align: center;
-  background: #fff;
-  backface-visibility: hidden;
+  height: 0.3125rem;
+  width: calc(100% + 1.25rem);
+  bottom: calc((1.25rem - 0.5rem) * -1);
+  left: -1.25rem;
+  background-color: var(--brand-color);
 }
 
-.flip-card .back {
-  transform: rotateY(180deg);
-
-}
-label:hover .flip-card {
-  
-  box-shadow: 0 20px 20px rgba(50, 60, 60, 0.2);
-}
-
-input {
-  display: none;
-}
-
-:checked+.flip-card {
-  transform: rotateY(180deg);
-}
-
-label:hover :checked+.flip-card {
-  
-  box-shadow: 0 20px 20px rgba(255, 255, 255, 0.2);
-}
-
-.front img {
-  width: 30vw;
-  min-width: 20rem;
-  height: 15vw;
-  min-height: 10rem;
-  
-}
-
-
-hr {
-  color: #3bc2eb;
-  width: 15rem;
-  
-  margin: 1em auto 1em auto;
-}
-.hr2{
-  width: 8rem;
-}
-.back h5 {
-  color: #3bc2eb;
-  text-align: center;
-  margin: 0 auto;
-}
-.back p{
-  text-align: center;
-  margin: 0 auto;
-}
-.front-h5{
-  visibility: hidden;
-  position: absolute;
-  
-}
-.card-title{
+.card__button {
+  padding: 0.75em 1.6em;
+  width: fit-content;
+  width: -moz-fit-content;
+  /* Prefijo necesario para Firefox  */
+  font-variant: small-caps;
   font-weight: bold;
-  text-transform: uppercase;
+  border-radius: 0.45em;
+  border: none;
+  background-color: var(--brand-color);
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  color: var(--white);
+  color: white;
 }
 
+.card__button:focus {
+  outline: 2px solid black;
+  outline-offset: -5px;
+}
 
+@media (any-hover: hover) and (any-pointer: fine) {
+  .card__content {
+    transform: translateY(62%);
+    transition: transform 500ms ease-out;
+    transition-delay: 500ms;
+  }
+
+  .card__title::after {
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 1000ms ease-in, transform 500ms ease-out;
+    transition-delay: 500ms;
+    transform-origin: right;
+  }
+
+  .card__background {
+    transition: transform 500ms ease-in;
+  }
+
+  .card__content--container> :not(.card__title),
+  .card__button {
+    opacity: 0;
+    transition: transform 500ms ease-out, opacity 500ms ease-out;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: scale(1.05);
+    transition: transform 500ms ease-in;
+  }
+
+  .card:hover .card__content,
+  .card:focus-within .card__content {
+    transform: translateY(0);
+    transition: transform 500ms ease-in;
+  }
+
+  .card:focus-within .card__content {
+    transition-duration: 0ms;
+  }
+
+  .card:hover .card__background,
+  .card:focus-within .card__background {
+    transform: scale(1.3);
+  }
+
+  .card:hover .card__content--container> :not(.card__title),
+  .card:hover .card__button,
+  .card:focus-within .card__content--container> :not(.card__title),
+  .card:focus-within .card__button {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+    transition-delay: 1000ms;
+  }
+
+  .card:hover .card__title::after,
+  .card:focus-within .card__title::after {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: opacity 500ms ease-in, transform 500ms ease-in;
+    transition-delay: 500ms;
+  }
+}
 </style>
