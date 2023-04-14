@@ -2,20 +2,20 @@
   <div class="col" v-for="r in rooms">
     <div class="card my-3">
       <img class="card__background" v-bind:src="r.IMG" width="1920" height="2193" />
-      <div class="card__content | flow">
-        <div class="card__content--container | flow">
+      <div class="card__content | flow ">
+        <div class="card__content--container | flow text-center">
           <h2 class="card__title text-uppercase">{{ r.type }} {{ r.number }}</h2>
+        </div>
+        <div class="text-center" id="adatok">
           <p class="card__description">
-          <ul>
-            <li class="text-uppercase">
-              <strong>Férőhely:</strong> {{ r.beds }}
-            </li>
-            <li class="text-uppercase">
-              <strong>Ár:</strong> <small>{{ r.price }} Ft</small>
-            </li>
+          <ul class="list-group">
+            <li class=" text-uppercase"><strong>Férőhely: {{ r.beds }}</strong></li>
+            <li class=" text-uppercase"><strong>Ár: {{ r.price }} Ft</strong></li>
           </ul>
           </p>
         </div>
+
+
         <button class="card__button text-uppercase">Reserve now!</button>
       </div>
     </div>
@@ -57,7 +57,6 @@ h2,
 p {
   margin: 0;
 }
-
 /* GLOBAL STYLES */
 body {
   display: grid;
@@ -77,6 +76,14 @@ p {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--white);
+}
+
+li {
+  list-style: none;
+}
+
+#adatok {
+  color: white;
 }
 
 .flow>*+* {
@@ -113,6 +120,7 @@ p {
   flex-direction: column;
   justify-content: space-between;
   align-self: flex-end;
+  align-items: center;
   height: 55%;
   padding: 12% 1.25rem 1.875rem;
   background: linear-gradient(180deg,
@@ -129,6 +137,7 @@ p {
 .card__title {
   position: relative;
   width: fit-content;
+  text-align: center;
   width: -moz-fit-content;
   /* Prefijo necesario para Firefox  */
 }
