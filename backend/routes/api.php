@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('task',TaskController::class);
+// Route::apiResource('task',TaskController::class);
 Route::apiResource('user',UserController::class);
 
 Route::post('login', function (Request $request) {
