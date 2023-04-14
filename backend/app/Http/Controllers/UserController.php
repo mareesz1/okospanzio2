@@ -58,7 +58,7 @@ class UserController extends Controller
             $user->phone = $request->input('phone');
             $user->roles = $request->input('roles');
             $user->code = $request->input('code');
-            $user->password = Hash::make($request->input('password'), ['rounds' => 10]);
+            $user->password = Hash::make($request->input('password'));
             if ($request->input('code') == 0 && $request->input('roles') == 'guest') {
                 $out->writeln($user);
                 $user->save();  // insert into
