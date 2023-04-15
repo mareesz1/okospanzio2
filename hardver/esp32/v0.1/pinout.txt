@@ -1,0 +1,9 @@
+SDA(cs): 5
+SCK: 18
+MOSI: 23
+MISO: 19
+IRQ: none
+RST: 21
+LED(sarga): 22
+LED(piros): 16
+LED(zold): 17
