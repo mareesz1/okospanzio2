@@ -1,8 +1,10 @@
 <template>
+       <img src="https://wallup.net/wp-content/uploads/2019/09/46190-hotel-malvivy-pool-interior-ocean-sea-houses-buildings-sky-sunset-5.jpg" class="image" alt="">
+
 
     <div class="">
-    <div class="d-flex">
-        <div class="form justify-content-center">
+    <div class="d-flex justify-content-center">
+        <div class="form justify-content-center my-5">
         <div class="header">Regisztráció</div>
         <div class="inputs">
         <div class="input-group ">
@@ -82,8 +84,7 @@
         <p class="signup-link">Van már fiókod?<router-link to="/login">Jelentkezz be</router-link></p>
     </div>
     </div>
-    <img src="https://wallup.net/wp-content/uploads/2019/09/46190-hotel-malvivy-pool-interior-ocean-sea-houses-buildings-sky-sunset-5.jpg" class="image" alt="">
-    </div>
+     </div>
     </div>
 </template>
 
@@ -144,10 +145,16 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
         }
     }
 
-    .image{
-      width: 75%;
-      aspect-ratio: 40/22;
-    }
+    .image {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  position: fixed;
+  z-index: -4;
+  filter: blur(15%);
+  filter: brightness(40%);
+}
     .form {
   position: relative;
   display: flex;
@@ -156,7 +163,7 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
   background-color: #fff;
   color: rgb(97 97 97);
   box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.05);
-  width: 100%;
+  width: 25rem;
   background-clip: border-box;
 }
 

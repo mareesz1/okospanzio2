@@ -1,7 +1,7 @@
 <template>
-    <div class="">
-    <div class="d-inline-flex ">
     <img src="https://free4kwallpapers.com/uploads/originals/2015/06/16/hotel-in-santorini.jpg" class="image" alt="" id="image">
+    <div class="">
+    <div class="d-flex justify-content-center ">
         <div class="form mt-5 justify-content-center">
         <form class="">
             <div class="header ">Bejelentkezés</div>
@@ -78,10 +78,18 @@
         }
     }
 
-    .image{
-      width: 75%;
-      aspect-ratio: 40/22;
-    }
+
+
+    .image {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  position: fixed;
+  z-index: -4;
+  filter: blur(15%);
+  filter: brightness(40%);
+}
     .form {
   position: relative;
   display: flex;
@@ -90,7 +98,7 @@
   background-color: #fff;
   color: rgb(97 97 97);
   box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.05);
-  width: 100%;
+  width: 25rem;
   background-clip: border-box;
 }
 
