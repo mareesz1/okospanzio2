@@ -1,7 +1,6 @@
 <template>
     <div class="sticky-top"><navbar/></div>
     <div class="">
-        <p class="display-1 text-center">Registration</p>
         <reg-component/>
         <footer-component/>
     </div>

@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <h1 class="text-center display-3 ">
       Köszöntjük az Okospanzió weboldalán!
@@ -24,6 +25,7 @@
 
 <!-- jobb oldali kepes kartya -->
 <div class="container mt-5 w-100">
+    <router-link to="/restaurant" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-8 card-body">
@@ -50,6 +52,7 @@
         </div>
       </div>
     </div> 
+  </router-link>
   </div>
 
   <!-- kartya vege -->
@@ -57,6 +60,7 @@
 
   <!-- bal oldali kepes kartya -->
   <div class="container mt-5 w-100">
+    <router-link to="/gym" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-4">
@@ -82,6 +86,7 @@
         </div>
       </div>
     </div> 
+  </router-link>
   </div>
   <!-- kartya vege -->
 
@@ -89,6 +94,7 @@
   <!-- jobb oldali kepes kartya -->
 
   <div class="container mt-5 w-100">
+    <router-link to="/pool" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-8 card-body">
@@ -115,11 +121,13 @@
         </div>
       </div>
     </div> 
+  </router-link>
   </div>
   <!-- kartya vege -->
 
   <!-- bal oldali kepes kartya -->
   <div class="container mt-5 w-100">
+    <router-link to="/sauna" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
         <div class="col-md-4">
@@ -145,6 +153,7 @@
         </div>
       </div>
     </div> 
+  </router-link>
   </div>
 
   <!-- kartya vege -->
@@ -155,6 +164,7 @@
 <script setup></script>
 
 <style lang="scss" scoped>
+
 
 .card:hover {
   background-image: linear-gradient(-45deg, #effcff, #e2f1ff, #e2fff4);
@@ -177,5 +187,9 @@
   100% {
     background-position: 0% 50%;
   }
+}
+.route{
+  text-decoration: none;
+  color: rgb(66, 66, 66);
 }
 </style>

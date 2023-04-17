@@ -32,6 +32,8 @@
     aspect-ratio: 4/1;
     flex-grow: inherit;
     box-shadow: inset 50vw;
+    filter: brightness(70%);
+    
 }
 
 .carousel-item h5 p{

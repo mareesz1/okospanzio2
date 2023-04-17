@@ -1,9 +1,7 @@
 <template>
     <div class="sticky-top"><navbar/></div>
     <div>
-        <p class="display-1 text-center">Login page</p>
-        
-        <div class="container">
+        <div class="">
             <login-form/>
         </div>
     </div>

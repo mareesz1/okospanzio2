@@ -29,7 +29,7 @@
     padding-bottom: 1vw;
     text-transform: uppercase;
     z-index: 2;
-    box-shadow: inset -70px 80px 80px  rgba(0,0,0,0.6);
+    box-shadow: 0px 70px 50px black inset;
     
     
 
