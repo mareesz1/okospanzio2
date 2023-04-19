@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RestaurantOrdersController;
 use App\Http\Controllers\TablesController;
+use App\Http\Controllers\CardReaderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,8 @@ Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState
 
 Route::apiResource('orders',RestaurantOrdersController::class)->middleware('auth:sanctum');
 Route::get('room', [RoomController::class, 'index']);
+
+route::apiResource('/reader', CardReaderController::class);
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
