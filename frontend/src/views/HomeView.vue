@@ -3,7 +3,7 @@
     <div>
         <div class="sticky-top"><navbar/></div>
         <div >
-        <p class="display-1 text-center mb-3 sticky-top" id="fooldalTitle">Okospanzió</p>
+        <p class="display-1 text-center  sticky-top" id="fooldalTitle">Okospanzió</p>
         </div>
         
         <div class="slider"><slider-component/></div>

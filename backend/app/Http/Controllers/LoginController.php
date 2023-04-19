@@ -65,7 +65,7 @@ class LoginController extends Controller
                     'email' => $request->email,
                     'password' => $request->password,
                     'code' => $request->code
-                    ])) {
+                    ]))  {
                         $user = User::where('email', $request->email)->first();
                                 $request->session()->regenerate();
                                 return response()->json([

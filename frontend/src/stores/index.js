@@ -112,6 +112,7 @@ export const useUsersStore = defineStore('usersStore', {
             if (!$cookies.get('XSRF-TOKEN')) {
                 console.log('nincs xsrf cookie');
                 this.getCsrfCookie();
+                
             }
             if (this.user.roles == 'guest') {
                 this.user.code = 0;
@@ -127,7 +128,10 @@ export const useUsersStore = defineStore('usersStore', {
                             loginTime: Date.now(),
                             roles: this.user.roles,
                             message: null,
+                            istrue: true,
+                            
                         };
+                        
                         if (resp.data.token) {
                             $cookies.set('token', resp.data.token, '7d');
                             console.log($cookies.get('token'));
