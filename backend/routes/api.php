@@ -60,7 +60,9 @@ Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState
 Route::apiResource('orders',RestaurantOrdersController::class)->middleware('auth:sanctum');
 Route::get('room', [RoomController::class, 'index']);
 
-route::apiResource('/reader', CardReaderController::class);
+Route::get('/reader', function (Request $request) {
+    return CardReaderController::sendBackId($request);
+});
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
