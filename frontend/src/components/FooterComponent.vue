@@ -88,7 +88,7 @@
               <a href="/gym" class="text-dark">Konditerem</a>
             </p>
             <p>
-              <a href="#!" class="text-dark">Uszoda</a>
+              <a href="/pool" class="text-dark">Uszoda</a>
             </p>
           </div>
           <!-- Grid column -->

@@ -31,7 +31,7 @@
             <div class="invalid-feedback" v-for="c in errors.code" id="titleFeedback">{{ c }}</div>
         </div>
 
-        <button class="sigin-btn" @click="authenticate()">Bejelentkezek</button>
+        <button class="sigin-btn" type="button" @click="authenticate()">Bejelentkezek</button>
         <p class="signup-link mt-2">Még nincs fiókod?<router-link to="/register">Regisztrálj</router-link></p>
     </div>
 

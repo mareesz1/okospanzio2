@@ -23,15 +23,6 @@
           <li class="nav-item p-2">
             <router-link to="/reserve">Foglalás</router-link>
           </li>
-          <li class="nav-item p-2" v-if="!isLoggedIn.auth">
-            <router-link to="/login">Bejelentkezés</router-link>
-          </li>
-          <li class="nav-item p-2" v-if="!isLoggedIn.auth">
-            <router-link to="/register">Regisztráció</router-link>
-          </li>
-          <li class="nav-item p-2" v-if="isLoggedIn.roles == 'admin'">
-            <router-link to="/admin">Admin felület</router-link>
-          </li>
           <li
             class="nav-item p-2"
             v-if="
@@ -46,6 +37,13 @@
       <div class="mx-auto" v-if="isLoggedIn.auth == true">
         Bejelentkezve, mint: {{ isLoggedIn.roles }}
       </div>
+
+          <div class="nav-item p-2" v-if="!isLoggedIn.auth">
+            <router-link to="/login">Bejelentkezés</router-link>
+          </div>
+          <!-- <div class="nav-item p-2" v-if="!isLoggedIn.auth">
+            <router-link to="/register">Regisztráció</router-link>
+          </div> -->
 
       <div class="btn-group dropstart nav-item mx-3" v-show="isLoggedIn.auth">
         <button
@@ -83,8 +81,12 @@
           <li>
             <a class="dropdown-item" href="/myservices">Szolgáltatásaim</a>
           </li>
+          <li class="dropdown-item" v-if="isLoggedIn.roles == 'admin'">
+            <router-link to="/admin" class="dropdown-item">Admin felület</router-link>
+          </li>
           <li><hr class="dropdown-divider" /></li>
           <li>
+            
             <a class="dropdown-item" type="button" @click="logout"
               >Kijelentkezés</a
             >

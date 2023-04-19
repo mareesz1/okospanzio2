@@ -10,6 +10,7 @@ import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
 import GymView from '../views/GymView.vue';
 import SaunaView from '../views/SaunaView.vue';
+import PoolView from '../views/PoolView.vue';
 import AdminView from '../views/admin/AdminView.vue';
 import AUsersTableView from '../views/admin/AdminUsersTableView.vue';
 import ARoomsView from '../views/admin/AdminRoomsView.vue';
@@ -59,6 +60,13 @@ const router = createRouter({
       name: 'gym',
       component: GymView,
       meta: {title: 'Gym'},
+
+    },
+    {
+      path: '/pool',
+      name: 'pool',
+      component: PoolView,
+      meta: {title: 'Pool'},
 
     },
     {

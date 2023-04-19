@@ -69,6 +69,11 @@
   filter: brightness(40%);
 }
 
+.card-img-top{
+  object-fit: cover;
+  min-height: 80%;
+}
+
 
 
 

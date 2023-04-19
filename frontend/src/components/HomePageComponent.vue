@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    <img class="bg" src="https://static.vecteezy.com/system/resources/previews/007/621/002/original/blue-wave-abstract-background-web-background-blue-texture-banner-design-creative-cover-design-backdrop-minimal-background-illustration-vector.jpg" alt="">
+  </div>
   <div class="container">
     <h1 class="text-center display-3 ">
       Köszöntjük az Okospanzió weboldalán!
@@ -23,32 +25,25 @@
   </div>
 
 
+
+<div class="container mx-auto">
+<div class="row justify-content-center p-auto">
 <!-- jobb oldali kepes kartya -->
-<div class="container mt-5 w-100">
+<div class="m-3 col-12 col-md-4 col-sm-6 ">
     <router-link to="/restaurant" class="route">
-    <div class="card mb-3 ">
+    <div class="card mb-3">
       <div class="row g-0">
-        <div class="col-md-8 card-body">
-            <h5 class="card-title">Étterem</h5>
-            <p class="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Distinctio architecto placeat optio adipisci quas quasi tenetur
-              dicta, eum numquam quidem dolor, rem unde. Saepe expedita
-              dignissimos ducimus natus cumque libero!
-            </p>
-            <p class="card-text">
-              <small class="text-muted">Get your access now!</small>
-            </p>
-         
-        </div>
-        <div class="col-md-4">
-          <div>
+        <div class=" card-body">
+            <h5 class="card-title text-center" style="color: black;">Étterem</h5>
             <img
             src="https://www.csilietterem.hu/assets/img/slider/1.jpg"
             class="img-fluid rounded-start"
             alt="..."
           />
-          </div>
+            <p class="card-text mt-1">
+              <small class="text-muted">Próbáld ki te is!</small>
+            </p>
+         
         </div>
       </div>
     </div> 
@@ -59,31 +54,21 @@
 
 
   <!-- bal oldali kepes kartya -->
-  <div class="container mt-5 w-100">
+  <div class=" m-3 col-12 col-md-4 col-sm-6 ">
     <router-link to="/gym" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img
+          <div class="card-body">
+            <h5 class="card-title text-center" style="color: black;">Konditerem</h5>
+            <img
             src="https://lawliberty.org/app/uploads/2022/09/shutterstock_1471750145.jpeg"
             class="img-fluid rounded-start"
             alt="..."
           />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Konditerem</h5>
-            <p class="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Distinctio architecto placeat optio adipisci quas quasi tenetur
-              dicta, eum numquam quidem dolor, rem unde. Saepe expedita
-              dignissimos ducimus natus cumque libero!
-            </p>
-            <p class="card-text">
-              <small class="text-muted">Get your access now!</small>
+            <p class="card-text mt-1">
+              <small class="text-muted">Próbáld ki te is!</small>
             </p>
           </div>
-        </div>
       </div>
     </div> 
   </router-link>
@@ -93,31 +78,21 @@
 
   <!-- jobb oldali kepes kartya -->
 
-  <div class="container mt-5 w-100">
+  <div class=" m-3 col-12 col-md-4 col-sm-6 ">
     <router-link to="/pool" class="route">
     <div class="card mb-3 ">
       <div class="row g-0">
-        <div class="col-md-8 card-body">
-            <h5 class="card-title">Medence</h5>
-            <p class="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Distinctio architecto placeat optio adipisci quas quasi tenetur
-              dicta, eum numquam quidem dolor, rem unde. Saepe expedita
-              dignissimos ducimus natus cumque libero!
-            </p>
-            <p class="card-text">
-              <small class="text-muted">Get your access now!</small>
-            </p>
-         
-        </div>
-        <div class="col-md-4">
-          <div>
+        <div class=" card-body">
+            <h5 class="card-title text-center" style="color: black;">Medence</h5>
             <img
             src="https://assets.langhamhotels.com/is/image/langhamhotelsstage/cdakl-wellness-pool-2800-1800:Medium?wid=2121&hei=1193"
             class="img-fluid rounded-start"
             alt="..."
           />
-          </div>
+            <p class="card-text mt-1">
+              <small class="text-muted">Próbáld ki te is!</small>
+            </p>
+         
         </div>
       </div>
     </div> 
@@ -126,30 +101,20 @@
   <!-- kartya vege -->
 
   <!-- bal oldali kepes kartya -->
-  <div class="container mt-5 w-100">
+  <div class="m-3 col-12 col-md-4 col-sm-6 ">
     <router-link to="/sauna" class="route">
     <div class="card mb-3 ">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
+      <div class="g-0">
+          <div class="card-body">
+            <h5 class="card-title text-center" style="color: black;">Szauna</h5>
+            <img
             src="https://balneohotel.hu/application/files/4116/4992/7732/balneo-hotel-szauna.jpg"
-            class="img-fluid rounded-start"
+            class="img-fluid"
             alt="..."
           />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Szauna</h5>
-            <p class="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Distinctio architecto placeat optio adipisci quas quasi tenetur
-              dicta, eum numquam quidem dolor, rem unde. Saepe expedita
-              dignissimos ducimus natus cumque libero!
+            <p class="card-text mt-1">
+              <small class="text-muted">Próbáld ki te is!</small>
             </p>
-            <p class="card-text">
-              <small class="text-muted">Get your access now!</small>
-            </p>
-          </div>
         </div>
       </div>
     </div> 
@@ -159,37 +124,89 @@
   <!-- kartya vege -->
 
 
+</div>
+</div>
 </template>
 
 <script setup></script>
 
 <style lang="scss" scoped>
-
-
-.card:hover {
-  background-image: linear-gradient(-45deg, #effcff, #e2f1ff, #e2fff4);
-  background-size: 400% 400%;
-  animation: gradient 3s ease infinite;
-  height: fit-content;
-  margin-bottom: 1vw;
-  box-shadow: 7px 7px 10px rgba(33,33,33,.2);
-  transform: scale(1.03);
-  transition: 0.4s;
+.bg {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  object-fit: cover;
+  min-height: 100rem;
+  width: 100%;
+  position: fixed;
+  z-index: -4;
+  filter: brightness(150%);
+  filter: opacity(20%);
+  top: 0rem;
+}
+.text-center{
+  color: rgba(0, 0, 0, 0.589);
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+
 .route{
   text-decoration: none;
   color: rgb(66, 66, 66);
 }
+
+
+.img-fluid{
+  width: fit-content;
+  min-height:fit-content;
+  aspect-ratio: 3/2;
+  flex-grow: inherit;
+  object-fit: cover;
+  margin: 0px;
+}
+
+
+
+.card {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: #ffffff3f;
+  position: relative;
+  padding: 1.8rem;
+  border: 4px solid #ffffff;
+  transition: 0.5s ease-out;
+  overflow: visible;
+}
+
+.card-details {
+  color: black;
+  height: 100%;
+  gap: 0.5em;
+  display: grid;
+  place-content: center;
+}
+
+
+.text-body {
+  color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.text-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*Hover*/
+.card:hover {
+  border-color: #008bf8;
+  background-color: #a7f6ff6d;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  transition: 0.5s;
+}
+
+
 </style>
