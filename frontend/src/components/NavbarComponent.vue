@@ -13,7 +13,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item p-2">
             <router-link to="/">Főoldal</router-link>
           </li>
@@ -38,7 +38,7 @@
         Bejelentkezve, mint: {{ isLoggedIn.roles }}
       </div>
 
-          <div class="nav-item p-2" v-if="!isLoggedIn.auth">
+          <div class="nav-item p-2" id="login" v-if="!isLoggedIn.auth">
             <router-link to="/login">Bejelentkezés</router-link>
           </div>
           <!-- <div class="nav-item p-2" v-if="!isLoggedIn.auth">
@@ -117,6 +117,12 @@ const { logout } = useUsersStore();
 body {
   background: #212121;
   padding: 50px 0;
+}
+
+@media (max-width: 767px) {
+  #login{
+    margin: auto;
+  }
 }
 
 .dropdown-menu {

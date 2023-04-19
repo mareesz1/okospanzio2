@@ -36,7 +36,7 @@
         <div class=" card-body">
             <h5 class="card-title text-center" style="color: black;">Étterem</h5>
             <img
-            src="https://www.csilietterem.hu/assets/img/slider/1.jpg"
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80"
             class="img-fluid rounded-start"
             alt="..."
           />
@@ -61,7 +61,7 @@
           <div class="card-body">
             <h5 class="card-title text-center" style="color: black;">Konditerem</h5>
             <img
-            src="https://lawliberty.org/app/uploads/2022/09/shutterstock_1471750145.jpeg"
+            src="https://i1.wp.com/pixahive.com/wp-content/uploads/2020/08/Rows-of-Dumbbells-in-the-Gym-11693-pixahive.jpg?fit=2560%2C1708&ssl=1"
             class="img-fluid rounded-start"
             alt="..."
           />
@@ -85,7 +85,7 @@
         <div class=" card-body">
             <h5 class="card-title text-center" style="color: black;">Medence</h5>
             <img
-            src="https://assets.langhamhotels.com/is/image/langhamhotelsstage/cdakl-wellness-pool-2800-1800:Medium?wid=2121&hei=1193"
+            src="https://images.squarespace-cdn.com/content/v1/5e279c1ad8a7ad41e680b1d4/1591747768278-Z1RFJYH0F58WIJ7WNAZS/PresPoolsOct2018-2b.jpg?format=1500w"
             class="img-fluid rounded-start"
             alt="..."
           />
@@ -108,7 +108,7 @@
           <div class="card-body">
             <h5 class="card-title text-center" style="color: black;">Szauna</h5>
             <img
-            src="https://balneohotel.hu/application/files/4116/4992/7732/balneo-hotel-szauna.jpg"
+            src="https://wallpaperaccess.com/full/5713678.jpg"
             class="img-fluid"
             alt="..."
           />
