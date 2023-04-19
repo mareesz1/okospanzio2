@@ -30,7 +30,7 @@
 <div class="row justify-content-center p-auto">
 <!-- jobb oldali kepes kartya -->
 <div class="m-3 col-12 col-md-4 col-sm-6 ">
-    <router-link to="/restaurant" class="route">
+    <a href="/restaurant"  class="linkek">
     <div class="card mb-3">
       <div class="row g-0">
         <div class=" card-body">
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div> 
-  </router-link>
+  </a>
   </div>
 
   <!-- kartya vege -->
@@ -55,7 +55,7 @@
 
   <!-- bal oldali kepes kartya -->
   <div class=" m-3 col-12 col-md-4 col-sm-6 ">
-    <router-link to="/gym" class="route">
+    <a href="/gym" class="linkek">
     <div class="card mb-3 ">
       <div class="row g-0">
           <div class="card-body">
@@ -71,7 +71,7 @@
           </div>
       </div>
     </div> 
-  </router-link>
+  </a>
   </div>
   <!-- kartya vege -->
 
@@ -79,7 +79,7 @@
   <!-- jobb oldali kepes kartya -->
 
   <div class=" m-3 col-12 col-md-4 col-sm-6 ">
-    <router-link to="/pool" class="route">
+    <a href="/pool" class="linkek">
     <div class="card mb-3 ">
       <div class="row g-0">
         <div class=" card-body">
@@ -96,13 +96,13 @@
         </div>
       </div>
     </div> 
-  </router-link>
+  </a>
   </div>
   <!-- kartya vege -->
 
   <!-- bal oldali kepes kartya -->
   <div class="m-3 col-12 col-md-4 col-sm-6 ">
-    <router-link to="/sauna" class="route">
+    <a href="/sauna" class="linkek">
     <div class="card mb-3 ">
       <div class="g-0">
           <div class="card-body">
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div> 
-  </router-link>
+  </a>
   </div>
 
   <!-- kartya vege -->
@@ -150,7 +150,7 @@
 }
 
 
-.route{
+.linkek{
   text-decoration: none;
   color: rgb(66, 66, 66);
 }

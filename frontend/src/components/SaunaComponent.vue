@@ -32,17 +32,17 @@
       </p>
     </div>
 
-    
     <div class="container">
         <div class="row justify-content-center">
+        
         <div class=" col-12 col-md-4 col-sm-6 m-2">
-  <img src="https://cdnb.artstation.com/p/assets/images/images/008/844/965/4k/armand-serrano-sauna-int-6bfinal.jpg?1515656503" class="card-img" alt="...">
+  <figure><img src="https://cdnb.artstation.com/p/assets/images/images/008/844/965/4k/armand-serrano-sauna-int-6bfinal.jpg?1515656503" class="card-img" alt="..."></figure>
 </div>
 <div class=" col-12 col-md-4 col-sm-6 m-2">
-  <img src="https://sauna-shop.nl/wp-content/uploads/2019/03/1-5.jpg" class="card-img" alt="...">
+  <figure><img src="https://sauna-shop.nl/wp-content/uploads/2019/03/1-5.jpg" class="card-img" alt="..."></figure>
 </div>
 <div class="col-12 col-md-4 col-sm-6 m-2">
-  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/249204657.jpg?k=d24c0bf88691e6921ac523cb2d450b285b6d4ae05c3681dbe21d604407853063&o=&hp=1" class="card-img" alt="...">
+  <figure><img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/249204657.jpg?k=d24c0bf88691e6921ac523cb2d450b285b6d4ae05c3681dbe21d604407853063&o=&hp=1" class="card-img" alt="..."></figure>
 </div>
 </div>
     </div>
@@ -69,8 +69,8 @@
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
-  position: fixed;
   z-index: -4;
+  position: fixed;
   filter: blur(15%);
   filter: brightness(25%);
 }
@@ -78,12 +78,14 @@
 .card-img{
     border: solid 2px white;
 }
+@media (min-width:767px ){
+.card-img:hover{
+  transform: scale(1.5);
+  transition: 0.5s;
+  transition-delay: 0.5s;
 
-
-
-
-
-
+}
+}
 
 
 

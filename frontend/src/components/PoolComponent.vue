@@ -5,7 +5,7 @@
       src="https://images.squarespace-cdn.com/content/v1/5e279c1ad8a7ad41e680b1d4/1591747768278-Z1RFJYH0F58WIJ7WNAZS/PresPoolsOct2018-2b.jpg?format=1500w"
       alt=""
     />
-    <p class="display-1 text-center mb-5" style="color: white">Uszoda</p>
+    <p class="display-1 text-center mb-5" id="title" style="color: white">Uszoda</p>
   </div>
 
   <div class="container">
@@ -126,5 +126,15 @@
     border: solid 2px white;
     max-height: 25vh;
     object-fit: cover;
+}
+
+
+@media (min-width:767px ){
+.card-img:hover{
+  transform: scale(1.5);
+  transition: 0.5s;
+  transition-delay: 0.5s;
+
+}
 }
 </style>
