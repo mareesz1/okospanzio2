@@ -16,7 +16,7 @@
         </div>
 
 
-        <button @click="reserveFromRoomCard(r.id)" to="/reserve" class="card__button text-uppercase">Reserve now!</button>
+        <button @click="reserveFromRoomCard(r)" to="/reserve" class="card__button text-uppercase">Reserve now!</button>
       </div>
     </div>
   </div>

@@ -15,6 +15,10 @@
 import navbar from '../components/NavbarComponent.vue';
 import RoomComponent from '../components/RoomComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import { useUsersStore } from '../stores';
+
+const {getAllServices} = useUsersStore();
+getAllServices();
 
 </script>
 

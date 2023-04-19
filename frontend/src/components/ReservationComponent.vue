@@ -22,12 +22,13 @@
         class="mx-2 form-control py-3"
         name="end_date"
         id="end_date"
+        v-model="reservation.start"
       />
       </div>
       
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
       <label for="select_vendeg">Vendégek száma:</label>
-        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example" v-model="reservation.guests">
+        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example" v-model="reservation.beds">
           <option selected>Válasszon</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -52,8 +53,8 @@
     </div>
 
     <div class="d-flex justify-content-center pb-2" >
-      <label class="checkbox-btn mx-2" v-for="service in reservation.services">
-        <label for="checkbox_szauna">{{ service }}</label>
+      <label class="checkbox-btn mx-2" v-for="service in services">
+        <label for="checkbox_szauna">{{ service.name }}</label>
         <input id="checkbox_szauna" type="checkbox" />
         <span class="checkmark"></span>
       </label>
@@ -72,7 +73,7 @@
 import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores';
 
-const {reservation} = storeToRefs(useUsersStore());
+const {reservation, services} = storeToRefs(useUsersStore());
 </script>
 
 <style lang="scss" scoped>

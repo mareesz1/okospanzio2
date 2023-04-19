@@ -11,6 +11,10 @@
 import navbar from '../components/NavbarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import ReservationComponent from '../components/ReservationComponent.vue';
+import { useUsersStore } from '../stores';
+
+const {getAllServices} = useUsersStore();
+getAllServices();
 </script>
 
 <style lang="scss" scoped>
