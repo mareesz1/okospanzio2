@@ -32,7 +32,18 @@ class CardReaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        try {
+            $id = request->id;
+            $out->writeln($id);
+            return response()->json([
+                'success' => true
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'data' => 'CardReaderController/index'
+            ], 400);
+        }
     }
 
     /**
