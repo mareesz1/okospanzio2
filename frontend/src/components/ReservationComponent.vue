@@ -27,13 +27,13 @@
       
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
       <label for="select_vendeg">Vendégek száma:</label>
-        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example">
-        <option selected>Válasszon</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example" v-model="reservation.guests">
+          <option selected>Válasszon</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
       </select>
       </div>
 

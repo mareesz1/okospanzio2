@@ -42,7 +42,7 @@ export const useUsersStore = defineStore('usersStore', {
         reservation: {
             start: null,
             end: null,
-            guests: null,
+            guests: 2,
             type: 'normal',
             services: [
                 'Szauna',
