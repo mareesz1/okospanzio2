@@ -1,6 +1,6 @@
 <template>
    <!-- Remove the container if you want to extend the Footer to full width. -->
-<div class="mt-5 " >
+<div class="mt-5 footer" >
   <!-- Footer -->
   <footer
           class="text-center text-lg-start text-dark"
@@ -156,5 +156,9 @@
 </script>
 
 <style lang="css" scoped>
-
+.footer{
+  position: relative;
+   bottom: 0;
+   width: 100%;
+}
 </style>

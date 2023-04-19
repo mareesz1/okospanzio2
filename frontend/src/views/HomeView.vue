@@ -1,21 +1,19 @@
 <template>
     
     <div>
-        <div class="sticky-top"><navbar/></div>
+
         <div >
         <p class="display-1 text-center mb-3 sticky-top" id="fooldalTitle">Okospanzió</p>
         </div>
         
         <div class="slider"><slider-component/></div>
         <div><home-page-component/></div>
-        <footer-component/>
+
     </div>
 </template>
 
 <script setup>
     import {storeToRefs} from 'pinia';
-    import navbar from '../components/NavbarComponent.vue';
-    import FooterComponent from '../components/FooterComponent.vue';
     import SliderComponent from '../components/SliderComponent.vue';
     import HomePageComponent from '../components/HomePageComponent.vue'
 </script>

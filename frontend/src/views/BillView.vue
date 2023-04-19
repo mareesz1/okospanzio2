@@ -1,10 +1,10 @@
 <template>
-    <div class="sticky-top"><navbar/></div>
+
     <div>
         <bill-component/>
     </div>
 
-    <div><footer-component/></div>
+
 </template>
 
 <script setup>

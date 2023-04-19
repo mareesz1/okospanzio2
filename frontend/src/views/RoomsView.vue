@@ -1,5 +1,5 @@
 <template>
-   <div class="sticky-top"><navbar/></div>
+
     <div>
         <p class="display-1 text-center mb-3">Rooms</p>
     </div>
@@ -8,13 +8,13 @@
             <room-component/>
         </div>
     </div>
-    <div><footer-component/></div>
+
 </template>
 
 <script setup>
-import navbar from '../components/NavbarComponent.vue';
+
 import RoomComponent from '../components/RoomComponent.vue';
-import FooterComponent from '../components/FooterComponent.vue';
+
 
 </script>
 
