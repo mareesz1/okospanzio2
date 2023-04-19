@@ -204,6 +204,10 @@ li {
     transform: scale(1.05);
     transition: transform 500ms ease-in;
   }
+  .card {
+    transform: scale(1);
+    transition: transform 500ms ease-out;
+  }
 
   .card:hover .card__content,
   .card:focus-within .card__content {
