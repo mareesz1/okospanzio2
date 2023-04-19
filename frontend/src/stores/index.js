@@ -38,6 +38,19 @@ export const useUsersStore = defineStore('usersStore', {
             message: null,
             istrue: false,
         },
+        selectedRoom: null,
+        reservation: {
+            start: null,
+            end: null,
+            guests: null,
+            type: 'normal',
+            services: [
+                'Szauna',
+                'Uszoda',
+                'Konditerem',
+                'Thai masszázs (igen olyan)'
+            ],
+        }
     }),
     getters: {},
     actions: {
@@ -202,6 +215,10 @@ export const useUsersStore = defineStore('usersStore', {
                 this.isLoggedIn.auth = false;
             }
         },
+        reserveFromRoomCard(roomId) {
+            this.selectedRoom = roomId
+            router.push('/reserve')
+        }
     }
 });
 

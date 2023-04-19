@@ -4,7 +4,7 @@
     <div class="container-fluid"><reservation-component/></div>
 
 
-    <div class=""><footer-component/></div>
+    <div class="fixed-bottom"><footer-component/></div>
 </template>
 
 <script setup>

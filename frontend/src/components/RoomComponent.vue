@@ -16,7 +16,7 @@
         </div>
 
 
-        <button class="card__button text-uppercase">Reserve now!</button>
+        <button @click="reserveFromRoomCard(r.id)" to="/reserve" class="card__button text-uppercase">Reserve now!</button>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@ import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores';
 
 const { rooms } = storeToRefs(useUsersStore());;
-const { getAllRooms, } = useUsersStore();
+const { getAllRooms, reserveFromRoomCard} = useUsersStore();
 getAllRooms();
 </script>
 
@@ -166,6 +166,7 @@ li {
   font-size: 1.125rem;
   color: var(--white);
   color: white;
+  text-decoration: none;
 }
 
 .card__button:focus {

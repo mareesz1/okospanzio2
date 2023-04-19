@@ -39,36 +39,25 @@
 
       <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
         <label for="select_szoba">Szoba felszereltsége:</label>
-        <select class="form-select mx-3 py-3" id="select_szoba" aria-label="Default select example">
-        <option selected>Válasszon</option>
-        <option value="1">Superior</option>
-        <option value="1">Normal</option>
-        <option value="1">VIP</option>
+        <select class="form-select mx-3 py-3" id="select_szoba" aria-label="Default select example" v-model="reservation.type">
+          <option selected>Válasszon</option>
+          <option value="normal">Normal</option>
+          <option value="superior">Superior</option>
+          <option value="vip">VIP</option>
+          <option value="penthouse">Penthouse</option>
+          <option value="grand">Grand</option>
       </select>
       </div>
   
     </div>
 
-    <div class="d-flex justify-content-center pb-2">
-      <label class="checkbox-btn mx-2">
-        <label for="checkbox_szauna">Szauna</label>
+    <div class="d-flex justify-content-center pb-2" >
+      <label class="checkbox-btn mx-2" v-for="service in reservation.services">
+        <label for="checkbox_szauna">{{ service }}</label>
         <input id="checkbox_szauna" type="checkbox" />
         <span class="checkmark"></span>
       </label>
-
-      <label class="checkbox-btn mx-2">
-        <label for="checkbox_uszoda">Uszoda</label>
-        <input id="checkbox_uszoda" type="checkbox" />
-        <span class="checkmark"></span>
-      </label>
-
-      <label class="checkbox-btn mx-2">
-        <label for="checkbox_kondi">Konditerem</label>
-        <input id="checkbox_kondi" type="checkbox" />
-        <span class="checkmark"></span>
-      </label>
     </div>
-
   </div>
  
   </div>
@@ -79,7 +68,12 @@
    
 </template>
 
-<script setup></script>
+<script setup>
+import { storeToRefs } from 'pinia';
+import { useUsersStore } from '../stores';
+
+const {reservation} = storeToRefs(useUsersStore());
+</script>
 
 <style lang="scss" scoped>
 #start_date,
