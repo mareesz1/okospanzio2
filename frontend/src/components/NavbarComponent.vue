@@ -24,12 +24,8 @@
             <router-link to="/reserve">Foglalás</router-link>
           </li>
           <li
-            class="nav-item p-2"
-            v-if="
-              isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'
-            "
-          >
-            <router-link to="/admin/restaurant">Étterem</router-link>
+            class="nav-item p-2">
+            <router-link to="/restaurant">Étterem</router-link>
           </li>
         </ul>
       </div>
