@@ -34,7 +34,7 @@
         </ul>
       </div>
 
-      <div class="mx-auto" v-if="isLoggedIn.auth == true">
+      <div class="mx-auto alias" v-if="isLoggedIn.auth == true">
         Bejelentkezve, mint: {{ isLoggedIn.roles }}
       </div>
 
@@ -45,9 +45,9 @@
             <router-link to="/register">Regisztráció</router-link>
           </div> -->
 
-      <div class="btn-group dropstart nav-item mx-3" v-show="isLoggedIn.auth">
+      <div class="btn-group dropstart nav-item mx-3" id="profil" v-show="isLoggedIn.auth">
         <button
-          class="btn btn-lg dropdown-toggle"
+          class="btn "
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -103,6 +103,8 @@ import { useUsersStore } from "../stores/index";
 
 let { isLoggedIn } = storeToRefs(useUsersStore());
 const { logout } = useUsersStore();
+
+
 </script>
 
 <style lang="css" scoped>
@@ -114,6 +116,7 @@ const { logout } = useUsersStore();
     } */
 @import url("https://fonts.googleapis.com/css?family=Titillium+Web:400,600");
 
+
 body {
   background: #212121;
   padding: 50px 0;
@@ -122,6 +125,10 @@ body {
 @media (max-width: 767px) {
   #login{
     margin: auto;
+  }
+
+  .alias{
+    display: none;
   }
 }
 

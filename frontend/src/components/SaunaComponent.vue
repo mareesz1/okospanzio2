@@ -77,6 +77,9 @@
 
 .card-img{
     border: solid 2px white;
+    max-height: 35vh;
+    object-fit: cover;
+    transition: 0.5s;
 }
 @media (min-width:767px ){
 .card-img:hover{

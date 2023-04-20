@@ -1,5 +1,6 @@
 <template>
-<div class="col" v-for="r in rooms">
+  
+<div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center " v-for="r in rooms">
     <div class="card my-3">
       <img class="card__background" v-bind:src="r.IMG" width="1920" height="2193" />
       <div class="card__content | flow">
@@ -16,7 +17,7 @@
           </ul>
           </p>
         </div>
-        <button class="card__button text-uppercase">Reserve now!</button>
+        <button class="card__button text-uppercase">Lefoglalom</button>
       </div>
     </div>
   </div>
@@ -32,6 +33,9 @@ getAllRooms();
 </script>
 
 <style lang="css" scoped>
+
+
+
 :root {
   /* Colors */
   --brand-color: hsl(46, 100%, 50%);
@@ -91,6 +95,7 @@ p {
   width: 80vw;
   max-width: 21.875rem;
   height: 28.125rem;
+  border: solid 3px white;
   overflow: hidden;
   border-radius: 0.625rem;
   box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
@@ -188,11 +193,20 @@ p {
     opacity: 0;
     transition: transform 500ms ease-out, opacity 500ms ease-out;
   }
+  .card__button:hover{
+    color: #008bf8;
+    transform: scale(1.09);
+    transition: 0.2s;
+  }
 
   .card:hover,
   .card:focus-within {
     transform: scale(1.05);
     transition: transform 500ms ease-in;
+    border-color: #008bf8;
+  background-color: #a7f6ff6d;
+
+ 
   }
 
   .card:hover .card__content,

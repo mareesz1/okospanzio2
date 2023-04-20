@@ -18,11 +18,17 @@ import RestaurantNavbar from '../../components/restaurant/RestaurantNavbar.vue';
   background-position: center center;
   background-size: cover;
   object-fit: cover;
-  max-height: 100vh;
+  height: 100%;
   width: 100%;
   position: fixed;
   z-index: -4;
   filter: blur(15%);
   filter: brightness(25%);
+}
+
+@media (max-width: 767px){
+  .image{
+    width: auto;
+  }
 }
 </style>

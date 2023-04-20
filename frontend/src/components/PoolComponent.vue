@@ -124,8 +124,9 @@
 
 .card-img{
     border: solid 2px white;
-    max-height: 25vh;
+    max-height: 35vh;
     object-fit: cover;
+    transition: 0.5s;
 }
 
 
