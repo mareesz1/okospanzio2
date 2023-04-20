@@ -19,6 +19,9 @@ import RestaurantOrdersView from '../views/restaurant/RestaurantOrdersView.vue';
 import RestaurantTablesView from '../views/restaurant/RestaurantTablesView.vue';
 import RestaurantMenuView from '../views/restaurant/RestaurantMenuView.vue';
 import RestaurantGuestView from '../views/restaurant/RestaurantGuestView.vue';
+import RestaurantNavbar from '../components/restaurant/RestaurantNavbar.vue';
+import MenuComponent from '../components/restaurant/MenuComponent.vue';
+import AdminMenuComponent from '../components/restaurant/AdminMenuComponent.vue'
 
 // import {storeToRefs} from 'pinia';
 
@@ -123,7 +126,7 @@ const router = createRouter({
         },
         {
           path: 'restaurant',
-          component: RestaurantView,
+          component: RestaurantNavbar,
           meta: {title: 'Restaurant'},
           beforeEnter: (to, from) => {
             const {isLoggedIn} = storeToRefs(useUsersStore());
@@ -150,7 +153,7 @@ const router = createRouter({
             },
             {
               path: 'menu',
-              component: RestaurantMenuView,
+              component: AdminMenuComponent,
             },
           ]
         }
@@ -159,7 +162,21 @@ const router = createRouter({
     }, {
       path: '/restaurant',
       name: 'Restaurant',
-      component: RestaurantGuestView
+      component: RestaurantGuestView,
+      children: [
+        {
+          path: 'orders',
+          component: RestaurantOrdersView,
+        },
+        {
+          path: 'tables',
+          component: RestaurantTablesView,
+        },
+        {
+          path: 'menu',
+          component: RestaurantMenuView,
+        },
+      ]
     }
     // {
     //   path: '/admin/modifyuser/:id',
