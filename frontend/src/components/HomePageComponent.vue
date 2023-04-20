@@ -30,7 +30,8 @@
 <div class="row justify-content-center p-auto">
 <!-- jobb oldali kepes kartya -->
 <div class="m-3 col-12 col-md-4 col-sm-6 ">
-    <a href="/restaurant"  class="linkek">
+    <!-- <a href="/restaurant"  class="linkek"> -->
+    <router-link to="/restaurant" class="linkek">
     <div class="card mb-3">
       <div class="row g-0">
         <div class=" card-body">
@@ -47,7 +48,8 @@
         </div>
       </div>
     </div> 
-  </a>
+  </router-link>
+  <!-- </a> -->
   </div>
 
   <!-- kartya vege -->
@@ -55,7 +57,7 @@
 
   <!-- bal oldali kepes kartya -->
   <div class=" m-3 col-12 col-md-4 col-sm-6 ">
-    <a href="/gym" class="linkek">
+    <router-link to="/gym#top" class="linkek">
     <div class="card mb-3 ">
       <div class="row g-0">
           <div class="card-body">
@@ -71,7 +73,7 @@
           </div>
       </div>
     </div> 
-  </a>
+    </router-link>
   </div>
   <!-- kartya vege -->
 
@@ -128,7 +130,9 @@
 </div>
 </template>
 
-<script setup></script>
+<script setup>
+
+</script>
 
 <style lang="scss" scoped>
 .bg {
