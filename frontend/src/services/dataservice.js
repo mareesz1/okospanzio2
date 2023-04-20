@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const api = Axios.create({
-    baseURL: 'http://localhost:8000/api/',
+    baseURL: 'http://bgs.jedlik.eu/mm/szakdoga_api/api/',
     xsrfCookieName: 'XSRF-TOKEN',
     headers: {
         'Content-type': 'application/json',
@@ -14,7 +14,7 @@ const api = Axios.create({
 api.defaults.withCredentials = true;
 
 const cookie = Axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: 'http://bgs.jedlik.eu/mm/szakdoga_api',
     headers: {
         'Content-type': 'application/json',
         // 'Accept': 'application/json',
