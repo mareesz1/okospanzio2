@@ -32,5 +32,7 @@ getAllTables();
 </script>
 
 <style lang="css" scoped>
-
+.table{
+    color: white;
+}
 </style>

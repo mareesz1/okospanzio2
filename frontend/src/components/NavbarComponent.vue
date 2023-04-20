@@ -13,7 +13,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item p-2">
             <router-link to="/">Főoldal</router-link>
           </li>
@@ -23,22 +23,13 @@
           <li class="nav-item p-2">
             <router-link to="/reserve">Foglalás</router-link>
           </li>
-          <li class="nav-item p-2" v-if="!isLoggedIn.auth">
-            <router-link to="/login">Bejelentkezés</router-link>
-          </li>
-          <li class="nav-item p-2" v-if="!isLoggedIn.auth">
-            <router-link to="/register">Regisztráció</router-link>
-          </li>
-          <li class="nav-item p-2" v-if="isLoggedIn.roles == 'admin'">
-            <router-link to="/admin">Admin felület</router-link>
-          </li>
           <li
             class="nav-item p-2"
             v-if="
               isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'
             "
           >
-            <router-link to="/restaurant">Étterem</router-link>
+            <router-link to="/admin/restaurant">Étterem</router-link>
           </li>
         </ul>
       </div>
@@ -46,6 +37,13 @@
       <div class="mx-auto" v-if="isLoggedIn.auth == true">
         Bejelentkezve, mint: {{ isLoggedIn.roles }}
       </div>
+
+          <div class="nav-item p-2" id="login" v-if="!isLoggedIn.auth">
+            <router-link to="/login">Bejelentkezés</router-link>
+          </div>
+          <!-- <div class="nav-item p-2" v-if="!isLoggedIn.auth">
+            <router-link to="/register">Regisztráció</router-link>
+          </div> -->
 
       <div class="btn-group dropstart nav-item mx-3" v-show="isLoggedIn.auth">
         <button
@@ -83,8 +81,12 @@
           <li>
             <a class="dropdown-item" href="/myservices">Szolgáltatásaim</a>
           </li>
+          <li class="dropdown-item" v-if="isLoggedIn.roles == 'admin'">
+            <router-link to="/admin" class="dropdown-item">Admin felület</router-link>
+          </li>
           <li><hr class="dropdown-divider" /></li>
           <li>
+            
             <a class="dropdown-item" type="button" @click="logout"
               >Kijelentkezés</a
             >
@@ -115,6 +117,12 @@ const { logout } = useUsersStore();
 body {
   background: #212121;
   padding: 50px 0;
+}
+
+@media (max-width: 767px) {
+  #login{
+    margin: auto;
+  }
 }
 
 .dropdown-menu {

@@ -1,6 +1,6 @@
 <template>
    <!-- Remove the container if you want to extend the Footer to full width. -->
-<div class="mt-5 " >
+<div class="mt-5 footer" >
   <!-- Footer -->
   <footer
           class="text-center text-lg-start text-dark"
@@ -73,7 +73,7 @@
           <!-- Grid column -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
-            <h6 class="text-uppercase fw-bold">Services</h6>
+            <h6 class="text-uppercase fw-bold">Szolgáltatásaink</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
                 style="width: 60px; background-color: #7c4dff; height: 2px"
@@ -82,13 +82,13 @@
               <a href="/rooms" class="text-dark">Szobák</a>
             </p>
             <p>
-              <a href="#!" class="text-dark">Szauna</a>
+              <a href="/sauna" class="text-dark">Szauna</a>
             </p>
             <p>
-              <a href="#!" class="text-dark">Konditerem</a>
+              <a href="/gym" class="text-dark">Konditerem</a>
             </p>
             <p>
-              <a href="#!" class="text-dark">Uszoda</a>
+              <a href="/pool" class="text-dark">Uszoda</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -118,7 +118,7 @@
           <!-- Grid column -->
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
-            <h6 class="text-uppercase fw-bold">Contact</h6>
+            <h6 class="text-uppercase fw-bold">Kapcsolat</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
                 style="width: 60px; background-color: #7c4dff; height: 2px"
@@ -156,5 +156,9 @@
 </script>
 
 <style lang="css" scoped>
-
+.footer{
+  position: relative;
+   bottom: 0;
+   width: 100%;
+}
 </style>

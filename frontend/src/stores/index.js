@@ -161,7 +161,7 @@ export const useUsersStore = defineStore('usersStore', {
                 
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log("megy");}).catch((err) => {console.log(err);});
+            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log("got csrf cookie");}).catch((err) => {console.log(err);});
         },
         logout() {
             api.delete('/login').then((resp) => {
@@ -201,19 +201,27 @@ export const useUsersStore = defineStore('usersStore', {
             }
             try {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+                // console.log(isLoggedIn);
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        console.log(resp.data.user);
+                        // console.log(resp);
                         let user = resp.data.user;
-                        if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
-                            // console.log('siker');
-                            this.isLoggedIn = isLoggedIn;
+                        if (resp.data) {
+                            if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
+                                // console.log('siker');
+                                this.isLoggedIn = isLoggedIn;
+                            }
+                        } else {
+                            this.isLoggedIn.message = 'unauthenticated';
+                            this.isLoggedIn.auth = false;
+                            sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         }
                     }).catch((err) => {console.log(err);})
                 }
             } catch (err) {
                 this.isLoggedIn.message = 'unauthenticated';
                 this.isLoggedIn.auth = false;
+                sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
             }
         },
         reserveFromRoomCard(r) {

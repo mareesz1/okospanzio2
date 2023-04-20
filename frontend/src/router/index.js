@@ -8,6 +8,9 @@ import ReservationView from '../views/ReservationView.vue';
 import BillView from '../views/BillView.vue';
 import LoginView from '../views/LoginView.vue';
 import NewUserView from '../views/RegistrationView.vue';
+import GymView from '../views/GymView.vue';
+import SaunaView from '../views/SaunaView.vue';
+import PoolView from '../views/PoolView.vue';
 import AdminView from '../views/admin/AdminView.vue';
 import AUsersTableView from '../views/admin/AdminUsersTableView.vue';
 import ARoomsView from '../views/admin/AdminRoomsView.vue';
@@ -15,6 +18,7 @@ import RestaurantView from '../views/restaurant/RestaurantView.vue';
 import RestaurantOrdersView from '../views/restaurant/RestaurantOrdersView.vue';
 import RestaurantTablesView from '../views/restaurant/RestaurantTablesView.vue';
 import RestaurantMenuView from '../views/restaurant/RestaurantMenuView.vue';
+import RestaurantGuestView from '../views/restaurant/RestaurantGuestView.vue';
 
 // import {storeToRefs} from 'pinia';
 
@@ -24,6 +28,10 @@ import RestaurantMenuView from '../views/restaurant/RestaurantMenuView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -50,6 +58,27 @@ const router = createRouter({
       name: 'bills',
       component: BillView,
       meta: {title: 'Bills'},
+
+    },
+    {
+      path: '/gym',
+      name: 'gym',
+      component: GymView,
+      meta: {title: 'Gym'},
+
+    },
+    {
+      path: '/pool',
+      name: 'pool',
+      component: PoolView,
+      meta: {title: 'Pool'},
+
+    },
+    {
+      path: '/sauna',
+      name: 'sauna',
+      component: SaunaView,
+      meta: {title: 'Sauna'},
 
     },
     {
@@ -92,42 +121,46 @@ const router = createRouter({
           path: 'rooms',
           component: ARoomsView,
         },
+        {
+          path: 'restaurant',
+          component: RestaurantView,
+          meta: {title: 'Restaurant'},
+          beforeEnter: (to, from) => {
+            const {isLoggedIn} = storeToRefs(useUsersStore());
+            // const loginData = JSON.parse(localStorage.getItem("login"));
+            // if ((loginData.roles == "admin" || loginData.roles == "restaurant") && loginData.auth) {
+            //   return true;
+            // } else {
+            //   return false;
+            // }
+            if (isLoggedIn.value.auth && (isLoggedIn.value.roles == 'admin' || isLoggedIn.value.roles == 'restaurant')) {
+              return true;
+            } else {
+              return {name: 'home'};
+            }
+          },
+          children: [
+            {
+              path: 'orders',
+              component: RestaurantOrdersView,
+            },
+            {
+              path: 'tables',
+              component: RestaurantTablesView,
+            },
+            {
+              path: 'menu',
+              component: RestaurantMenuView,
+            },
+          ]
+        }
         
       ]
-    },
-    {
+    }, {
       path: '/restaurant',
-      component: RestaurantView,
-      meta: {title: 'Restaurant'},
-      beforeEnter: (to, from) => {
-        const {isLoggedIn} = storeToRefs(useUsersStore());
-        // const loginData = JSON.parse(localStorage.getItem("login"));
-        // if ((loginData.roles == "admin" || loginData.roles == "restaurant") && loginData.auth) {
-        //   return true;
-        // } else {
-        //   return false;
-        // }
-        if (isLoggedIn.value.auth && (isLoggedIn.value.roles == 'admin' || isLoggedIn.value.roles == 'restaurant')) {
-          return true;
-        } else {
-          return {name: 'home'};
-        }
-      },
-      children: [
-        {
-          path: 'orders',
-          component: RestaurantOrdersView,
-        },
-        {
-          path: 'tables',
-          component: RestaurantTablesView,
-        },
-        {
-          path: 'menu',
-          component: RestaurantMenuView,
-        },
-      ]
-    },
+      name: 'Restaurant',
+      component: RestaurantGuestView
+    }
     // {
     //   path: '/admin/modifyuser/:id',
     //   name: 'modifyUser',

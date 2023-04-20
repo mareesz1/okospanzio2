@@ -1,5 +1,5 @@
 <template>
-  <div class="col" v-for="r in rooms">
+<div class="col" v-for="r in rooms">
     <div class="card my-3">
       <img class="card__background" v-bind:src="r.IMG" width="1920" height="2193" />
       <div class="card__content | flow ">

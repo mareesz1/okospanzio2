@@ -146,6 +146,10 @@ class LoginController extends Controller
 
     public static function getAuthenticatedUser(Request $request) {
         try {
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $out->writeln('asd');
+            $user = $request->user();
+            $out->writeln($user);
             return response()->json([
                 'user' => $request->user()
             ], 200);

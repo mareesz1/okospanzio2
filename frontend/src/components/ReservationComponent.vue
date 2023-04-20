@@ -1,7 +1,8 @@
 <template>
-  <div class="display-3 text-center p-2">Szobafoglalás</div>
+
 
   <div class="reservation-bar row">
+  <div class="display-3 text-center p-2" style="color:white">Szobafoglalás</div>
   <div class="container">
     <div class="my-3">
       
@@ -60,13 +61,13 @@
       </label>
     </div>
   </div>
- 
-  </div>
-
-  <div class="justify-content-center d-flex pt-2">
+  <div class="justify-content-center d-flex p-2">
     <button class="btn w-25">Szobák keresése</button>
   </div>
-   
+  </div>
+
+ 
+
 </template>
 
 <script setup>
@@ -84,6 +85,7 @@ const {reservation, services} = storeToRefs(useUsersStore());
   width: 75%;
 }
 
+
 .col-12{
   vertical-align: middle;
 }
@@ -93,14 +95,16 @@ const {reservation, services} = storeToRefs(useUsersStore());
 .btn {
   display: inline-block;
   padding: 12px 24px;
-  border: 1px solid #4f4f4f;
+  border: 1px solid #00000086;
   border-radius: 4px;
   transition: all 0.2s ease-in;
   position: relative;
   overflow: hidden;
   font-size: 19px;
-  color: black;
+  color: rgb(0, 0, 0);
   z-index: 1;
+  background-color: white;
+  filter: brightness(95%);
 }
 
 .btn:before {
