@@ -203,7 +203,7 @@ export const useUsersStore = defineStore('usersStore', {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        // console.log(resp.data.user);
+                        console.log(resp.data.user);
                         let user = resp.data.user;
                         if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
                             // console.log('siker');

@@ -65,6 +65,10 @@ Route::get('/reader', function (Request $request) {
     return CardReaderController::sendBackId($request);
 });
 
+Route::get('/services', function () {
+    return ServiceController::index();
+});
+
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
 
