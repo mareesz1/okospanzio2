@@ -38,9 +38,9 @@ export const useUsersStore = defineStore('usersStore', {
             message: null,
             istrue: false,
         },
-        selectedRoom: null,
         services: [],
         reservation: {
+            roomId: 0,
             start: '',
             end: '',
             beds: 2,
@@ -229,6 +229,15 @@ export const useUsersStore = defineStore('usersStore', {
             this.reservation.type = r.type
             this.reservation.beds = r.beds
             router.push('/reserve')
+        },
+        reserve(){
+            // this.reservation.start= r.start
+            // this.reservation.end = r.end
+            // this.reservation.beds = r.beds
+            // this.reservation.type = r.type
+            // this.reservedRoom = r.id
+            console.log(this.reservation)
+
         },
         getAllServices() {
             api.get('/services').then((resp) => {

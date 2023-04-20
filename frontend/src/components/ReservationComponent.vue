@@ -1,80 +1,72 @@
 <template>
-
-
   <div class="reservation-bar row">
-  <div class="display-3 text-center p-2" style="color:white">Szobafoglalás</div>
-  <div class="container">
-    <div class="my-3">
-      
-      <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-        <label for="start_date">Érkezés időpontja:</label>
-      <input
-        type="date"
-        class="mx-2 form-control py-3"
-        name="start_date"
-        id="start_date"
-      />
+    <div class="display-3 text-center p-2" style="color:white">Szobafoglalás</div>
+    <div class="container">
+      <div class="my-3">
+
+        <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex align-items-center">
+          <label class="" for="start_date">Érkezés:</label>
+          <input type="date" class="mx-2 form-control py-3" name="start_date" id="start_date"
+            v-model="reservation.start" />
+        </div>
+
+        <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex align-items-center">
+          <label class="align-middle" for="end_date">Távozás:</label>
+          <input type="date" class="mx-2 form-control py-3" name="end_date" id="end_date" v-model="reservation.end" />
+        </div>
+
+        <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
+          <label for="select_vendeg">Vendégek száma:</label>
+          <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example"
+            v-model="reservation.beds">
+            <option selected>Válasszon</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
+          <label for="select_szoba">Szoba felszereltsége:</label>
+          <select class="form-select mx-3 py-3" id="select_szoba" aria-label="Default select example"
+            v-model="reservation.type">
+            <option selected>Válasszon</option>
+            <option value="normal">Normal</option>
+            <option value="superior">Superior</option>
+            <option value="vip">VIP</option>
+            <option value="penthouse">Penthouse</option>
+            <option value="grand">Grand</option>
+          </select>
+        </div>
+
       </div>
 
-      <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-        <label for="end_date">Távozás időpontja:</label>
-      <input
-        type="date"
-        class="mx-2 form-control py-3"
-        name="end_date"
-        id="end_date"
-        v-model="reservation.start"
-      />
+      <div class="d-flex justify-content-center pb-2">
+        <label class="checkbox-btn mx-2" v-for="service in services">
+          <label for="checkbox_szauna">{{ service.name }}</label>
+          <input id="checkbox_szauna" type="checkbox" v-model="reservation.services" :value="service.id"/>
+          <span class="checkmark"></span>
+        </label>
       </div>
-      
-      <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-      <label for="select_vendeg">Vendégek száma:</label>
-        <select class="form-select mx-3 py-3" id="select_vendeg" aria-label="Default select example" v-model="reservation.beds">
-          <option selected>Válasszon</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-      </select>
-      </div>
-
-      <div class="col-12 col-md-3 col-sm-8 my-2 d-inline-flex">
-        <label for="select_szoba">Szoba felszereltsége:</label>
-        <select class="form-select mx-3 py-3" id="select_szoba" aria-label="Default select example" v-model="reservation.type">
-          <option selected>Válasszon</option>
-          <option value="normal">Normal</option>
-          <option value="superior">Superior</option>
-          <option value="vip">VIP</option>
-          <option value="penthouse">Penthouse</option>
-          <option value="grand">Grand</option>
-      </select>
-      </div>
-  
     </div>
-
-    <div class="d-flex justify-content-center pb-2" >
-      <label class="checkbox-btn mx-2" v-for="service in services">
-        <label for="checkbox_szauna">{{ service.name }}</label>
-        <input id="checkbox_szauna" type="checkbox" />
-        <span class="checkmark"></span>
-      </label>
+    <div class="justify-content-center d-flex p-2">
+      <button class="btn w-25" @click="reserve()">Szobák keresése</button>
     </div>
   </div>
-  <div class="justify-content-center d-flex p-2">
-    <button class="btn w-25">Szobák keresése</button>
-  </div>
-  </div>
-
- 
-
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores';
 
-const {reservation, services} = storeToRefs(useUsersStore());
+const {getAllServices, reserve} = useUsersStore();
+
+const { reservation, services } = storeToRefs(useUsersStore());
+
+getAllServices();
+
 </script>
 
 <style lang="scss" scoped>
@@ -86,12 +78,14 @@ const {reservation, services} = storeToRefs(useUsersStore());
 }
 
 
-.col-12{
+.col-12 {
   vertical-align: middle;
 }
-.col-12 input{
-  vertical-align:middle;
+
+.col-12 input {
+  vertical-align: middle;
 }
+
 .btn {
   display: inline-block;
   padding: 12px 24px;
@@ -153,6 +147,7 @@ const {reservation, services} = storeToRefs(useUsersStore());
   background-color: #39bda7;
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
+
 //gomb vége
 
 /* Customize the label (the checkbox-btn) */
@@ -181,6 +176,7 @@ const {reservation, services} = storeToRefs(useUsersStore());
   cursor: pointer;
   font-size: 18px;
 }
+
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
@@ -191,7 +187,8 @@ const {reservation, services} = storeToRefs(useUsersStore());
   border: 2.5px solid #ffffff;
   transition: 0.2s linear;
 }
-.checkbox-btn input:checked ~ .checkmark {
+
+.checkbox-btn input:checked~.checkmark {
   background-color: transparent;
 }
 
@@ -213,23 +210,25 @@ const {reservation, services} = storeToRefs(useUsersStore());
 }
 
 /* Show the checkmark when checked */
-.checkbox-btn input:checked ~ .checkmark:after {
+.checkbox-btn input:checked~.checkmark:after {
   visibility: visible;
   opacity: 1;
   transform: translate(-50%, -50%) rotate(0deg) scale(1);
   animation: pulse 1s ease-in;
 }
 
-.checkbox-btn input:checked ~ .checkmark {
+.checkbox-btn input:checked~.checkmark {
   transform: rotate(45deg);
   border: none;
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
+
   50% {
     transform: translate(-50%, -50%) rotate(0deg) scale(1.6);
   }
@@ -249,9 +248,11 @@ const {reservation, services} = storeToRefs(useUsersStore());
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
