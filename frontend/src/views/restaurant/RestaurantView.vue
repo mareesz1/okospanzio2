@@ -9,6 +9,10 @@
 
 <script setup>
 import RestaurantNavbar from '../../components/restaurant/RestaurantNavbar.vue';
+console.log("lófasz");
+() => {
+  window.scrollTo(0,0);
+}
 </script>
 
 <style lang="scss" scoped>

@@ -32,7 +32,19 @@ Route::get('login', function (Request $request) {
 });
 Route::get('/login/get', function (Request $request) {
     return LoginController::getAuthenticatedUser($request);
-})->middleware('auth:sanctum');
+});
+
+// Route::get('/login/get', function (Request $request) {
+//     $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+//     $out->writeln((string)$request);
+//     // $request->session->regenerate();
+//     $session = $request->session->all();
+//     $out->writeln('asdf api.php new');
+//     $out->writeln($session);
+//     $out->writeln((string)$request->user());
+//     return $request->user();
+// });
+
 Route::delete('/login', function (Request $request) {
     return LoginController::logout($request);
 });

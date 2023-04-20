@@ -29,7 +29,7 @@
               isLoggedIn.roles == 'admin' || isLoggedIn.roles == 'restaurant'
             "
           >
-            <router-link to="/restaurant">Étterem</router-link>
+            <router-link to="/admin/restaurant">Étterem</router-link>
           </li>
         </ul>
       </div>
