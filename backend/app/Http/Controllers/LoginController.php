@@ -57,15 +57,21 @@ class LoginController extends Controller
                 ], 401);
             }
 
-            // $out->writeln($request->email);
-            // $out->writeln($request->password);
-            // $out->writeln($request->code);
+            // $credentials = [
+            //     'email' => $request->email,
+            //     'password' => $request->password,
+            //     'code' => $request->code
+            // ];
+
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+                'code' => ['required', 'max:4'],
+            ]);
+
+            // $out->writeln($credentials);
             try {
-                if (Auth::attempt([
-                    'email' => $request->email,
-                    'password' => $request->password,
-                    'code' => $request->code
-                    ])) {
+                if (Auth::attempt($credentials)) {
                         $user = User::where('email', $request->email)->first();
                                 $request->session()->regenerate();
                                 return response()->json([
@@ -147,7 +153,7 @@ class LoginController extends Controller
     public static function getAuthenticatedUser(Request $request) {
         try {
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-            $out->writeln('asd');
+            // $out->writeln('asd');
             $user = $request->user();
             $out->writeln($user);
             return response()->json([

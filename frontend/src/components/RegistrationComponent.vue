@@ -89,9 +89,7 @@
 </template>
 
 <script setup>
-import RegisterButton from '../components/RegisterButtonComponent.vue';
     import {ref} from 'vue';
-    import {sha512} from 'js-sha512';
     import {storeToRefs} from 'pinia';
     import {useUsersStore} from '../stores/index';
     
@@ -100,7 +98,6 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
 
     let password = ref();
     let passwordConfirmed = ref();
-    let passwordHash = ref();
     let passwordError = ref();
 
     passwordError.value = false;
@@ -108,10 +105,8 @@ import RegisterButton from '../components/RegisterButtonComponent.vue';
     function register(input) { // password encryption and post request
         if (password.value == passwordConfirmed.value) {
             passwordError.value = false;
-            passwordHash = sha512(input);
             try {
-                // user.passwordHash = passwordHash;
-                postNewRegistration(passwordHash);
+                postNewRegistration(input);
                 } catch (error) {
                     console.log(error);
                 }

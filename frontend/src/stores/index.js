@@ -86,7 +86,7 @@ export const useUsersStore = defineStore('usersStore', {
             if (this.user.roles == 'guest') {
                 this.user.code = 0;
             }
-            this.user.passwordHash = pwHash;
+            this.user.password = pwHash;
             return api.post('/user', this.user)
               .then((response) => {
                 if (response.status == 201) {
@@ -123,10 +123,6 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate() {
-            if (!$cookies.get('XSRF-TOKEN')) {
-                console.log('nincs xsrf cookie');
-                this.getCsrfCookie();
-            }
             if (this.user.roles == 'guest') {
                 this.user.code = 0;
             }
@@ -149,10 +145,6 @@ export const useUsersStore = defineStore('usersStore', {
                         sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         router.push({path: '/', replace: true});
                         console.log(resp.data.message);
-
-                    if (resp.status == 419) {
-                        $cookies.remove('XSRF-TOKEN');
-                    }
                 }
                 }).catch((err) => {
                     console.log(err);
@@ -161,7 +153,7 @@ export const useUsersStore = defineStore('usersStore', {
                 
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log("got csrf cookie");}).catch((err) => {console.log(err);});
+            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log(resp);}).catch((err) => {console.log(err);});
         },
         logout() {
             api.delete('/login').then((resp) => {
@@ -196,12 +188,8 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         isAuthenticated() {
-            if (!$cookies.get('XSRF-TOKEN')) {
-                this.getCsrfCookie();
-            }
             try {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
-                // console.log(isLoggedIn);
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
                         // console.log(resp);

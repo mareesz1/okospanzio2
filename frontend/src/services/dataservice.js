@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 const api = Axios.create({
     baseURL: 'http://localhost:8000/api/',
-    xsrfCookieName: 'XSRF-TOKEN',
+    // xsrfCookieName: 'X-xSRF-TOKEN',
     headers: {
         'Content-type': 'application/json',
         // 'Accept': 'application/json',
@@ -11,7 +11,7 @@ const api = Axios.create({
     },
 
 });
-api.defaults.withCredentials = true;
+// api.defaults.withCredentials = true;
 
 const cookie = Axios.create({
     baseURL: 'http://localhost:8000',

@@ -15,7 +15,7 @@
 
     const {getCsrfCookie} = useUsersStore();
     if (!$cookies.get('XSRF-TOKEN')){
-        getCsrfCookie();
+        // getCsrfCookie();
     } 
 </script>
 
