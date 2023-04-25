@@ -15,19 +15,23 @@ use Illuminate\Support\Facades\DB;
 class LoginController extends Controller
 {
     public static function getSessionId(Request $request) {
-        try {
+        // try {
             $value = $request->session()->get('key');
+            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+            $out->writeln((string)$request->cookie('laravel_session'));
+            $sessionData = decrypt($request->cookie('laravel_session'));
             return response()->json([
                 'success' => true,
-                'lofasz' => $value
+                'lofasz' => $value,
+                'sessionData' => $sessionData,
             ], 200);
-        } catch (\Throwable $th) {
+        // } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'catch' => 'catch',
-                'message' => $th->getMessage()
+                // 'message' => $th->getMessage()
             ], 500);
-        }
+        // }
     }
 
     public static function getAuthenticatedUser2(Request $request) {
