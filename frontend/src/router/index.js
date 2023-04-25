@@ -22,6 +22,7 @@ import RestaurantGuestView from '../views/restaurant/RestaurantGuestView.vue';
 import RestaurantNavbar from '../components/restaurant/RestaurantNavbar.vue';
 import MenuComponent from '../components/restaurant/MenuComponent.vue';
 import AdminMenuComponent from '../components/restaurant/AdminMenuComponent.vue'
+import ServicesView from '../views/ServicesView.vue'
 
 // import {storeToRefs} from 'pinia';
 
@@ -177,7 +178,11 @@ const router = createRouter({
           component: RestaurantMenuView,
         },
       ]
-    }
+    },
+    {
+      path: '/myservices',
+      component: ServicesView
+    },
     // {
     //   path: '/admin/modifyuser/:id',
     //   name: 'modifyUser',

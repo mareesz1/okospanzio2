@@ -11,7 +11,7 @@ const api = Axios.create({
     },
 
 });
-// api.defaults.withCredentials = true;
+api.defaults.withCredentials = true;
 
 const cookie = Axios.create({
     baseURL: 'http://localhost:8000',

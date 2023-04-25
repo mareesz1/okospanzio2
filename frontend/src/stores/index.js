@@ -6,7 +6,6 @@ export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
         rooms: [],
-        csrf: null,
         user: {
             firstName: null,
             lastName: null,
@@ -153,7 +152,7 @@ export const useUsersStore = defineStore('usersStore', {
                 
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log(resp);}).catch((err) => {console.log(err);});
+            // cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log(resp);}).catch((err) => {console.log(err);});
         },
         logout() {
             api.delete('/login').then((resp) => {
@@ -190,11 +189,12 @@ export const useUsersStore = defineStore('usersStore', {
         isAuthenticated() {
             try {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+                console.log(isLoggedIn);
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        // console.log(resp);
-                        let user = resp.data.user;
+                        console.log(resp);
                         if (resp.data) {
+                            let user = resp.data.user;
                             if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
                                 // console.log('siker');
                                 this.isLoggedIn = isLoggedIn;

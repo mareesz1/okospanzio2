@@ -30,6 +30,24 @@ class LoginController extends Controller
         }
     }
 
+    public static function getAuthenticatedUser2(Request $request) {
+        try {
+            $value = Auth::user();
+            $id = Auth::id();
+            return response()->json([
+                'success' => true,
+                'user' => $value,
+                'id' => $id,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'catch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     /**
      * Authenticate user
      *
@@ -74,10 +92,12 @@ class LoginController extends Controller
                 if (Auth::attempt($credentials)) {
                         $user = User::where('email', $request->email)->first();
                                 $request->session()->regenerate();
+                                $data = $request->session()->all();
                                 return response()->json([
                                     'success' => true,
                                     'message' => 'User Logged In Successfully',
                                     'token' => $user->createToken("API TOKEN", [$request->roles])->plainTextToken,
+                                    'data' => $data,
                                 ], 200);
                     }
                     return response()->json([
@@ -155,7 +175,7 @@ class LoginController extends Controller
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             // $out->writeln('asd');
             $user = $request->user();
-            $out->writeln($user);
+            // $out->writeln($user);
             return response()->json([
                 'user' => $request->user()
             ], 200);

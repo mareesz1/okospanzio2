@@ -16,15 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/tokens/create', function (Request $request) {
-    $token = csrf_token();
-    $out = $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-    $out->writeln($token);
-
-    // return ['token' => $token->plainTextToken];
-    return response()->json([
-        'status' => true,
-        'csrf-token' => $token
-    ]);
-});

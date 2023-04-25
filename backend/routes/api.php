@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::apiResource('task',TaskController::class);
 Route::apiResource('user',UserController::class);
 
 Route::post('login', function (Request $request) {
@@ -35,25 +34,19 @@ Route::get('login', function (Request $request) {
 Route::get('/login/get', function (Request $request) {
     return LoginController::getAuthenticatedUser($request);
 });
-
-// Route::get('/login/get', function (Request $request) {
-//     $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-//     $out->writeln((string)$request);
-//     // $request->session->regenerate();
-//     $session = $request->session->all();
-//     $out->writeln('asdf api.php new');
-//     $out->writeln($session);
-//     $out->writeln((string)$request->user());
-//     return $request->user();
-// });
+Route::get('/login/get2', function (Request $request) {
+    return LoginController::getAuthenticatedUser2($request);
+});
 
 Route::delete('/login', function (Request $request) {
     return LoginController::logout($request);
 });
 
 Route::get('room', [RoomController::class, 'index']);
-Route::apiResource('room',RoomController::class);
-Route::apiResource('menu',MenuController::class);
+Route::apiResource('room',RoomController::class)->middleware('auth:sanctum');
+
+Route::get('menu', [MenuController::class, 'index']);
+// Route::apiResource('menu',MenuController::class)->middleware('auth:sanctum');
 Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum');
 
 Route::get('/orders/all', function () {
@@ -71,6 +64,7 @@ Route::get('/orders/all/{id}', function (string $id) {
 Route::post('/orders/state/{id}', [RestaurantOrdersController::class, 'saveState'])->middleware('auth:sanctum');
 
 Route::apiResource('orders',RestaurantOrdersController::class)->middleware('auth:sanctum');
+
 Route::get('room', [RoomController::class, 'index']);
 
 Route::get('/reader', function (Request $request) {
@@ -80,7 +74,3 @@ Route::get('/reader', function (Request $request) {
 Route::get('/services', function () {
     return ServiceController::index();
 });
-
-// TESZT
-// Route::post('/auth/login', [LoginController::class, 'loginUser']);
-

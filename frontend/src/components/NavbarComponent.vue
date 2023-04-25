@@ -73,9 +73,11 @@
         </button>
 
         <ul class="dropdown-menu px-2">
-          <li><a class="dropdown-item" href="/bills">Számláim</a></li>
+          <!-- <li><a class="dropdown-item" href="/bills">Számláim</a></li> -->
+          <li><router-link class="dropdown-item" to="/bills">Számláim</router-link></li>
           <li>
-            <a class="dropdown-item" href="/myservices">Szolgáltatásaim</a>
+            <!-- <a class="dropdown-item" href="/myservices">Szolgáltatásaim</a> -->
+            <router-link class="dropdown-item" to="/myservices">Szolgáltatásaim</router-link>
           </li>
           <li class="dropdown-item" v-if="isLoggedIn.roles == 'admin'">
             <router-link to="/admin" class="dropdown-item">Admin felület</router-link>
