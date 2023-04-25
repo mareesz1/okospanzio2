@@ -3,30 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
-    public static function indexAll() {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function index()
+    {
         try {
-            $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-            $reservation = DB::table('reservations')
-            ->get();
-            // $out->writeln($orders);
-            return response()->json($reservation,200);
+            $data = Reservation::all();
+            return response()->json($data, 200);
         } catch (Exception $e) {
             return response()->json(
                 [
-                   'message'=>'Database error!'
-                ],400
+                    'success' => false,
+                    'message' => 'Database error!'
+                ],
+                400
             );
         }
     }
     public static function store(Request $request)
     {
-        try{
+        try {
             $reservation = new Reservation();
             $reservation->roomId = $request->input('roomId');
             $reservation->start = $request->input('start');
@@ -35,35 +41,40 @@ class ReservationController extends Controller
             $reservation->users = $request->input('users');
             $reservation->balance = $request->input('balance');
             $reservation->save();
-            }
-            catch (Exception $e){
-             return response()->json(
-                 [
-                    'message'=>'Database error!'
-                 ],400
-             );
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'message' => 'Database error!'
+                ],
+                400
+            );
         }
     }
     public static function notOccupied(Request $request)
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $start = Reservation::select('roomId')->whereNotBetween('start', [$request->start, $request->end])->get();
+        $end = Reservation::select('roomId')->whereNotBetween('end', [$request->start, $request->end])->get();
 
-            $notoccupied = DB::table('reservations')->where(['start', '<=', $request->start ],[ 'end', '>=', $request->end])->select('roomId');
-            $out->writeln((string)$notoccupied);
-            try{
-                if (!empty($notoccupied)) {
-                    return response()->json();
-                } else {
-                    return response()->json(['message' => 'Item not foundDDD'], 404);
-                }
+        $matchingelements = $start->intersect($end)->values();
+        $out->writeln($matchingelements);
+        
+        
+        // $out->writeln($end);
+         try{
+                if (!empty($matchingelements)) {
+                     return response()->json($matchingelements);
+                 } else {
+                     return response()->json(['message' => 'Item not found'], 404);
+                 }
+             }
+
+             catch (\Throwable $th) {
+                return response()->json([
+                    'success' => false,
+                    'catch' => 'catch',
+                    'message' => $th->getMessage()
+                ], 500);
             }
-            
-          catch (Exception $e) {
-             return response()->json(
-                 [
-                    'message'=>'Database error!'
-                ],400
-             );
-         }
     }
 }

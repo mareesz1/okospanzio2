@@ -83,16 +83,16 @@ Route::get('/services', function () {
 });
 
 Route::get('/reservations', function () {
-    return ReservationController::indexAll();
+    return ReservationController::index();
 });
 
-// Route::get('/notOccupied', function () {
-//     return ReservationController::notOccupied();
-// });
+ Route::post('/notOccupied', function (Request $request) {
+      return ReservationController::notOccupied($request);
+  });
 
-// Route::post("/postNewReservation", function(){
-//     return ReservationController::store();
-// });
+//  Route::post("/postNewReservation", function(Request $request){
+//      return ReservationController::store($request);
+//  });
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);

@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import {api, cookie} from '../services/dataservice';
 import router from '../router';
+import { Axios } from "axios";
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -214,6 +215,7 @@ export const useUsersStore = defineStore('usersStore', {
         },
         reserveFromRoomCard(r) {
             // this.selectedRoom = roomId
+            this.reservation.roomId=r.id
             this.reservation.type = r.type
             this.reservation.beds = r.beds
             router.push('/reserve')
@@ -224,7 +226,13 @@ export const useUsersStore = defineStore('usersStore', {
             // this.reservation.beds = r.beds
             // this.reservation.type = r.type
             // this.reservedRoom = r.id
-            console.log(this.reservation)
+           api.post('/notOccupied', this.reservation)
+           .then((resp)=>{
+                
+           })
+           .catch((err)=>{
+            console.log(err);
+           })
 
         },
         getAllServices() {
