@@ -9,6 +9,7 @@ use App\Http\Controllers\RestaurantOrdersController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CardReaderController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +81,18 @@ Route::get('/reader', function (Request $request) {
 Route::get('/services', function () {
     return ServiceController::index();
 });
+
+Route::get('/reservations', function () {
+    return ReservationController::indexAll();
+});
+
+// Route::get('/notOccupied', function () {
+//     return ReservationController::notOccupied();
+// });
+
+// Route::post("/postNewReservation", function(){
+//     return ReservationController::store();
+// });
 
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);

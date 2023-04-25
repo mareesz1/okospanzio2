@@ -43,12 +43,15 @@
 
       </div>
 
-      <div class="d-flex justify-content-center pb-2">
-        <label class="checkbox-btn mx-2" v-for="service in services">
-          <label for="checkbox_szauna">{{ service.name }}</label>
-          <input id="checkbox_szauna" type="checkbox" v-model="reservation.services" :value="service.id"/>
-          <span class="checkmark"></span>
-        </label>
+      <div class="container justify-content-center">
+        <div class="row d-flex">
+          <label class="checkbox-btn col-lg-4 col-md-4 col-auto mb-5" v-for="service in services">
+            
+              <label class="ck" for="checkbox_szauna">{{ service.name }}</label>
+              <input id="checkbox_szauna" type="checkbox" v-model="reservation.services" :value="service.id" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
       </div>
     </div>
     <div class="justify-content-center d-flex p-2">
@@ -61,7 +64,7 @@
 import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores';
 
-const {getAllServices, reserve} = useUsersStore();
+const { getAllServices, reserve } = useUsersStore();
 
 const { reservation, services } = storeToRefs(useUsersStore());
 
@@ -161,6 +164,7 @@ getAllServices();
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
 }
 
 /* Hide the browser's default checkbox */
@@ -260,5 +264,19 @@ getAllServices();
 
 .reservation-bar label {
   color: white;
+}
+
+@media (max-width: 767px) {
+  .ck {
+    align-items: center;
+    margin-right: 100px;
+
+    padding: 0;
+  }
+  .checkbox-btn{
+    margin-left: 30px;
+    margin-right: 0px;
+    transform: scale(1.3);
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-<div class="col" v-for="r in rooms">
-    <div class="card my-3">
+<div class="col-xl-4 col-lg-6 col-md-12 text-center align-middle" v-for="r in rooms">
+    <div class="card my-3 ms-3">
       <img class="card__background" v-bind:src="r.IMG" width="1920" height="2193" />
       <div class="card__content | flow ">
         <div class="card__content--container | flow text-center">
