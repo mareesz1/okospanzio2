@@ -16,14 +16,18 @@ class LoginController extends Controller
 {
     public static function getSessionId(Request $request) {
         // try {
-            $value = $request->session()->get('key');
+            $value = $request->session()->get('key', 'ures');
+            $allSession = $request->session()->all();
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-            $out->writeln((string)$request->cookie('laravel_session'));
-            $sessionData = decrypt($request->cookie('laravel_session'));
+            $user = Auth::user();
+            // $out->writeln((string)$request->cookie('laravel_session'));
+            // $sessionData = decrypt($request->cookie('laravel_session'));
             return response()->json([
                 'success' => true,
                 'lofasz' => $value,
-                'sessionData' => $sessionData,
+                'allSessionData' => $allSession,
+                'user' => $user,
+                // 'sessionData' => $sessionData,
             ], 200);
         // } catch (\Throwable $th) {
             return response()->json([
