@@ -11,7 +11,18 @@ const api = Axios.create({
     },
 
 });
+
 api.defaults.withCredentials = true;
+
+api.interceptors.request.use((config) => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const token = isLoggedIn.token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 
 const cookie = Axios.create({
     baseURL: 'http://localhost:8000',

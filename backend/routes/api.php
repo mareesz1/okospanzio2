@@ -25,15 +25,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('user',UserController::class);
 
+Route::middleware('auth:api')->get('/login/get', function (Request $request) {
+    $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+    $out->writeln($request);
+    // return $request->user();
+});
+
 Route::post('login', function (Request $request) {
     return LoginController::authenticate($request);
 });
 Route::get('login', function (Request $request) {
     return LoginController::getSessionId($request);
 });
-Route::get('/login/get', function (Request $request) {
-    return LoginController::getAuthenticatedUser($request);
-});
+// Route::get('/login/get', function (Request $request) {
+//     return LoginController::getAuthenticatedUser($request);
+// });
 Route::get('/login/get2', function (Request $request) {
     return LoginController::getAuthenticatedUser2($request);
 });

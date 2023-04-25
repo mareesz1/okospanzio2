@@ -36,6 +36,7 @@ export const useUsersStore = defineStore('usersStore', {
             roles: null,
             message: null,
             istrue: false,
+            token: null,
         },
         services: [],
         reservation: {
@@ -139,9 +140,10 @@ export const useUsersStore = defineStore('usersStore', {
                         };
                         if (resp.data.token) {
                             $cookies.set('token', resp.data.token, '7d');
-                            console.log($cookies.get('token'));
+                            this.isLoggedIn.token = resp.data.token;
+                            // console.log($cookies.get('token'));
                         }
-                        sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+                        localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         router.push({path: '/', replace: true});
                         console.log(resp.data.message);
                 }
@@ -162,8 +164,9 @@ export const useUsersStore = defineStore('usersStore', {
                     loginTime: null,
                     roles: null,
                     message: 'logged out',
+                    token: null,
                 };
-                sessionStorage.setItem("isLoggedIn", JSON.stringify(this.isLoggedIn));
+                localStorage.setItem("isLoggedIn", JSON.stringify(this.isLoggedIn));
                 router.push({path: '/', replace: true});
                 $cookies.remove('XSRF-TOKEN');
             }).catch((err) => {console.log(err)})
@@ -188,7 +191,7 @@ export const useUsersStore = defineStore('usersStore', {
         },
         isAuthenticated() {
             try {
-                const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+                const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
                 console.log(isLoggedIn);
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
@@ -202,14 +205,14 @@ export const useUsersStore = defineStore('usersStore', {
                         } else {
                             this.isLoggedIn.message = 'unauthenticated';
                             this.isLoggedIn.auth = false;
-                            sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+                            localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         }
                     }).catch((err) => {console.log(err);})
                 }
             } catch (err) {
                 this.isLoggedIn.message = 'unauthenticated';
                 this.isLoggedIn.auth = false;
-                sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+                localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
             }
         },
         reserveFromRoomCard(r) {
