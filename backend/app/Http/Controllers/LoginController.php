@@ -40,7 +40,7 @@ class LoginController extends Controller
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // $out->writeln('asd');
         // $out->writeln($request);
-        try {
+        // try {
             $validateUser = Validator::make($request->all(),
             [
                 'email' => 'required|email',
@@ -69,8 +69,8 @@ class LoginController extends Controller
                 'code' => ['required', 'max:4'],
             ]);
 
-            // $out->writeln($credentials);
-            try {
+            // try {
+                $out->writeln($credentials);
                 if (Auth::attempt($credentials)) {
                         $user = User::where('email', $request->email)->first();
                                 $request->session()->regenerate();
@@ -84,24 +84,24 @@ class LoginController extends Controller
                         'success' => false,
                         'message' => 'Authentication failed in auth:attempt'
                     ], 401);
-                } catch (Exception $e) {
+                // } catch (Exception $e) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Authentication failed s'
                     ], 401);
-                }
+                // }
 
                 return response()->json([
                     'success' => false,
                     'message' => 'Authentication failed d'
                 ], 401);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'catch' => 'catch',
-                'message' => $th->getMessage()
-            ], 500);
-        }
+        // } catch (\Throwable $th) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'catch' => 'catch',
+        //         'message' => $th->getMessage()
+        //     ], 500);
+        // }
     }
 
     public function fieldvalidation(Request $request){
@@ -154,8 +154,9 @@ class LoginController extends Controller
         try {
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             // $out->writeln('asd');
+            // $out->writeln((string)$request);
             $user = $request->user();
-            $out->writeln($user);
+            // $out->writeln($user);
             return response()->json([
                 'user' => $request->user()
             ], 200);

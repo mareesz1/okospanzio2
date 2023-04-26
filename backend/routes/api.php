@@ -34,19 +34,9 @@ Route::get('login', function (Request $request) {
     return LoginController::getSessionId($request);
 });
 Route::get('/login/get', function (Request $request) {
+    $out = new \Symfony\Component\Console\Output\ConsoleOutput();
     return LoginController::getAuthenticatedUser($request);
-});
-
-// Route::get('/login/get', function (Request $request) {
-//     $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-//     $out->writeln((string)$request);
-//     // $request->session->regenerate();
-//     $session = $request->session->all();
-//     $out->writeln('asdf api.php new');
-//     $out->writeln($session);
-//     $out->writeln((string)$request->user());
-//     return $request->user();
-// });
+})->middleware('auth:sanctum');
 
 Route::delete('/login', function (Request $request) {
     return LoginController::logout($request);
@@ -99,4 +89,3 @@ Route::get('/roomId/{id}', function (string $id) {
 });
 // TESZT
 // Route::post('/auth/login', [LoginController::class, 'loginUser']);
-
