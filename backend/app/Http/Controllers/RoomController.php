@@ -67,7 +67,7 @@ class RoomController extends Controller
      * @param  \App\Models\Rooms  $rooms
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
         try {
             $room = Rooms::find($id);
