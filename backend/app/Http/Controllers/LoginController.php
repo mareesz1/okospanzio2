@@ -154,6 +154,7 @@ class LoginController extends Controller
         try {
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
             // $out->writeln('asd');
+            // $out->writeln((string)$request);
             $user = $request->user();
             // $out->writeln($user);
             return response()->json([

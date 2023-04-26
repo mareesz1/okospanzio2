@@ -124,6 +124,10 @@ export const useUsersStore = defineStore('usersStore', {
               });
         },
         authenticate() {
+            if (!$cookies.get('XSRF-TOKEN')) {
+                console.log('nincs csrf cookie');
+                this.getCsrfCookie();
+            }
             if (this.user.roles == 'guest') {
                 this.user.code = 0;
             }
@@ -189,11 +193,15 @@ export const useUsersStore = defineStore('usersStore', {
             })
         },
         isAuthenticated() {
+            if (!$cookies.get('XSRF-TOKEN')) {
+                console.log('nincs csrf cookie');
+                this.getCsrfCookie();
+            }
             try {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        // console.log(resp);
+                        console.log(resp);
                         let user = resp.data.user;
                         if (resp.data) {
                             if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
