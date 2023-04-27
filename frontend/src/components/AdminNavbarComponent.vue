@@ -5,6 +5,7 @@
         <!-- <button class="btn btn-primary mx-3 my-3" @click="showRoomsF">Show rooms</button> -->
         <router-link to="/admin/rooms" class="btn btn-primary mx-3 my-3">Szobák</router-link>
         <router-link to="/admin/restaurant" class="btn btn-primary mx-3 my-3">Étterem</router-link>
+        <router-link to="/admin/qrcode" class="btn btn-primary mx-3 my-3">QR kód teszt</router-link>
     </div>
 </template>
 

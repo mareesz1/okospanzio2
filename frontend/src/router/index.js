@@ -22,6 +22,7 @@ import RestaurantGuestView from '../views/restaurant/RestaurantGuestView.vue';
 import RestaurantNavbar from '../components/restaurant/RestaurantNavbar.vue';
 import MenuComponent from '../components/restaurant/MenuComponent.vue';
 import AdminMenuComponent from '../components/restaurant/AdminMenuComponent.vue'
+import QRCode from '../views/admin/QRCode.vue';
 
 // import {storeToRefs} from 'pinia';
 
@@ -156,6 +157,10 @@ const router = createRouter({
               component: AdminMenuComponent,
             },
           ]
+        },
+        {
+          path: 'qrcode',
+          component: QRCode,
         }
         
       ]

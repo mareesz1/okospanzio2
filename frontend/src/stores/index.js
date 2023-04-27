@@ -8,6 +8,7 @@ export const useUsersStore = defineStore('usersStore', {
         users: [],
         rooms: [],
         csrf: null,
+        colorTheme: "light",
         user: {
             firstName: null,
             lastName: null,

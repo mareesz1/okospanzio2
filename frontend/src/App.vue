@@ -3,9 +3,12 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useUsersStore } from './stores';
 import NavbarComponent from './components/NavbarComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import { storeToRefs } from 'pinia';
 
 const {isAuthenticated} = useUsersStore();
 isAuthenticated();
+
+const {colorTheme} = storeToRefs(useUsersStore());
 </script>
 
 <template>
