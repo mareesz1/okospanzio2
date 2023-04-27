@@ -34,7 +34,6 @@ Route::get('login', function (Request $request) {
     return LoginController::getSessionId($request);
 });
 Route::get('/login/get', function (Request $request) {
-    $out = new \Symfony\Component\Console\Output\ConsoleOutput();
     return LoginController::getAuthenticatedUser($request);
 })->middleware('auth:sanctum');
 
@@ -50,7 +49,7 @@ Route::apiResource('tables',TablesController::class)->middleware('auth:sanctum')
 Route::get('/orders/all', function () {
     return RestaurantOrdersController::indexALl();
 
-})->middleware('auth:sanctum');
+});
 
 Route::get('/tables/all', function () {
     return TablesController:: indexAll();
@@ -87,5 +86,3 @@ Route::get('/reservations', function () {
 Route::get('/roomId/{id}', function (string $id) {
     return RoomController::show($id);
 });
-// TESZT
-// Route::post('/auth/login', [LoginController::class, 'loginUser']);

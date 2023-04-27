@@ -20,7 +20,6 @@ class UserController extends Controller
     public function index()
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        // echo 'ok';
         try{
             $user = User::all();
             return response()->json($user,200);
@@ -43,8 +42,6 @@ class UserController extends Controller
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         $v = $this->fieldvalidation($request);
-        // $out->writeln($request);
-        // $out->writeln($request);
         if ($v != '') { // Validation failed
             return response()->json($v,400);
         }
@@ -71,7 +68,6 @@ class UserController extends Controller
                  ],201
                 );
             }
-            // $out->writeln($request->input('code'));
             if ($user->code) {
                 $existingCode = AdminCodes::where('roles', '=', $request->input('roles'))->select('code')->get()[0];
                 if ($request->input('code') == $existingCode->code) {
@@ -84,7 +80,6 @@ class UserController extends Controller
                     ], 201);
                 }
             }
-            // $out->writeln($existingCode->code);
             return response()->json(['message' => 'Code doesnt match'], 404);
         } catch (Exception $e){
              return response()->json(
@@ -152,7 +147,6 @@ class UserController extends Controller
           return response()->json(
               [
                  'message'=>'Database error!',
-                //  'user' => $user,
              ],400
           );
        }

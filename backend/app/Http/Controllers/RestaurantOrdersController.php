@@ -183,7 +183,7 @@ class RestaurantOrdersController extends Controller
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         $v = $this->fieldvalidation($request);
         if ($v != '') {
-        return response()->json($v,400);
+            return response()->json($v,400);
         }
 
         try {

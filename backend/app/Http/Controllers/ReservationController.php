@@ -54,8 +54,8 @@ class ReservationController extends Controller
     }
     public static function notOccupied(Request $request)
     {
-        
-        
+        try {
+
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         $start = Reservation::select('roomId')
             ->where(function ($query) use ($request) {
@@ -76,15 +76,11 @@ class ReservationController extends Controller
             return $item->roomId;
         });
         $out->writeln($matchingelements);
-
-
-        // $out->writeln($end);
-        try {
-            if (!empty($matchingelements)) {
-                return response()->json($matchingelements);
-            } else {
-                return response()->json(['message' => 'Item not found'], 404);
-            }
+        if (!empty($matchingelements)) {
+            return response()->json($matchingelements);
+        } else {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -92,6 +88,6 @@ class ReservationController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-        
+
     }
 }

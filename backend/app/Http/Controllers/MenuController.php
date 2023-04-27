@@ -191,7 +191,6 @@ class MenuController extends Controller
             ],
 
         );
-
         if ($validator->fails()){
             return $validator->messages();
         }

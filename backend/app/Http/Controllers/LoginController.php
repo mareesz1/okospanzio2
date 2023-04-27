@@ -19,7 +19,7 @@ class LoginController extends Controller
             $value = $request->session()->get('key');
             return response()->json([
                 'success' => true,
-                'lofasz' => $value
+                'sessionData' => $value
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -38,9 +38,7 @@ class LoginController extends Controller
      */
     public static function authenticate(Request $request) {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        // $out->writeln('asd');
-        // $out->writeln($request);
-        // try {
+        try {
             $validateUser = Validator::make($request->all(),
             [
                 'email' => 'required|email',
@@ -57,19 +55,13 @@ class LoginController extends Controller
                 ], 401);
             }
 
-            // $credentials = [
-            //     'email' => $request->email,
-            //     'password' => $request->password,
-            //     'code' => $request->code
-            // ];
-
             $credentials = $request->validate([
                 'email' => ['required', 'email'],
                 'password' => ['required'],
                 'code' => ['required', 'max:4'],
             ]);
 
-            // try {
+            try {
                 $out->writeln($credentials);
                 if (Auth::attempt($credentials)) {
                         $user = User::where('email', $request->email)->first();
@@ -84,24 +76,24 @@ class LoginController extends Controller
                         'success' => false,
                         'message' => 'Authentication failed in auth:attempt'
                     ], 401);
-                // } catch (Exception $e) {
+                } catch (Exception $e) {
                     return response()->json([
                         'success' => false,
                         'message' => 'Authentication failed s'
                     ], 401);
-                // }
+                }
 
                 return response()->json([
                     'success' => false,
                     'message' => 'Authentication failed d'
                 ], 401);
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'catch' => 'catch',
-        //         'message' => $th->getMessage()
-        //     ], 500);
-        // }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'catch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function fieldvalidation(Request $request){

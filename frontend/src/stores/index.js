@@ -8,8 +8,6 @@ export const useUsersStore = defineStore('usersStore', {
         rooms: [],
         FreeRooms: [],
         FreeRoomId: [],
-        csrf: null,
-        colorTheme: "light",
         user: {
             firstName: null,
             lastName: null,
@@ -48,12 +46,7 @@ export const useUsersStore = defineStore('usersStore', {
             end: '',
             beds: 2,
             type: 'normal',
-            services: [
-                // 'Szauna',
-                // 'Uszoda',
-                // 'Konditerem',
-                // 'Thai masszázs (igen olyan)'
-            ],
+            services: [],
             mainUserId: '',
             users:1,
         },
@@ -90,7 +83,6 @@ export const useUsersStore = defineStore('usersStore', {
             api.get('/room')
                 .then((resp) => {
                     this.rooms = resp.data;
-                    // console.log(this.rooms)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -190,7 +182,6 @@ export const useUsersStore = defineStore('usersStore', {
         deleteUser(id) {
             return api.delete(`/user/${id}`, id)
                 .then((resp) => {
-                    // return console.log(resp);
                     return
                 })
                 .catch((err) => {
@@ -200,7 +191,6 @@ export const useUsersStore = defineStore('usersStore', {
         deleteRoom(id) {
             return api.delete(`/room/${id}`, id)
                 .then((resp) => {
-                    // return console.log(resp);
                     return
                 })
                 .catch((err) => {
@@ -216,11 +206,9 @@ export const useUsersStore = defineStore('usersStore', {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        // console.log(resp);
                         let user = resp.data.user;
                         if (resp.data) {
                             if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
-                                // console.log('siker');
                                 this.isLoggedIn = isLoggedIn;
                             }
                         } else {
@@ -237,7 +225,6 @@ export const useUsersStore = defineStore('usersStore', {
             }
         },
         reserveFromRoomCard(r) {
-            // this.selectedRoom = roomId
             this.reservation.roomId = r.id
             this.reservation.type = r.type
             this.reservation.beds = r.beds
@@ -246,7 +233,6 @@ export const useUsersStore = defineStore('usersStore', {
         reserve() {
             console.log(this.FreeRoomId)
             this.FreeRooms = [];
-            console.log(this.FreeRoomId)
             api.post('/notOccupied', this.reservation)
                 .then((resp) => {
                     let index = 0;
@@ -325,7 +311,6 @@ export const useRestaurantStore = defineStore('restaurantStore', {
             console.log(orderId + ' ' + status);
             api.post(`/orders/state/${orderId}`, { status: status })
                 .then((resp) => {
-                    // console.log(resp);
                     if (resp.data.message) {
                         return this.errors.orderState = resp.data.message;
                     }
