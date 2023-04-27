@@ -71,7 +71,6 @@ class CardReaderController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'data' => 'CardReaderController/index',
-                'lofasz' => 'lofasz'
             ], 400);
         }
     }

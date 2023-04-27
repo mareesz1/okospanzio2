@@ -19,7 +19,7 @@ class LoginController extends Controller
             $value = $request->session()->get('key');
             return response()->json([
                 'success' => true,
-                'lofasz' => $value
+                'sessionData' => $value
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
