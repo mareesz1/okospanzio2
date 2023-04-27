@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { api, cookie } from '../services/dataservice';
 import router from '../router';
-import { Axios } from "axios";
 
 export const useUsersStore = defineStore('usersStore', {
     state: () => ({
@@ -91,7 +90,7 @@ export const useUsersStore = defineStore('usersStore', {
             api.get('/room')
                 .then((resp) => {
                     this.rooms = resp.data;
-                    console.log(this.rooms)
+                    // console.log(this.rooms)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -172,7 +171,7 @@ export const useUsersStore = defineStore('usersStore', {
 
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then((resp) => { console.log(resp); }).catch((err) => { console.log(err); });
+            cookie.get('/sanctum/csrf-cookie').then((resp) => { console.log("got cookie"); }).catch((err) => { console.log(err); });
         },
         logout() {
             api.delete('/login').then((resp) => {
@@ -191,7 +190,8 @@ export const useUsersStore = defineStore('usersStore', {
         deleteUser(id) {
             return api.delete(`/user/${id}`, id)
                 .then((resp) => {
-                    return console.log(resp);
+                    // return console.log(resp);
+                    return
                 })
                 .catch((err) => {
                     return console.log(err);
@@ -200,7 +200,8 @@ export const useUsersStore = defineStore('usersStore', {
         deleteRoom(id) {
             return api.delete(`/room/${id}`, id)
                 .then((resp) => {
-                    return console.log(resp);
+                    // return console.log(resp);
+                    return
                 })
                 .catch((err) => {
                     return console.log(err);
@@ -215,7 +216,7 @@ export const useUsersStore = defineStore('usersStore', {
                 const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
                 if (isLoggedIn.auth == true) {
                     api.get('/login/get').then((resp) => {
-                        console.log(resp);
+                        // console.log(resp);
                         let user = resp.data.user;
                         if (resp.data) {
                             if (isLoggedIn.email == user.email && isLoggedIn.roles == user.roles) {
@@ -248,25 +249,11 @@ export const useUsersStore = defineStore('usersStore', {
             console.log(this.FreeRoomId)
             api.post('/notOccupied', this.reservation)
                 .then((resp) => {
-
-                    // this.FreeRoomId = resp.data
                     let index = 0;
-                    // console.log(typeof this.FreeRoomId);
                     resp.data.forEach(id => {
                         this.FreeRoomId[index] = id.roomId;
                         index++;
-                        // console.log(typeof id.roomId);
                     })
-
-                    // this.FreeRoomId.forEach(id => {
-                    //     api.get(`/roomId/${id.roomId}`)
-                    //       .then(response => {
-                    //         this.FreeRooms = response.data
-                    //       })
-                    //       .catch(error => {
-                    //         console.error(error)
-                    //       })
-                    //   })
                     for (let index = 0; index < this.FreeRoomId.length; index++) {
 
                         api.get(`/roomId/${this.FreeRoomId[index]}`).then((resp) => {
@@ -282,7 +269,6 @@ export const useUsersStore = defineStore('usersStore', {
                 .catch((err) => {
                     console.log(err);
                 })
-            // console.log(this.FreeRooms)
         },
         ReserveRoom(r) {
             const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
@@ -296,7 +282,7 @@ export const useUsersStore = defineStore('usersStore', {
                     this.reserved.mainUserId = user.user.id
                     this.reserved.users= 1
                     api.post('/postNewReservation',this.reserved)
-                    console.log(this.reserved);
+                    // console.log(this.reserved);
                 }
                 else{
                     router.push('/login')
