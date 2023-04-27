@@ -76,15 +76,11 @@ class ReservationController extends Controller
             return $item->roomId;
         });
         $out->writeln($matchingelements);
-
-
-        // $out->writeln($end);
-
-            if (!empty($matchingelements)) {
-                return response()->json($matchingelements);
-            } else {
-                return response()->json(['message' => 'Item not found'], 404);
-            }
+        if (!empty($matchingelements)) {
+            return response()->json($matchingelements);
+        } else {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
