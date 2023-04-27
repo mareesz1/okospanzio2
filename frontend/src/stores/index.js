@@ -1,5 +1,5 @@
-import {defineStore} from "pinia";
-import {api, cookie} from '../services/dataservice';
+import { defineStore } from "pinia";
+import { api, cookie } from '../services/dataservice';
 import router from '../router';
 import { Axios } from "axios";
 
@@ -7,6 +7,8 @@ export const useUsersStore = defineStore('usersStore', {
     state: () => ({
         users: [],
         rooms: [],
+        FreeRooms: [],
+        FreeRoomId: [],
         csrf: null,
         colorTheme: "light",
         user: {
@@ -53,6 +55,16 @@ export const useUsersStore = defineStore('usersStore', {
                 // 'Konditerem',
                 // 'Thai masszázs (igen olyan)'
             ],
+            mainUserId: '',
+            users:1,
+        },
+        reserved: {
+            roomId: 0,
+            start: '',
+            end: '',
+            mainUserId: '',
+            users:1,
+            balance: 500,
         }
     }),
     getters: {},
@@ -68,21 +80,22 @@ export const useUsersStore = defineStore('usersStore', {
                 status: null,
             };
             api.get('/user')
-            .then((resp) => {
-                this.users = resp.data;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+                .then((resp) => {
+                    this.users = resp.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         },
         getAllRooms() {
             api.get('/room')
-            .then((resp) => {
-                this.rooms = resp.data;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+                .then((resp) => {
+                    this.rooms = resp.data;
+                    console.log(this.rooms)
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         },
         postNewRegistration(pwHash) {
             if (this.user.roles == 'guest') {
@@ -90,39 +103,39 @@ export const useUsersStore = defineStore('usersStore', {
             }
             this.user.password = pwHash;
             return api.post('/user', this.user)
-              .then((response) => {
-                if (response.status == 201) {
-                    this.user.registrationSuccessful = true;
-                    this.errors = {
-                        firstName: null,
-                        lastName: null,
-                        gender: null,
-                        email: null,
-                        phone: null,
-                        passwordHash: null,
-                        status: null,
-                        code: null,
-                    };
+                .then((response) => {
+                    if (response.status == 201) {
+                        this.user.registrationSuccessful = true;
+                        this.errors = {
+                            firstName: null,
+                            lastName: null,
+                            gender: null,
+                            email: null,
+                            phone: null,
+                            passwordHash: null,
+                            status: null,
+                            code: null,
+                        };
+                        return console.log(response);
+                    }
+                    this.user.registrationSuccessful = false;
                     return console.log(response);
-                }
-                this.user.registrationSuccessful = false;
-                return console.log(response);
-              })
-              .catch((err) => {
-                this.user.registrationSuccessful = false;
-                console.log(err);
-                this.errors = {
-                    firstName: err.response.data.firstName ||null,
-                    lastName: err.response.data.lastName || null,
-                    gender: err.response.data.gender || null,
-                    email: err.response.data.email || null,
-                    phone: err.response.data.phone || null,
-                    passwordHash: err.response.data.passwordHash || null,
-                    status: err.response.status || null,
-                    code: err.response.data.code || null,
-                }
-                return Promise.reject(err);
-              });
+                })
+                .catch((err) => {
+                    this.user.registrationSuccessful = false;
+                    console.log(err);
+                    this.errors = {
+                        firstName: err.response.data.firstName || null,
+                        lastName: err.response.data.lastName || null,
+                        gender: err.response.data.gender || null,
+                        email: err.response.data.email || null,
+                        phone: err.response.data.phone || null,
+                        passwordHash: err.response.data.passwordHash || null,
+                        status: err.response.status || null,
+                        code: err.response.data.code || null,
+                    }
+                    return Promise.reject(err);
+                });
         },
         authenticate() {
             if (!$cookies.get('XSRF-TOKEN')) {
@@ -132,9 +145,9 @@ export const useUsersStore = defineStore('usersStore', {
             if (this.user.roles == 'guest') {
                 this.user.code = 0;
             }
-                api.post('/login', this.user, {
-                    'Content-type': 'application/json',
-                })
+            api.post('/login', this.user, {
+                'Content-type': 'application/json',
+            })
                 .then((resp) => {
                     if (resp.data.success) {
                         this.isLoggedIn = {
@@ -149,17 +162,17 @@ export const useUsersStore = defineStore('usersStore', {
                             console.log($cookies.get('token'));
                         }
                         sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
-                        router.push({path: '/', replace: true});
+                        router.push({ path: '/', replace: true });
                         console.log(resp.data.message);
-                }
+                    }
                 }).catch((err) => {
                     console.log(err);
                 })
 
-                
+
         },
         getCsrfCookie() {
-            cookie.get('/sanctum/csrf-cookie').then((resp) => {console.log(resp);}).catch((err) => {console.log(err);});
+            cookie.get('/sanctum/csrf-cookie').then((resp) => { console.log(resp); }).catch((err) => { console.log(err); });
         },
         logout() {
             api.delete('/login').then((resp) => {
@@ -171,27 +184,27 @@ export const useUsersStore = defineStore('usersStore', {
                     message: 'logged out',
                 };
                 sessionStorage.setItem("isLoggedIn", JSON.stringify(this.isLoggedIn));
-                router.push({path: '/', replace: true});
+                router.push({ path: '/', replace: true });
                 $cookies.remove('XSRF-TOKEN');
-            }).catch((err) => {console.log(err)})
-        },  
+            }).catch((err) => { console.log(err) })
+        },
         deleteUser(id) {
             return api.delete(`/user/${id}`, id)
-            .then((resp) => {
-                return console.log(resp);
-            })
-            .catch((err) => {
-                return console.log(err);
-            })
+                .then((resp) => {
+                    return console.log(resp);
+                })
+                .catch((err) => {
+                    return console.log(err);
+                })
         },
         deleteRoom(id) {
             return api.delete(`/room/${id}`, id)
-            .then((resp) => {
-                return console.log(resp);
-            })
-            .catch((err) => {
-                return console.log(err);
-            })
+                .then((resp) => {
+                    return console.log(resp);
+                })
+                .catch((err) => {
+                    return console.log(err);
+                })
         },
         isAuthenticated() {
             if (!$cookies.get('XSRF-TOKEN')) {
@@ -214,7 +227,7 @@ export const useUsersStore = defineStore('usersStore', {
                             this.isLoggedIn.auth = false;
                             sessionStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
                         }
-                    }).catch((err) => {console.log(err);})
+                    }).catch((err) => { console.log(err); })
                 }
             } catch (err) {
                 this.isLoggedIn.message = 'unauthenticated';
@@ -224,25 +237,71 @@ export const useUsersStore = defineStore('usersStore', {
         },
         reserveFromRoomCard(r) {
             // this.selectedRoom = roomId
-            this.reservation.roomId=r.id
+            this.reservation.roomId = r.id
             this.reservation.type = r.type
             this.reservation.beds = r.beds
             router.push('/reserve')
         },
-        reserve(){
-            // this.reservation.start= r.start
-            // this.reservation.end = r.end
-            // this.reservation.beds = r.beds
-            // this.reservation.type = r.type
-            // this.reservedRoom = r.id
-           api.post('/notOccupied', this.reservation)
-           .then((resp)=>{
-                
-           })
-           .catch((err)=>{
-            console.log(err);
-           })
+        reserve() {
+            console.log(this.FreeRoomId)
+            this.FreeRooms = [];
+            console.log(this.FreeRoomId)
+            api.post('/notOccupied', this.reservation)
+                .then((resp) => {
 
+                    // this.FreeRoomId = resp.data
+                    let index = 0;
+                    // console.log(typeof this.FreeRoomId);
+                    resp.data.forEach(id => {
+                        this.FreeRoomId[index] = id.roomId;
+                        index++;
+                        // console.log(typeof id.roomId);
+                    })
+
+                    // this.FreeRoomId.forEach(id => {
+                    //     api.get(`/roomId/${id.roomId}`)
+                    //       .then(response => {
+                    //         this.FreeRooms = response.data
+                    //       })
+                    //       .catch(error => {
+                    //         console.error(error)
+                    //       })
+                    //   })
+                    for (let index = 0; index < this.FreeRoomId.length; index++) {
+
+                        api.get(`/roomId/${this.FreeRoomId[index]}`).then((resp) => {
+                            console.log(resp.data);
+                            this.FreeRooms[index] = resp.data;
+                        }).catch((err) => {
+                            console.log(err);
+                        })
+                        
+                    }
+                    this.FreeRooms = [];
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            // console.log(this.FreeRooms)
+        },
+        ReserveRoom(r) {
+            const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+            api.get('/login/get').then((resp) => {
+                if (this.isLoggedIn = isLoggedIn)
+                {
+                    let user = resp.data
+                    this.reserved.start = this.reservation.start
+                    this.reserved.end = this.reservation.end
+                    this.reserved.roomId = r[0].id
+                    this.reserved.mainUserId = user.user.id
+                    this.reserved.users= 1
+                    api.post('/postNewReservation',this.reserved)
+                    console.log(this.reserved);
+                }
+                else{
+                    router.push('/login')
+                }
+            })
         },
         getAllServices() {
             api.get('/services').then((resp) => {
@@ -257,8 +316,8 @@ export const useUsersStore = defineStore('usersStore', {
 export const useRestaurantStore = defineStore('restaurantStore', {
     state: () => ({
         orders: [],
-        tables:[],
-        menus:[],
+        tables: [],
+        menus: [],
         errors: {
             orderState: null,
         },
@@ -268,48 +327,48 @@ export const useRestaurantStore = defineStore('restaurantStore', {
     actions: {
         getAllOrders() {
             api.get('/orders/all')
-            .then((resp) => {
-                this.orders = resp.data;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+                .then((resp) => {
+                    this.orders = resp.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         },
         setOrderStatus(orderId, status) {
             this.errors.orderState = null;
             console.log(orderId + ' ' + status);
-            api.post(`/orders/state/${orderId}`, {status: status})
-            .then((resp) => {
-                // console.log(resp);
-                if (resp.data.message) {
-                    return this.errors.orderState = resp.data.message;
-                }
-                this.getAllOrders();
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            
+            api.post(`/orders/state/${orderId}`, { status: status })
+                .then((resp) => {
+                    // console.log(resp);
+                    if (resp.data.message) {
+                        return this.errors.orderState = resp.data.message;
+                    }
+                    this.getAllOrders();
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
         },
         getAllTables() {
             api.get('/tables')
-            .then((resp) => {
-                this.tables = resp.data;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        },      
-        getAllMenus(){
+                .then((resp) => {
+                    this.tables = resp.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        getAllMenus() {
             api.get('/menu')
-            .then((resp)=>{
-                this.menus = resp.data;
-                return resp.data ;
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },
-        
-}
+                .then((resp) => {
+                    this.menus = resp.data;
+                    return resp.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+
+    }
 })

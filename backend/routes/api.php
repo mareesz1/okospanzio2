@@ -76,6 +76,16 @@ Route::get('/reservations', function () {
     return ReservationController::index();
 });
 
-Route::post('/notOccupied', function (Request $request) {
-    return ReservationController::notOccupied($request);
+ Route::post('/notOccupied', function (Request $request) {
+      return ReservationController::notOccupied($request);
+  });
+
+  Route::post("/postNewReservation", function(Request $request){
+      return ReservationController::store($request);
+  });
+
+Route::get('/roomId/{id}', function (string $id) {
+    return RoomController::show($id);
 });
+// TESZT
+// Route::post('/auth/login', [LoginController::class, 'loginUser']);

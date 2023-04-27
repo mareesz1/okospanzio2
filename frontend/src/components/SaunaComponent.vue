@@ -78,6 +78,9 @@
 .card-img{
     border: solid 2px white;
 }
+.card-img{
+  transition: 0.5s;
+}
 @media (min-width:767px ){
 .card-img:hover{
   transform: scale(1.5);
