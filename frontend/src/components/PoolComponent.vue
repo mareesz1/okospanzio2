@@ -100,6 +100,9 @@
   filter: brightness(25%);
 }
 
+.card-img{
+  transition: 0.5s;
+}
 .table {
   color: rgb(255, 255, 255);
   background-color: rgba(0, 92, 252, 0.504);

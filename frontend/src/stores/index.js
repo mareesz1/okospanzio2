@@ -54,6 +54,16 @@ export const useUsersStore = defineStore('usersStore', {
                 // 'Konditerem',
                 // 'Thai masszázs (igen olyan)'
             ],
+            mainUserId: '',
+            users:1,
+        },
+        reserved: {
+            roomId: 0,
+            start: '',
+            end: '',
+            mainUserId: '',
+            users:1,
+            balance: 500,
         }
     }),
     getters: {},
@@ -231,12 +241,13 @@ export const useUsersStore = defineStore('usersStore', {
             this.reservation.beds = r.beds
             router.push('/reserve')
         },
-        reserve() { 
+        reserve() {
+            console.log(this.FreeRoomId)
             this.FreeRooms = [];
-
+            console.log(this.FreeRoomId)
             api.post('/notOccupied', this.reservation)
                 .then((resp) => {
-                    
+
                     // this.FreeRoomId = resp.data
                     let index = 0;
                     // console.log(typeof this.FreeRoomId);
@@ -245,7 +256,7 @@ export const useUsersStore = defineStore('usersStore', {
                         index++;
                         // console.log(typeof id.roomId);
                     })
-                    
+
                     // this.FreeRoomId.forEach(id => {
                     //     api.get(`/roomId/${id.roomId}`)
                     //       .then(response => {
@@ -256,21 +267,41 @@ export const useUsersStore = defineStore('usersStore', {
                     //       })
                     //   })
                     for (let index = 0; index < this.FreeRoomId.length; index++) {
-                        
+
                         api.get(`/roomId/${this.FreeRoomId[index]}`).then((resp) => {
                             console.log(resp.data);
                             this.FreeRooms[index] = resp.data;
                         }).catch((err) => {
                             console.log(err);
                         })
+                        
                     }
+                    this.FreeRooms = [];
                 })
                 .catch((err) => {
                     console.log(err);
                 })
-                // console.log(this.FreeRooms)
+            // console.log(this.FreeRooms)
         },
-        
+        ReserveRoom(r) {
+            const isLoggedIn = JSON.parse(sessionStorage.getItem('isLoggedIn'));
+            api.get('/login/get').then((resp) => {
+                if (this.isLoggedIn = isLoggedIn)
+                {
+                    let user = resp.data
+                    this.reserved.start = this.reservation.start
+                    this.reserved.end = this.reservation.end
+                    this.reserved.roomId = r[0].id
+                    this.reserved.mainUserId = user.user.id
+                    this.reserved.users= 1
+                    api.post('/postNewReservation',this.reserved)
+                    console.log(this.reserved);
+                }
+                else{
+                    router.push('/login')
+                }
+            })
+        },
         getAllServices() {
             api.get('/services').then((resp) => {
                 this.services = resp.data

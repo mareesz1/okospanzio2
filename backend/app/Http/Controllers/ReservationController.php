@@ -32,6 +32,8 @@ class ReservationController extends Controller
     }
     public static function store(Request $request)
     {
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $out->writeln($request);
         try {
             $reservation = new Reservation();
             $reservation->roomId = $request->input('roomId');
@@ -52,29 +54,44 @@ class ReservationController extends Controller
     }
     public static function notOccupied(Request $request)
     {
+        
+        
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $start = Reservation::select('roomId')->whereNotBetween('start', [$request->start, $request->end])->get();
-        $end = Reservation::select('roomId')->whereNotBetween('end', [$request->start, $request->end])->get();
-
+        $start = Reservation::select('roomId')
+            ->where(function ($query) use ($request) {
+                $query->where('start', '>', $request->end)
+                    ->orWhere('end', '<', $request->start);
+            })
+            ->get();
+            $out->writeln($start);
+        $end = Reservation::select('roomId')
+            ->where(function ($query) use ($request) {
+                $query->where('end', '<', $request->start)
+                    ->orWhere('start', '>', $request->end);
+            })
+            ->get();
+            $out->writeln($end);
         $matchingelements = $start->intersect($end)->values();
+        $matchingelements = $matchingelements->unique(function ($item) {
+            return $item->roomId;
+        });
         $out->writeln($matchingelements);
-        
-        
-        // $out->writeln($end);
-         try{
-                if (!empty($matchingelements)) {
-                     return response()->json($matchingelements);
-                 } else {
-                     return response()->json(['message' => 'Item not found'], 404);
-                 }
-             }
 
-             catch (\Throwable $th) {
-                return response()->json([
-                    'success' => false,
-                    'catch' => 'catch',
-                    'message' => $th->getMessage()
-                ], 500);
+
+        // $out->writeln($end);
+        try {
+            if (!empty($matchingelements)) {
+                return response()->json($matchingelements);
+            } else {
+                return response()->json(['message' => 'Item not found'], 404);
             }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'catch' => 'catch',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        
     }
 }

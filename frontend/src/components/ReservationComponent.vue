@@ -62,7 +62,7 @@
     <div class="row">
       <div class="col-xl-4 col-lg-6 col-md-12 text-center align-middle" v-for="r in FreeRooms">
         <div class="card my-3 ms-3">
-          <img class="card__background" v-bind:src="r[0].IMG" width="1920" height="2193" />
+          <img class="card__background" v-bind:src="r[0].IMG " width="1920" height="2193" />
           <div class="card__content | flow ">
             <div class="card__content--container | flow text-center">
               <h2 class="card__title text-uppercase">{{ r[0].type }} {{ r[0].number }}</h2>
@@ -77,7 +77,7 @@
             </div>
 
 
-            <button  to="/reserve" class="card__button text-uppercase">Reserve
+            <button @click="ReserveRoom(r)" to="/reserve" class="card__button text-uppercase">Reserve
               now!</button>
           </div>
         </div>
@@ -93,7 +93,7 @@ import { useUsersStore } from '../stores';
 
 const { FreeRooms } = storeToRefs(useUsersStore());;
 
-const { getAllServices, reserve } = useUsersStore();
+const { getAllServices, reserve, ReserveRoom } = useUsersStore();
 
 const { reservation, services } = storeToRefs(useUsersStore());
 

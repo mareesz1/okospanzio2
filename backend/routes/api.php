@@ -80,9 +80,9 @@ Route::get('/reservations', function () {
       return ReservationController::notOccupied($request);
   });
 
-//  Route::post("/postNewReservation", function(Request $request){
-//      return ReservationController::store($request);
-//  });
+  Route::post("/postNewReservation", function(Request $request){
+      return ReservationController::store($request);
+  });
 
 Route::get('/roomId/{id}', function (string $id) {
     return RoomController::show($id);
