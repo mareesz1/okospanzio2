@@ -9,11 +9,11 @@
         <div class="card-details">
           <p class="text-title">Dátum</p>
           <hr />
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
         </div>
         <button class="card-button">More info</button>
       </div>
@@ -22,11 +22,11 @@
         <div class="card-details">
           <p class="text-title">Dátum</p>
           <hr />
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
         </div>
         <button class="card-button">More info</button>
       </div>
@@ -35,11 +35,11 @@
         <div class="card-details">
           <p class="text-title">Dátum</p>
           <hr />
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
-          <p class="text-body">Kurva sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
+          <p class="text-body">Nagyon sokat fizettél</p>
         </div>
         <button class="card-button">More info</button>
       </div>
