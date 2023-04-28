@@ -103,12 +103,6 @@ const router = createRouter({
       component: AdminView,
       meta: {title: 'Admin'},
       beforeEnter: (to, from) => {
-        // const loginData = JSON.parse(localStorage.getItem("login"));
-        // if (loginData.roles !== "admin" || !loginData.auth) {
-        //   return false;
-        // } else {
-        //   // 
-        // }
         const {isLoggedIn} = storeToRefs(useUsersStore());
         if (isLoggedIn.value.auth && isLoggedIn.value.roles == 'admin') {
           return true;
@@ -183,33 +177,6 @@ const router = createRouter({
         },
       ]
     }
-    // {
-    //   path: '/admin/modifyuser/:id',
-    //   name: 'modifyUser',
-    //   component: ModifyUser,
-    //   meta: {title: 'Modify User'},
-    //   beforeEnter: (to, from) => {
-    //     const loginData = JSON.parse(localStorage.getItem("login"));
-    //     if (loginData.roles !== "admin" || !loginData.auth) {
-    //       return false;
-    //     } else {
-    //       // 
-    //     }
-    //   }
-    // },
+
 ]});
-
-// router.beforeEach((to) => {
-//   console.log('asd');
-//   const useUsersStore = useUsersStore();
-//   console.log('isLoggedIn.roles:  ' + useUsersStore.isLoggedIn.roles);
-//   console.log('isLoggedIn.auth:  ' + useUsersStore.isLoggedIn.auth);
-//   if (isLoggedIn.auth && isLoggedIn.roles == 'admin') {
-//     console.log('router: true');
-//     return to;
-//   } else {
-//     return '/login';
-//   }
-// })
-
 export default router;

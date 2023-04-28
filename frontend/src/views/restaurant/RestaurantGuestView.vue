@@ -27,4 +27,10 @@ z-index: -4;
 filter: blur(15%);
 filter: brightness(25%);
 }
+@media(max-width : 767px){
+    .image{
+        width: auto;
+        height: 100vh;
+    }
+}
 </style>
